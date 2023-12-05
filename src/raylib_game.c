@@ -47,11 +47,13 @@ typedef enum {
 // Global Variables Definition
 //----------------------------------------------------------------------------------
 static const int screenWidth = 1280;
-static const int screenHeight = 720;
+static const int screenHeight = 960;
+
+static const int gameWidth = 320;
+static const int gameHeight = 240;
 
 static RenderTexture2D target = { 0 };  // Render texture to render our game
 
-// TODO: Define global variables here, recommended to make them static
 
 //----------------------------------------------------------------------------------
 // Module Functions Declaration
@@ -75,8 +77,8 @@ int main(void)
     
     // Render texture to draw full screen, enables screen scaling
     // NOTE: If screen is scaled, mouse input should be scaled proportionally
-    target = LoadRenderTexture(screenWidth, screenHeight);
-    SetTextureFilter(target.texture, TEXTURE_FILTER_BILINEAR);
+    target = LoadRenderTexture(gameWidth, gameHeight);
+    SetTextureFilter(target.texture, TEXTURE_FILTER_TRILINEAR);
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
@@ -120,7 +122,7 @@ void UpdateDrawFrame(void)
     BeginTextureMode(target);
         ClearBackground(RAYWHITE);
         
-        DrawRectangle(10, 10, screenWidth - 20, screenHeight - 20, CLEAR_COLOR);
+        DrawRectangle(0, 0, screenWidth, screenHeight, CLEAR_COLOR);
         RenderPlayer();
         
     EndTextureMode();
@@ -130,7 +132,7 @@ void UpdateDrawFrame(void)
         ClearBackground(RAYWHITE);
         
         // Draw render texture to screen, scaled if required
-        DrawTexturePro(target.texture, (Rectangle){ 0, 0, (float)target.texture.width, -(float)target.texture.height }, (Rectangle){ 0, 0, (float)target.texture.width, (float)target.texture.height }, (Vector2){ 0, 0 }, 0.0f, WHITE);
+        DrawTexturePro(target.texture, (Rectangle){ 0, 0, (float)target.texture.width, -(float)target.texture.height }, (Rectangle){ 0, 0, (float)screenWidth, (float)screenHeight }, (Vector2){ 0, 0 }, 0.0f, WHITE);
 
         // TODO: Draw everything that requires to be drawn at this point, maybe UI?
 

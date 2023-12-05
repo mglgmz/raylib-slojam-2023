@@ -12,6 +12,7 @@ typedef struct {
     float rotationSpeed;
 
     float speed;
+    float acceleration;
     float velocity;
 } player_t;
 
