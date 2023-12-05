@@ -11,7 +11,7 @@
 *
 ********************************************************************************************/
 
-#include "raylib.h"
+#include "defs.h"
 
 #if defined(PLATFORM_WEB)
     #define CUSTOM_MODAL_DIALOGS            // Force custom modal dialogs usage
@@ -22,11 +22,8 @@
 #include <stdlib.h>                         // Required for: 
 #include <string.h>                         // Required for: 
 
-//----------------------------------------------------------------------------------
-// Defines and Macros
-//----------------------------------------------------------------------------------
-// Simple log system to avoid printf() calls if required
-// NOTE: Avoiding those calls, also avoids const strings memory usage
+#include "player.h"
+
 #define SUPPORT_LOG_INFO
 #if defined(SUPPORT_LOG_INFO)
     #define LOG(...) printf(__VA_ARGS__)
@@ -98,7 +95,6 @@ int main(void)
     //--------------------------------------------------------------------------------------
     UnloadRenderTexture(target);
     
-    // TODO: Unload all loaded resources at this point
 
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
@@ -113,19 +109,19 @@ int main(void)
 void UpdateDrawFrame(void)
 {
     // Update
-    //----------------------------------------------------------------------------------
-    // TODO: Update variables / Implement example logic at this point
-    //----------------------------------------------------------------------------------
+    UpdatePlayer();
+
+
 
     // Draw
     //----------------------------------------------------------------------------------
     // Render game screen to a texture, 
-    // it could be useful for scaling or further sahder postprocessing
+    // it could be useful for scaling or further shader postprocessing
     BeginTextureMode(target);
         ClearBackground(RAYWHITE);
         
-        // TODO: Draw your game screen here
-        DrawRectangle(10, 10, screenWidth - 20, screenHeight - 20, SKYBLUE);
+        DrawRectangle(10, 10, screenWidth - 20, screenHeight - 20, CLEAR_COLOR);
+        RenderPlayer();
         
     EndTextureMode();
     
