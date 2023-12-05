@@ -12,6 +12,7 @@
 ********************************************************************************************/
 
 #include "defs.h"
+#include <raylib.h>
 
 #if defined(PLATFORM_WEB)
     #define CUSTOM_MODAL_DIALOGS            // Force custom modal dialogs usage
@@ -49,8 +50,7 @@ typedef enum {
 static const int screenWidth = 1280;
 static const int screenHeight = 960;
 
-static const int gameWidth = 320;
-static const int gameHeight = 240;
+
 
 static RenderTexture2D target = { 0 };  // Render texture to render our game
 
@@ -78,7 +78,7 @@ int main(void)
     // Render texture to draw full screen, enables screen scaling
     // NOTE: If screen is scaled, mouse input should be scaled proportionally
     target = LoadRenderTexture(gameWidth, gameHeight);
-    SetTextureFilter(target.texture, TEXTURE_FILTER_TRILINEAR);
+    SetTextureFilter(target.texture, TEXTURE_FILTER_ANISOTROPIC_4X);
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);

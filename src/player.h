@@ -14,6 +14,10 @@ typedef struct {
     float speed;
     float acceleration;
     float velocity;
+
+    float velocityX;
+    float velocityY;
+    
 } player_t;
 
 void UpdatePlayer(void);

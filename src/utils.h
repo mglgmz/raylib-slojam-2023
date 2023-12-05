@@ -5,5 +5,6 @@
 
 void NormalizeAngle(float* angle);
 float RadiansToDegrees(float radians);
+void WrapPosition(float* x, float* y);
 
 #endif // ! UTILS_H

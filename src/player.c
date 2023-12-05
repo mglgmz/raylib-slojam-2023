@@ -1,10 +1,12 @@
 #include "player.h"
+#include "utils.h"
+#include <raylib.h>
 
-#define ROTATION_SPEED 70 * (PI / 180)
-#define MOVEMENT_SPEED 60
+#define ROTATION_SPEED 50 * (PI / 180)
+#define MOVEMENT_SPEED 25
 
-#define P_SIDE 8
-#define HALF_P_SIDE P_SIDE / 2
+#define P_SIDE 5.0f
+#define HALF_P_SIDE P_SIDE / 2.0f
 #define P_HEIGHT_OFF (P_SIDE * sqrt(3) / 2) / 2
 
 static player_t player = {
@@ -33,15 +35,20 @@ void UpdatePlayer(void) {
     NormalizeAngle(&player.rotation);
         
     if (IsKeyDown(KEY_UP))
-        player.velocity = player.speed * GetFrameTime();
+        player.velocity = player.speed;
     else
         player.velocity = 0;
 
-    float rotSin = sin(player.rotation);
-    float rotCos = cos(player.rotation);
+    float rotSin = sinf(player.rotation);
+    float rotCos = cosf(player.rotation);
 
-    player.x += rotCos * player.velocity;
-    player.y += rotSin * player.velocity;
+    player.velocityX += rotCos * player.velocity * GetFrameTime();
+    player.velocityY += rotSin * player.velocity * GetFrameTime();
+
+    player.x += player.velocityX * GetFrameTime();
+    player.y += player.velocityY * GetFrameTime();
+
+    WrapPosition(&player.x, &player.y);
 
     directionX = rotCos * 2 + player.x;
     directionY = rotSin * 2 + player.y;
