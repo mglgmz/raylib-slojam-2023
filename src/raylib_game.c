@@ -113,8 +113,6 @@ void UpdateDrawFrame(void)
     // Update
     UpdatePlayer();
 
-
-
     // Draw
     //----------------------------------------------------------------------------------
     // Render game screen to a texture, 

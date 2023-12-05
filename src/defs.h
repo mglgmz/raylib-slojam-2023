@@ -9,7 +9,6 @@
 
 #define PLAYER_COLOR WHITE
 
-#define PI 3.14159265
 #define TWO_PI 6.28318530
 
 #endif
