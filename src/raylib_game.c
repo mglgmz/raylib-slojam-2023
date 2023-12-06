@@ -109,7 +109,7 @@ int main(void)
 void UpdateDrawFrame(void)
 {
     // Update
-    //UpdatePlayer();
+    UpdatePlayer();
 
     // Draw
     //----------------------------------------------------------------------------------
