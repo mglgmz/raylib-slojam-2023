@@ -58,9 +58,11 @@ dkms.conf
 [Rr]elease.DLL/
 *.user
 .vs
+.vscode
 
 # Build folder
 [Bb]uild
 
 # linux build
 raylib-jam
+src/raylib_game
