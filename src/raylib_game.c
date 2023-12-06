@@ -11,7 +11,7 @@
 *
 ********************************************************************************************/
 
-// #include "defs.h"
+#include "defs.h"
 #include <raylib.h>
 
 #if defined(PLATFORM_WEB)
@@ -23,7 +23,7 @@
 #include <stdlib.h>                         // Required for: 
 #include <string.h>                         // Required for: 
 
-// #include "player.h"
+#include "player.h"
 
 #define SUPPORT_LOG_INFO
 #if defined(SUPPORT_LOG_INFO)
@@ -49,9 +49,6 @@ typedef enum {
 //----------------------------------------------------------------------------------
 static const int screenWidth = 1280;
 static const int screenHeight = 960;
-
-static const int gameWidth = 320;
-static const int gameHeight = 240;
 
 static RenderTexture2D target = { 0 };  // Render texture to render our game
 
@@ -84,7 +81,7 @@ int main(void)
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
 #else
-    SetTargetFPS(120);     // Set our game frames-per-second
+    SetTargetFPS(60);     // Set our game frames-per-second
     //--------------------------------------------------------------------------------------
 
     // Main game loop
@@ -122,8 +119,7 @@ void UpdateDrawFrame(void)
         ClearBackground(RAYWHITE);
         
         DrawRectangle(0, 0, screenWidth, screenHeight, BLACK);
-        //RenderPlayer();
-        DrawPolyLines((Vector2) { 100, 100 }, 3, 5.0f, 0, WHITE);
+        RenderPlayer();
         
     EndTextureMode();
     
