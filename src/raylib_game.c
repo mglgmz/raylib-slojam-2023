@@ -123,6 +123,7 @@ void UpdateDrawFrame(void)
         
         DrawRectangle(0, 0, screenWidth, screenHeight, BLACK);
         //RenderPlayer();
+        DrawPolyLines((Vector2) { 100, 100 }, 3, 5.0f, 0, WHITE);
         
     EndTextureMode();
     
