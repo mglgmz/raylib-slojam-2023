@@ -11,7 +11,7 @@
 *
 ********************************************************************************************/
 
-#include "defs.h"
+// #include "defs.h"
 #include <raylib.h>
 
 #if defined(PLATFORM_WEB)
@@ -23,7 +23,7 @@
 #include <stdlib.h>                         // Required for: 
 #include <string.h>                         // Required for: 
 
-#include "player.h"
+// #include "player.h"
 
 #define SUPPORT_LOG_INFO
 #if defined(SUPPORT_LOG_INFO)
@@ -50,7 +50,8 @@ typedef enum {
 static const int screenWidth = 1280;
 static const int screenHeight = 960;
 
-
+static const int gameWidth = 320;
+static const int gameHeight = 240;
 
 static RenderTexture2D target = { 0 };  // Render texture to render our game
 
@@ -111,7 +112,7 @@ int main(void)
 void UpdateDrawFrame(void)
 {
     // Update
-    UpdatePlayer();
+    //UpdatePlayer();
 
     // Draw
     //----------------------------------------------------------------------------------
@@ -120,8 +121,8 @@ void UpdateDrawFrame(void)
     BeginTextureMode(target);
         ClearBackground(RAYWHITE);
         
-        DrawRectangle(0, 0, screenWidth, screenHeight, CLEAR_COLOR);
-        RenderPlayer();
+        DrawRectangle(0, 0, screenWidth, screenHeight, BLACK);
+        //RenderPlayer();
         
     EndTextureMode();
     
