@@ -298,7 +298,7 @@ endif
 
 # Define source code files required
 #------------------------------------------------------------------------------------------------
-PROJECT_SOURCE_FILES ?= raylib_game.c player.c utils.c
+PROJECT_SOURCE_FILES ?= utils.c player.c raylib_game.c  
 
 # Define all object files from source files
 OBJS = $(patsubst %.c, %.o, $(PROJECT_SOURCE_FILES))
