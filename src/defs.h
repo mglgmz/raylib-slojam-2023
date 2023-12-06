@@ -9,8 +9,7 @@ static const int gameWidth = 320;
 static const int gameHeight = 240;
 
 #define CLEAR_COLOR BLACK
-
-#define PLAYER_COLOR WHITE
+#define PLAYER_COLOR RAYWHITE
 
 #define TWO_PI 6.28318530
 

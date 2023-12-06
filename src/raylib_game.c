@@ -32,9 +32,6 @@
     #define LOG(...)
 #endif
 
-//----------------------------------------------------------------------------------
-// Types and Structures Definition
-//----------------------------------------------------------------------------------
 typedef enum { 
     SCREEN_LOGO = 0, 
     SCREEN_TITLE, 
@@ -42,33 +39,19 @@ typedef enum {
     SCREEN_ENDING
 } GameScreen;
 
-// TODO: Define your custom data types here
-
-//----------------------------------------------------------------------------------
-// Global Variables Definition
-//----------------------------------------------------------------------------------
 static const int screenWidth = 1280;
 static const int screenHeight = 960;
 
 static RenderTexture2D target = { 0 };  // Render texture to render our game
 
-
-//----------------------------------------------------------------------------------
-// Module Functions Declaration
-//----------------------------------------------------------------------------------
 static void UpdateDrawFrame(void);      // Update and Draw one frame
 
-//------------------------------------------------------------------------------------
-// Program main entry point
-//------------------------------------------------------------------------------------
 int main(void)
 {
 #if !defined(_DEBUG)
-    SetTraceLogLevel(LOG_NONE);         // Disable raylib trace log messsages
+    SetTraceLogLevel(LOG_NONE); 
 #endif
 
-    // Initialization
-    //--------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "raylib gamejam template");
     
     // TODO: Load resources / Initialize variables at this point
@@ -82,56 +65,37 @@ int main(void)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
 #else
     SetTargetFPS(60);     // Set our game frames-per-second
-    //--------------------------------------------------------------------------------------
-
-    // Main game loop
     while (!WindowShouldClose())    // Detect window close button
     {
         UpdateDrawFrame();
     }
 #endif
-
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
     UnloadRenderTexture(target);
-    
-
-    CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
-
+    CloseWindow();
     return 0;
 }
 
-//--------------------------------------------------------------------------------------------
-// Module functions definition
-//--------------------------------------------------------------------------------------------
-// Update and draw frame
+
 void UpdateDrawFrame(void)
 {
-    // Update
+
     UpdatePlayer();
 
-    // Draw
-    //----------------------------------------------------------------------------------
-    // Render game screen to a texture, 
-    // it could be useful for scaling or further shader postprocessing
     BeginTextureMode(target);
         ClearBackground(RAYWHITE);
         
         DrawRectangle(0, 0, screenWidth, screenHeight, BLACK);
+        
         RenderPlayer();
         
     EndTextureMode();
     
-    // Render to screen (main framebuffer)
     BeginDrawing();
         ClearBackground(RAYWHITE);
         
         // Draw render texture to screen, scaled if required
         DrawTexturePro(target.texture, (Rectangle){ 0, 0, (float)target.texture.width, -(float)target.texture.height }, (Rectangle){ 0, 0, (float)screenWidth, (float)screenHeight }, (Vector2){ 0, 0 }, 0.0f, WHITE);
 
-        // TODO: Draw everything that requires to be drawn at this point, maybe UI?
 
-    EndDrawing();
-    //----------------------------------------------------------------------------------  
+    EndDrawing(); 
 }

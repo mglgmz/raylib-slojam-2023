@@ -27,14 +27,14 @@ int directionY;
 
 void UpdatePlayer(void) {
 
-    if (IsKeyDown(KEY_LEFT))
+    if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
         player.rotation -= player.rotationSpeed * GetFrameTime();
-    else if (IsKeyDown(KEY_RIGHT))
+    else if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
         player.rotation += player.rotationSpeed * GetFrameTime();
 
     NormalizeAngle(&player.rotation);
         
-    if (IsKeyDown(KEY_UP))
+    if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W))
         player.velocity = player.speed;
     else
         player.velocity = 0;
@@ -52,11 +52,12 @@ void UpdatePlayer(void) {
 
     directionX = rotCos * 2 + player.x;
     directionY = rotSin * 2 + player.y;
+    
 }
 
 
 void RenderPlayer(void) {
     
     DrawPolyLines((Vector2) { player.x, player.y }, 3, P_SIDE, RadiansToDegrees(player.rotation), PLAYER_COLOR);
-    DrawPoly((Vector2) { directionX, directionY }, 3, HALF_P_SIDE , RadiansToDegrees(player.rotation), LIGHTGRAY);
+    DrawPoly((Vector2) { directionX, directionY }, 3, HALF_P_SIDE , RadiansToDegrees(player.rotation), SKYBLUE);
 }
