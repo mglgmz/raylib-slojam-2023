@@ -22,8 +22,8 @@
 #include <stdio.h>                          // Required for: printf()
 #include <stdlib.h>                         // Required for: 
 #include <string.h>                         // Required for: 
-
 #include "player.h"
+#include "space.h"
 
 #define SUPPORT_LOG_INFO
 #if defined(SUPPORT_LOG_INFO)
@@ -32,12 +32,12 @@
     #define LOG(...)
 #endif
 
-typedef enum { 
-    SCREEN_LOGO = 0, 
-    SCREEN_TITLE, 
-    SCREEN_GAMEPLAY, 
-    SCREEN_ENDING
-} GameScreen;
+// typedef enum { 
+//     SCREEN_LOGO = 0, 
+//     SCREEN_TITLE, 
+//     SCREEN_GAMEPLAY, 
+//     SCREEN_ENDING
+// } GameScreen;
 
 static const int screenWidth = 1280;
 static const int screenHeight = 960;
@@ -55,7 +55,7 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "raylib gamejam template");
     
     // TODO: Load resources / Initialize variables at this point
-    
+    InitSpace();
     // Render texture to draw full screen, enables screen scaling
     // NOTE: If screen is scaled, mouse input should be scaled proportionally
     target = LoadRenderTexture(gameWidth, gameHeight);
@@ -70,6 +70,7 @@ int main(void)
         UpdateDrawFrame();
     }
 #endif
+    ReleaseSpace();
     UnloadRenderTexture(target);
     CloseWindow();
     return 0;
@@ -87,6 +88,7 @@ void UpdateDrawFrame(void)
         DrawRectangle(0, 0, screenWidth, screenHeight, BLACK);
         
         RenderPlayer();
+        RenderSpace();
         
     EndTextureMode();
     

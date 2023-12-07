@@ -2,10 +2,10 @@
 #include "utils.h"
 #include <raylib.h>
 
-#define ROTATION_SPEED 50 * (PI / 180)
+#define ROTATION_SPEED 60 * (PI / 180)
 #define MOVEMENT_SPEED 25
 
-#define P_SIDE 5.0f
+#define P_SIDE 4.0f
 #define HALF_P_SIDE P_SIDE / 2.0f
 #define P_HEIGHT_OFF (P_SIDE * sqrt(3) / 2) / 2
 
@@ -21,16 +21,16 @@ static player_t player = {
     .velocity = 0
 };
 
-
 int directionX;
 int directionY;
 
 void UpdatePlayer(void) {
+    float dt = GetFrameTime();
 
     if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
-        player.rotation -= player.rotationSpeed * GetFrameTime();
+        player.rotation -= player.rotationSpeed * dt;
     else if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
-        player.rotation += player.rotationSpeed * GetFrameTime();
+        player.rotation += player.rotationSpeed * dt;
 
     NormalizeAngle(&player.rotation);
         
@@ -42,19 +42,17 @@ void UpdatePlayer(void) {
     float rotSin = sinf(player.rotation);
     float rotCos = cosf(player.rotation);
 
-    player.velocityX += rotCos * player.velocity * GetFrameTime();
-    player.velocityY += rotSin * player.velocity * GetFrameTime();
+    player.velocityX += rotCos * player.velocity * dt;
+    player.velocityY += rotSin * player.velocity * dt;
 
-    player.x += player.velocityX * GetFrameTime();
-    player.y += player.velocityY * GetFrameTime();
+    player.x += player.velocityX * dt;
+    player.y += player.velocityY * dt;
 
     WrapPosition(&player.x, &player.y);
 
     directionX = rotCos * 2 + player.x;
     directionY = rotSin * 2 + player.y;
-    
 }
-
 
 void RenderPlayer(void) {
     
