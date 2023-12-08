@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <raylib.h>
 
-typedef struct {
+typedef struct
+{
     float x;
     float y;
     float dx;
@@ -13,9 +14,12 @@ typedef struct {
     int size;
     int shape;
     float rotation;
+    int active;
+    float ttl;
 } Entity;
 
-typedef struct {
+typedef struct
+{
     Entity *array;
     size_t size;
     size_t used;

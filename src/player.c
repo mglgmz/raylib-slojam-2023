@@ -4,12 +4,14 @@
 
 #define ROTATION_SPEED 80 * (PI / 180)
 #define MOVEMENT_SPEED 25
-
+#define BULLET_SPEED 50
 #define P_SIDE 4.0f
 #define HALF_P_SIDE P_SIDE / 2.0f
 #define P_HEIGHT_OFF (P_SIDE * sqrt(3) / 2) / 2
 
-static player_t player = {
+#define SHOOT_BUTTON KEY_SPACE
+
+static Player player = {
     .x = 200,
     .y = 100,
     .visible = true,
@@ -23,6 +25,10 @@ static player_t player = {
 
 int directionX;
 int directionY;
+
+void InitPlayer(void) {
+    EntityList_Init(&bullets, 100);
+}
 
 void UpdatePlayer(void) {
     float dt = GetFrameTime();
@@ -45,17 +51,60 @@ void UpdatePlayer(void) {
     player.velocityX += rotCos * player.velocity * dt;
     player.velocityY += rotSin * player.velocity * dt;
 
+    // TODO: TURBO THRUST
+
+    //TODO: move to simulation
     player.x += player.velocityX * dt;
     player.y += player.velocityY * dt;
-
     WrapPosition(&player.x, &player.y);
 
     directionX = rotCos * 2 + player.x;
     directionY = rotSin * 2 + player.y;
+
+    if(IsKeyReleased(SHOOT_BUTTON)) {
+        Entity bullet = { 0 };       
+        bullet.x = directionX;
+        bullet.y = directionY;
+        bullet.dx = rotCos * BULLET_SPEED;
+        bullet.dy = rotSin * BULLET_SPEED;
+        bullet.size = 1;
+        bullet.speed = BULLET_SPEED;
+        bullet.rotation = player.rotation;
+        bullet.active = 1;
+        EntityList_Add(&bullets, &bullet);
+    }
+
+
+    //TODO: move for simulation
+    for (int i = 0; i < bullets.used; i++)
+    {
+        Entity *bullet = &bullets.array[i];
+
+        bullet->x += bullet->dx * dt;
+        bullet->y += bullet->dy * dt;
+    }
+
 }
 
 void RenderPlayer(void) {
-    
     DrawPolyLines((Vector2) { player.x, player.y }, 3, P_SIDE, RadiansToDegrees(player.rotation), PLAYER_COLOR);
     DrawPoly((Vector2) { directionX, directionY }, 3, HALF_P_SIDE , RadiansToDegrees(player.rotation), SKYBLUE);
+
+    for (int i = 0; i < bullets.used; i++)
+    {
+        Entity *bullet = &bullets.array[i];
+        DrawPoly((Vector2) { bullet->x, bullet->y }, 4, bullet->size, bullet->rotation, PLAYER_COLOR);
+    }
+}
+
+void ReleasePlayer(void) {
+    EntityList_Free(&bullets);
+}
+
+EntityList* GetBullets() {
+    return &bullets;
+}
+
+Player* GetPlayer() {
+    return &player;
 }

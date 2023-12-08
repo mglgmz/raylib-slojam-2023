@@ -2,6 +2,9 @@
 #define PLAYER_H
 
 #include "utils.h"
+#include "entity_list.h"
+
+static EntityList bullets;
 
 typedef struct {
     float x;
@@ -18,9 +21,14 @@ typedef struct {
     float velocityX;
     float velocityY;
     
-} player_t;
+} Player;
 
+void InitPlayer(void);
 void UpdatePlayer(void);
 void RenderPlayer(void);
+void ReleasePlayer(void);
+
+EntityList* GetBullets();
+Player* GetPlayer();
 
 #endif

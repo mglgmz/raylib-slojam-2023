@@ -5,7 +5,11 @@
 
 void NormalizeAngle(float* angle);
 float RadiansToDegrees(float radians);
-void WrapPosition(float* x, float* y);
+int WrapPosition(float* x, float* y);
 
+float GetDistance(float x1, float y1, float x2, float y2);
+bool IsPointInsideCircle(float pofloatX, float pofloatY, float circleX, float circleY, float circleRadius);
+
+float RandomFloat();
 
 #endif // ! UTILS_H

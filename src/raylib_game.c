@@ -24,6 +24,8 @@
 #include <string.h>                         // Required for: 
 #include "player.h"
 #include "space.h"
+#include "simulation.h"
+#include "game_ui.h"
 
 #define SUPPORT_LOG_INFO
 #if defined(SUPPORT_LOG_INFO)
@@ -43,6 +45,7 @@ static const int screenWidth = 1280;
 static const int screenHeight = 960;
 
 static RenderTexture2D target = { 0 };  // Render texture to render our game
+static RenderTexture2D uiTarget = { 0 };
 
 static void UpdateDrawFrame(void);      // Update and Draw one frame
 
@@ -55,10 +58,13 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "raylib gamejam template");
     
     // TODO: Load resources / Initialize variables at this point
+    InitPlayer();
     InitSpace();
     // Render texture to draw full screen, enables screen scaling
     // NOTE: If screen is scaled, mouse input should be scaled proportionally
     target = LoadRenderTexture(gameWidth, gameHeight);
+    uiTarget = LoadRenderTexture(screenWidth, screenHeight);
+
     //SetTextureFilter(target.texture, TEXTURE_FILTER_ANISOTROPIC_4X);
 
 #if defined(PLATFORM_WEB)
@@ -71,6 +77,7 @@ int main(void)
     }
 #endif
     ReleaseSpace();
+    ReleasePlayer();
     UnloadRenderTexture(target);
     CloseWindow();
     return 0;
@@ -82,6 +89,9 @@ void UpdateDrawFrame(void)
 
     UpdatePlayer();
     UpdateSpace();
+    UpdateSimulation();
+
+    UpdateUI();
 
     BeginTextureMode(target);
         ClearBackground(RAYWHITE);
@@ -92,13 +102,19 @@ void UpdateDrawFrame(void)
         RenderSpace();
 
     EndTextureMode();
+
+    BeginTextureMode(uiTarget);
+        ClearBackground(BLANK);
+
+        RenderUI();
+    EndTextureMode();
     
     BeginDrawing();
         ClearBackground(RAYWHITE);
         
         // Draw render texture to screen, scaled if required
         DrawTexturePro(target.texture, (Rectangle){ 0, 0, (float)target.texture.width, -(float)target.texture.height }, (Rectangle){ 0, 0, (float)screenWidth, (float)screenHeight }, (Vector2){ 0, 0 }, 0.0f, WHITE);
-
-
+        DrawTexturePro(uiTarget.texture, (Rectangle){ 0, 0, (float)uiTarget.texture.width, -(float)uiTarget.texture.height }, (Rectangle){ 0, 0, (float)screenWidth, (float)screenHeight }, (Vector2){ 0, 0 }, 0.0f, WHITE);
+        
     EndDrawing(); 
 }

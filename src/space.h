@@ -13,4 +13,8 @@ void RenderSpace();
 
 void ReleaseSpace();
 
+void SpawnAsteroid(float x, float y, int size, float speed, int rotation);
+
+EntityList* GetAsteroids();
+
 #endif
