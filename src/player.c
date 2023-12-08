@@ -2,7 +2,7 @@
 #include "utils.h"
 #include <raylib.h>
 
-#define ROTATION_SPEED 60 * (PI / 180)
+#define ROTATION_SPEED 80 * (PI / 180)
 #define MOVEMENT_SPEED 25
 
 #define P_SIDE 4.0f

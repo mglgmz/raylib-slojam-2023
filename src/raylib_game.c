@@ -81,6 +81,7 @@ void UpdateDrawFrame(void)
 {
 
     UpdatePlayer();
+    UpdateSpace();
 
     BeginTextureMode(target);
         ClearBackground(RAYWHITE);
@@ -89,7 +90,7 @@ void UpdateDrawFrame(void)
         
         RenderPlayer();
         RenderSpace();
-        
+
     EndTextureMode();
     
     BeginDrawing();
