@@ -20,7 +20,10 @@ static Player player = {
     .rotationSpeed = ROTATION_SPEED,
 
     .speed = MOVEMENT_SPEED,
-    .velocity = 0
+    .velocity = 0,
+
+    .maxLife = 1,
+    .currentLife = 1
 };
 
 int directionX;
@@ -72,16 +75,6 @@ void UpdatePlayer(void) {
         bullet.rotation = player.rotation;
         bullet.active = 1;
         EntityList_Add(&bullets, &bullet);
-    }
-
-
-    //TODO: move for simulation
-    for (int i = 0; i < bullets.used; i++)
-    {
-        Entity *bullet = &bullets.array[i];
-
-        bullet->x += bullet->dx * dt;
-        bullet->y += bullet->dy * dt;
     }
 
 }

@@ -21,6 +21,8 @@ typedef struct {
     float velocityX;
     float velocityY;
     
+    int currentLife;
+    int maxLife;
 } Player;
 
 void InitPlayer(void);

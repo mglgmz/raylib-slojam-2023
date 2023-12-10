@@ -2,8 +2,9 @@
 
 void UpdateSimulation()
 {
-    EntityList* asteroids = GetAsteroids();
-    EntityList* bullets = GetBullets();
+    EntityList *asteroids = GetAsteroids();
+    EntityList *bullets = GetBullets();
+    Player *player = GetPlayer();
 
     float dt = GetFrameTime();
     for (int i = 0; i < asteroids->used; i++)
@@ -16,12 +17,13 @@ void UpdateSimulation()
         WrapPosition(&asteroid->x, &asteroid->y);
     }
 
-    for (int i = 0; i < bullets->used; i++)
+    for (int j = 0; j < asteroids->used; j++)
     {
-        Entity *bullet = &bullets->array[i];
-        for (int j = 0; j < asteroids->used; j++)
+        Entity *asteroid = &asteroids->array[j];
+
+        for (int i = 0; i < bullets->used; i++)
         {
-            Entity *asteroid = &asteroids->array[j];
+            Entity *bullet = &bullets->array[i];
             if (IsPointInsideCircle(bullet->x, bullet->y, asteroid->x, asteroid->y, asteroid->size))
             {
                 asteroid->active = 0;
@@ -31,22 +33,32 @@ void UpdateSimulation()
                     float halfSize = asteroid->size / 2;
                     // spawn new asteroids
                     SpawnAsteroid(
-                        asteroid->x + GetRandomValue(-halfSize,halfSize), 
-                        asteroid->y + GetRandomValue(-halfSize,halfSize), 
-                        asteroid->size / 2, 
-                        asteroid->speed, 
-                        GetRandomValue(0, 360)
-                    );
+                        asteroid->x + GetRandomValue(-halfSize, halfSize),
+                        asteroid->y + GetRandomValue(-halfSize, halfSize),
+                        asteroid->size / 2,
+                        asteroid->speed,
+                        GetRandomValue(0, 360));
                     SpawnAsteroid(
-                        asteroid->x + GetRandomValue(-halfSize,halfSize), 
-                        asteroid->y + GetRandomValue(-halfSize,halfSize), 
-                        asteroid->size / 2, 
-                        asteroid->speed, 
-                        GetRandomValue(0, 360)
-                    );
+                        asteroid->x + GetRandomValue(-halfSize, halfSize),
+                        asteroid->y + GetRandomValue(-halfSize, halfSize),
+                        asteroid->size / 2,
+                        asteroid->speed,
+                        GetRandomValue(0, 360));
                 }
             }
         }
+
+        if (asteroid->active && IsPointInsideCircle(player->x, player->y, asteroid->x, asteroid->y, asteroid->size))
+        {
+            player->currentLife--;
+            asteroid->active = 0;
+            // TODO: damage based on asteroid->size
+        }
+    }
+
+    if (player->currentLife <= 0)
+    {
+        // GAME OVER
     }
 
     for (int i = asteroids->used - 1; i >= 0; i--)
@@ -55,10 +67,17 @@ void UpdateSimulation()
             EntityList_Delete(asteroids, i);
     }
 
-     if(bullets->used > 0)
-        for(int i = bullets->used - 1; i >= 0; i--){
+    if (bullets->used > 0)
+        for (int i = bullets->used - 1; i >= 0; i--)
+        {
             Entity *bullet = &bullets->array[i];
-            if(!bullet->active ||  WrapPosition(&bullet->x, &bullet->y) > 0)
+
+            if (!bullet->active || WrapPosition(&bullet->x, &bullet->y) > 0)
                 EntityList_Delete(bullets, i);
+            else
+            {
+                bullet->x += bullet->dx * dt;
+                bullet->y += bullet->dy * dt;
+            }
         }
 }
