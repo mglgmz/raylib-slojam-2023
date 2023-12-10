@@ -5,6 +5,17 @@ void UpdateSimulation()
     EntityList* asteroids = GetAsteroids();
     EntityList* bullets = GetBullets();
 
+    float dt = GetFrameTime();
+    for (int i = 0; i < asteroids->used; i++)
+    {
+        Entity *asteroid = &asteroids->array[i];
+
+        asteroid->x += asteroid->dx * dt;
+        asteroid->y += asteroid->dy * dt;
+
+        WrapPosition(&asteroid->x, &asteroid->y);
+    }
+
     for (int i = 0; i < bullets->used; i++)
     {
         Entity *bullet = &bullets->array[i];
@@ -20,7 +31,6 @@ void UpdateSimulation()
                     float halfSize = asteroid->size / 2;
                     // spawn new asteroids
                     SpawnAsteroid(asteroid->x + GetRandomValue(-halfSize,halfSize), asteroid->y + GetRandomValue(-halfSize,halfSize), asteroid->size / 2, asteroid->speed, GetRandomValue(0, 360));
-                    
                     SpawnAsteroid(asteroid->x + GetRandomValue(-halfSize,halfSize), asteroid->y + GetRandomValue(-halfSize,halfSize), asteroid->size / 2, asteroid->speed, GetRandomValue(0, 360));
                 }
             }

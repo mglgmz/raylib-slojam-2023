@@ -49,20 +49,6 @@ void InitSpace()
     }
 }
 
-void UpdateSpace()
-{
-    float dt = GetFrameTime();
-    for (int i = 0; i < INITIAL_ASTEROIDS; i++)
-    {
-        Entity *asteroid = &asteroids.array[i];
-
-        asteroid->x += asteroid->dx * dt;
-        asteroid->y += asteroid->dy * dt;
-
-        WrapPosition(&asteroid->x, &asteroid->y);
-    }
-}
-
 void RenderSpace()
 {
     for (int i = 0; i < asteroids.used; i++)

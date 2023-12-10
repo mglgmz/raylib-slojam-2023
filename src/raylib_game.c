@@ -88,7 +88,6 @@ void UpdateDrawFrame(void)
 {
 
     UpdatePlayer();
-    UpdateSpace();
     UpdateSimulation();
 
     UpdateUI();

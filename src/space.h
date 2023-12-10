@@ -8,7 +8,6 @@
 static EntityList asteroids;
 
 void InitSpace();
-void UpdateSpace();
 void RenderSpace();
 
 void ReleaseSpace();
