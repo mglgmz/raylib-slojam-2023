@@ -34,12 +34,14 @@
     #define LOG(...)
 #endif
 
-// typedef enum { 
-//     SCREEN_LOGO = 0, 
-//     SCREEN_TITLE, 
-//     SCREEN_GAMEPLAY, 
-//     SCREEN_ENDING
-// } GameScreen;
+typedef enum { 
+    SCREEN_LOGO = 0, 
+    SCREEN_INTRO,
+    SCREEN_MENU,
+    SCREEN_GAMEPLAY,
+    SCREEN_OPTIONS, 
+    SCREEN_ENDING
+} GameScreen;
 
 static const int screenWidth = 1280;
 static const int screenHeight = 960;

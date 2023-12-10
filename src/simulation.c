@@ -48,10 +48,9 @@ void UpdateSimulation()
             }
         }
 
-        if (asteroid->active && IsPointInsideCircle(player->x, player->y, asteroid->x, asteroid->y, asteroid->size))
+        if (player->currentLife > 0 && asteroid->active && IsPointInsideCircle(player->x, player->y, asteroid->x, asteroid->y, asteroid->size))
         {
             player->currentLife--;
-            asteroid->active = 0;
             // TODO: damage based on asteroid->size
         }
     }

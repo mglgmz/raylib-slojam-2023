@@ -34,6 +34,8 @@ void InitPlayer(void) {
 }
 
 void UpdatePlayer(void) {
+    if(player.currentLife <= 0) return;
+
     float dt = GetFrameTime();
 
     if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
@@ -80,6 +82,9 @@ void UpdatePlayer(void) {
 }
 
 void RenderPlayer(void) {
+    if(player.currentLife <= 0) return;
+    // TODO: render death animation
+     
     DrawPolyLines((Vector2) { player.x, player.y }, 3, P_SIDE, RadiansToDegrees(player.rotation), PLAYER_COLOR);
     DrawPoly((Vector2) { directionX, directionY }, 3, HALF_P_SIDE , RadiansToDegrees(player.rotation), SKYBLUE);
 
