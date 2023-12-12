@@ -33,7 +33,7 @@
 #endif
 
 
-static RenderTexture2D uiTarget = {0};
+
 
 static void UpdateDrawFrame(void); // Update and Draw one frame
 
@@ -45,7 +45,7 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "raylib gamejam template");
     InitCurrentScreen();
-    uiTarget = LoadRenderTexture(screenWidth, screenHeight);
+    InitUI();
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
@@ -67,17 +67,11 @@ void UpdateDrawFrame(void)
     UpdateCurrentScreen();
     UpdateUI();
 
-    BeginTextureMode(uiTarget);
-        ClearBackground(BLANK);
-
-        RenderUI();
-    EndTextureMode();
-
     BeginDrawing();
         ClearBackground(RAYWHITE);
 
         RenderCurrentScreen();
-        DrawTexturePro(uiTarget.texture, (Rectangle){0, 0, (float)uiTarget.texture.width, -(float)uiTarget.texture.height}, (Rectangle){0, 0, (float)screenWidth, (float)screenHeight}, (Vector2){0, 0}, 0.0f, WHITE);
+        RenderUI();
 
     EndDrawing();
 }
