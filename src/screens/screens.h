@@ -5,10 +5,10 @@
 typedef enum GameScreen { 
     UNKNOWN = -1, 
     LOGO = 0, 
-    TITLE, 
+    MENU, 
     OPTIONS, 
     GAMEPLAY, 
-    ENDING 
+    SCORE 
 } GameScreen;
 
 // management
@@ -17,19 +17,23 @@ void TransitionToScreen(GameScreen screen);
 void UpdateTransition();
 void RenderTransition();
 
-extern GameScreen currentScreen;
+void InitCurrentScreen();
+void UpdateCurrentScreen();
+void RenderCurrentScreen();
+void ReleaseCurrentScreen();
+
+static GameScreen currentScreen = GAMEPLAY;
+
+void InitIntroScreen();
+void UpdateIntroScreen();
+void RenderIntroScreen();
+void ReleaseIntroScreen();
 
 // logo
 void InitLogoScreen();
 void UpdateLogoScreen();
 void RenderLogoScreen();
 void ReleaseLogoScreen();
-
-// intro
-void InitIntroScreen();
-void UpdateIntroScreen();
-void RenderIntroScreen();
-void ReleaseIntroScreen();
 
 // gameplay
 void InitGameplayScreen();
@@ -40,8 +44,8 @@ void ReleaseGameplayScreen();
 // menu
 void InitMenuScreen();
 void UpdateMenuScreen();
-void RenderGameplayScreen();
-void ReleaseGameplayScreen();
+void RenderMenuScreen();
+void ReleaseMenuScreen();
 
 // options
 void InitOptionsScreen();

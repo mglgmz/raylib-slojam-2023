@@ -14,8 +14,8 @@ typedef struct
     int size;
     int shape;
     float rotation;
-    int active;
     float ttl;
+    int active;
 } Entity;
 
 typedef struct

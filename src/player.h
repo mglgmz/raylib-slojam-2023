@@ -30,6 +30,8 @@ void UpdatePlayer(void);
 void RenderPlayer(void);
 void ReleasePlayer(void);
 
+void HitPlayer(Player* player, int damage);
+
 EntityList* GetBullets();
 Player* GetPlayer();
 

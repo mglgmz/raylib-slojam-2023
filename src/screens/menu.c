@@ -9,10 +9,10 @@ void UpdateMenuScreen() {
 
 }
 
-void RenderGameplayScreen() {
+void RenderMenuScreen() {
     
 }
 
-void ReleaseGameplayScreen() {
+void ReleaseMenuScreen() {
     
 }

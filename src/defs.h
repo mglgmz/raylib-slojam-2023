@@ -5,6 +5,9 @@
 #include <stdint.h>
 #include <math.h>
 
+static const int screenWidth = 1280;
+static const int screenHeight = 960;
+
 static const int gameWidth = 320;
 static const int gameHeight = 240;
 

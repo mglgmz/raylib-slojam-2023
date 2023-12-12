@@ -3,8 +3,8 @@
 #include <raylib.h>
 
 #define ROTATION_SPEED 80 * (PI / 180)
-#define MOVEMENT_SPEED 25
-#define BULLET_SPEED 50
+#define MOVEMENT_SPEED 20
+#define BULLET_SPEED 70
 #define P_SIDE 4.0f
 #define HALF_P_SIDE P_SIDE / 2.0f
 #define P_HEIGHT_OFF (P_SIDE * sqrt(3) / 2) / 2
@@ -78,7 +78,10 @@ void UpdatePlayer(void) {
         bullet.active = 1;
         EntityList_Add(&bullets, &bullet);
     }
+}
 
+void HitPlayer(Player *player, int damage) {
+    player->currentLife -= damage;
 }
 
 void RenderPlayer(void) {
