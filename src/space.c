@@ -1,6 +1,6 @@
 #include "space.h"
 
-#define INITIAL_ASTEROIDS 5
+#define INITIAL_ASTEROIDS 2 // Number of Asteroids Per Sector
 
 int GetRandomAsteroidSize()
 {
@@ -22,8 +22,7 @@ void SpawnAsteroid(float x, float y, int size, float speed, int rotation)
         .shape = 1,
         .speed = speed,
         .rotation = rotation, // direction
-        .active = 1
-    };
+        .active = 1};
 
     float rotSin = sinf(asteroid.rotation);
     float rotCos = cosf(asteroid.rotation);
@@ -37,15 +36,44 @@ void SpawnAsteroid(float x, float y, int size, float speed, int rotation)
 void InitSpace()
 {
     EntityList_Init(&asteroids, 2 * INITIAL_ASTEROIDS);
+
+    // Up
     for (int i = 0; i < INITIAL_ASTEROIDS; i++)
     {
         SpawnAsteroid(
             GetRandomValue(0, gameWidth),
+            -50,
+            GetRandomAsteroidSize(),
+            (float)GetRandomValue(3, 18),
+            GetRandomValue(0, 360));
+    }
+    // Down
+    for (int i = 0; i < INITIAL_ASTEROIDS; i++)
+    {
+        SpawnAsteroid(
+            GetRandomValue(0, gameWidth),
+            gameHeight + 50,
+            GetRandomAsteroidSize(),
+            (float)GetRandomValue(3, 18),
+            GetRandomValue(0, 360));
+    }
+    for (int i = 0; i < INITIAL_ASTEROIDS; i++)
+    {
+        SpawnAsteroid(
+            -50,
             GetRandomValue(0, gameHeight),
             GetRandomAsteroidSize(),
             (float)GetRandomValue(3, 18),
-             GetRandomValue(0, 360)
-        );
+            GetRandomValue(0, 360));
+    }
+    for (int i = 0; i < INITIAL_ASTEROIDS; i++)
+    {
+        SpawnAsteroid(
+            gameWidth + 50,
+            GetRandomValue(0, gameHeight),
+            GetRandomAsteroidSize(),
+            (float)GetRandomValue(3, 18),
+            GetRandomValue(0, 360));
     }
 }
 
@@ -63,6 +91,7 @@ void ReleaseSpace()
     EntityList_Free(&asteroids);
 }
 
-EntityList* GetAsteroids() {
+EntityList *GetAsteroids()
+{
     return &asteroids;
 }
