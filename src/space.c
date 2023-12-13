@@ -100,7 +100,7 @@ void OnAsteroidHit(Entity *asteroid)
 {
     // Number of particles based on asteroid size???
     int particles = 8;
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < particles; i++)
     {
         float direction = (float)((i * (360 / particles)) + GetRandomValue(-5, 5));
         float rotSin = sinf(direction);
