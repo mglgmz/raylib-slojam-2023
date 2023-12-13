@@ -29,10 +29,13 @@ void UpdateUI()
             DrawText(TextFormat("Rotat: %f", player->rotation), 10, 50, 14, YELLOW);
 
             EntityList* bullets = GetBullets();
-            DrawText(TextFormat("Bullets: %d", bullets->used), 10, 70, 14, PINK);
+            DrawText(TextFormat("Bullets: %d / %d", bullets->used, bullets->size), 10, 70, 14, PINK);
 
             EntityList* asteroids = GetAsteroids();
-            DrawText(TextFormat("Asteroids: %d", asteroids->used), 10, 90, 14, LIME);
+            DrawText(TextFormat("Asteroids: %d / %d", asteroids->used, asteroids->size), 10, 90, 14, LIME);
+
+            EntityList* particles = GetParticles();
+            DrawText(TextFormat("Particles: %d / %d", particles->used, particles->size), 10, 110, 14, RAYWHITE);
         }
     EndTextureMode();
 }

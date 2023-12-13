@@ -4,6 +4,7 @@
 #include <raylib.h>
 #include "player.h"
 #include "space.h"
+#include "particles.h"
 
 static Font defaultFont;
 

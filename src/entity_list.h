@@ -16,6 +16,7 @@ typedef struct
     float rotation;
     float ttl;
     int active;
+    Color color;
 } Entity;
 
 typedef struct

@@ -95,3 +95,26 @@ EntityList *GetAsteroids()
 {
     return &asteroids;
 }
+
+void OnAsteroidHit(Entity *asteroid)
+{
+    // Number of particles based on asteroid size???
+    int particles = 8;
+    for (int i = 0; i < 8; i++)
+    {
+        float direction = (float)((i * (360 / particles)) + GetRandomValue(-5, 5));
+        float rotSin = sinf(direction);
+        float rotCos = cosf(direction);
+        float speed = ((float)GetRandomValue(10, 100));
+        Entity particle = {0};
+        particle.active = 1;
+        particle.ttl = GetRandomFloat() * 0.4f;
+        particle.color = RAYWHITE;
+        particle.shape = PARTICLE_POINT;
+        particle.dx = rotCos * speed;
+        particle.dy = rotSin * speed;
+        particle.x = asteroid->x;
+        particle.y = asteroid->y;
+        AddParticle(&particle);
+    }
+}

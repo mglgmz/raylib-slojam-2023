@@ -3,11 +3,13 @@
 #include "../space.h"
 #include "../simulation.h"
 #include "../defs.h"
+#include "../particles.h"
 
 static RenderTexture2D target = {0}; // Render texture to render our game
 
 void InitGameplayScreen()
 {
+    InitParticles();
     InitPlayer();
     InitSpace();
     target = LoadRenderTexture(gameWidth, gameHeight);
@@ -17,6 +19,7 @@ void UpdateGameplayScreen()
 {
     UpdatePlayer();
     UpdateSimulation();
+    UpdateParticles();
 
     BeginTextureMode(target);
         ClearBackground(RAYWHITE);
@@ -25,6 +28,7 @@ void UpdateGameplayScreen()
 
         RenderPlayer();
         RenderSpace();
+        RenderParticles();
 
     EndTextureMode();
 }

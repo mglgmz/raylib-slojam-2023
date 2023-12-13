@@ -28,6 +28,7 @@ void UpdateSimulation()
             {
                 asteroid->active = 0;
                 bullet->active = 0;
+                 OnAsteroidHit(asteroid);
                 if (asteroid->size > ASTEROID_BASE_SIZE)
                 {
                     float halfSize = asteroid->size / 2;
@@ -51,6 +52,7 @@ void UpdateSimulation()
         if (player->currentLife > 0 && asteroid->active && IsPointInsideCircle(player->x, player->y, asteroid->x, asteroid->y, asteroid->size))
         {
             HitPlayer(player, 1);
+            OnAsteroidHit(asteroid);
             // TODO: damage based on asteroid->size
         }
     }

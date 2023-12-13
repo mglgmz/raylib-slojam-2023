@@ -195,7 +195,3 @@ void RenderLogoScreen()
 void ReleaseLogoScreen()
 {
 }
-
-void UpdateRaylibLogo()
-{
-}
