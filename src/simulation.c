@@ -24,11 +24,12 @@ void UpdateSimulation()
         for (int i = 0; i < bullets->used; i++)
         {
             Entity *bullet = &bullets->array[i];
+            if(!bullet->active) continue;
             if (IsPointInsideCircle(bullet->x, bullet->y, asteroid->x, asteroid->y, asteroid->size))
             {
                 asteroid->active = 0;
                 bullet->active = 0;
-                 OnAsteroidHit(asteroid);
+                 OnAsteroidHit(asteroid, bullet->x, bullet->y);
                 if (asteroid->size > ASTEROID_BASE_SIZE)
                 {
                     float halfSize = asteroid->size / 2;
@@ -52,7 +53,7 @@ void UpdateSimulation()
         if (player->currentLife > 0 && asteroid->active && IsPointInsideCircle(player->x, player->y, asteroid->x, asteroid->y, asteroid->size))
         {
             HitPlayer(player, 1);
-            OnAsteroidHit(asteroid);
+            OnAsteroidHit(asteroid, player->x, player->y);
             // TODO: damage based on asteroid->size
         }
     }

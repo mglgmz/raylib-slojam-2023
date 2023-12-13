@@ -15,6 +15,6 @@ void ReleaseSpace();
 void SpawnAsteroid(float x, float y, int size, float speed, int rotation);
 EntityList* GetAsteroids();
 
-void OnAsteroidHit(Entity* asteroid);
+void OnAsteroidHit(Entity* asteroid, float hitX, float hitY);
 
 #endif

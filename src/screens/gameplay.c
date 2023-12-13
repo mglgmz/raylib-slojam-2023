@@ -29,7 +29,6 @@ void UpdateGameplayScreen()
         RenderPlayer();
         RenderSpace();
         RenderParticles();
-
     EndTextureMode();
 }
 

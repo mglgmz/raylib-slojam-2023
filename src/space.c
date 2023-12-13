@@ -96,7 +96,7 @@ EntityList *GetAsteroids()
     return &asteroids;
 }
 
-void OnAsteroidHit(Entity *asteroid)
+void OnAsteroidHit(Entity *asteroid, float hitX, float hitY)
 {
     // Number of particles based on asteroid size???
     int particles = 8;
@@ -113,8 +113,8 @@ void OnAsteroidHit(Entity *asteroid)
         particle.shape = PARTICLE_POINT;
         particle.dx = rotCos * speed;
         particle.dy = rotSin * speed;
-        particle.x = asteroid->x;
-        particle.y = asteroid->y;
+        particle.x = hitX;
+        particle.y = hitY;
         AddParticle(&particle);
     }
 }
