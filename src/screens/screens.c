@@ -9,6 +9,8 @@ void ChangeToScreen(GameScreen screen)
 
 void TransitionToScreen(GameScreen screen)
 {
+    // TODO: Transitions!
+    ChangeToScreen(screen);
 }
 
 void UpdateTransition()

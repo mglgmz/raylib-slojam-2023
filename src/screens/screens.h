@@ -1,6 +1,7 @@
 #ifndef SCREENS_H
 #define SCREENS_H
 
+#include "raylib.h"
 
 typedef enum GameScreen { 
     UNKNOWN = -1, 
