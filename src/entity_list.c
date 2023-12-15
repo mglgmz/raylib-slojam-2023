@@ -52,6 +52,6 @@ void EntityList_Delete(EntityList *list, int index)
 void EntityList_Free(EntityList *list)
 {
     free(list->array);
-    list->array = NULL;
+    //list->array = NULL;
     list->size = 0;
 }

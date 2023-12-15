@@ -30,6 +30,12 @@ int directionX;
 int directionY;
 
 void InitPlayer(void) {
+    player.currentLife = player.maxLife;
+    player.velocityX = 0;
+    player.velocityY = 0;
+    player.x = 200;
+    player.y = 100;
+
     EntityList_Init(&bullets, 100);
 }
 

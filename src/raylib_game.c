@@ -32,9 +32,6 @@
 #define LOG(...)
 #endif
 
-
-
-
 static void UpdateDrawFrame(void); // Update and Draw one frame
 
 int main(void)

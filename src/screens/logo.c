@@ -39,6 +39,7 @@ void InitLogoScreen()
 
 void UpdateLogoScreen()
 {
+    if(IsKeyReleased(KEY_ENTER)) state++;
     if (state == 0) // State 0: Top-left square corner blink logic
     {
         framesCounter++;
