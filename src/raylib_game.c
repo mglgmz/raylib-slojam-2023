@@ -65,7 +65,7 @@ void UpdateDrawFrame(void)
     UpdateUI();
 
     BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(BLACK);
 
         RenderCurrentScreen();
         RenderUI();

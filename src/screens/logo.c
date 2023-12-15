@@ -137,7 +137,7 @@ void UpdateLogoScreen()
         framesCounter++;
         alpha -= 0.7f;
         if (framesCounter >= 90)
-            TransitionToScreen(GAMEPLAY); // TODO: MENU
+            TransitionToScreen(MENU);
     }
 }
 
