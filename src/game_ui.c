@@ -1,12 +1,15 @@
 #include "game_ui.h"
+#include "player.h"
 
 static int debugInfoEnabled = 0;
 static RenderTexture2D uiTarget = {0};
+Player* player;
 
 void InitUI()
 {
     defaultFont = GetFontDefault();
     uiTarget = LoadRenderTexture(screenWidth, screenHeight);
+    player = GetPlayer();
 }
 
 void UpdateUI()
@@ -19,6 +22,10 @@ void UpdateUI()
 
      BeginTextureMode(uiTarget);
         ClearBackground(BLANK);
+        DrawText("HP: ", 10, 15, 24, RAYWHITE);
+        for(int i =0; i < player->currentLife; i++) {
+            DrawPoly((Vector2) { 70 + (30*i), 26 }, 3, 15, 270, RED);
+        }
 
          // Render UI
         if (debugInfoEnabled == 1)

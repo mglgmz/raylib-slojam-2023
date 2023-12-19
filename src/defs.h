@@ -13,9 +13,9 @@ static const int gameHeight = 240;
 
 #define CLEAR_COLOR BLACK
 
-#define PLAYER_COLOR RAYWHITE
+#define PLAYER_COLOR RED
 
-#define ASTEROID_BASE_COLOR RAYWHITE
+#define ASTEROID_BASE_COLOR GOLD
 #define ASTEROID_BASE_SIZE 4
 
 #define TWO_PI 6.28318530

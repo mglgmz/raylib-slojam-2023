@@ -4,6 +4,7 @@
 #include "../simulation.h"
 #include "../defs.h"
 #include "../particles.h"
+#include "../game_ui.h"
 
 static RenderTexture2D target = {0}; // Render texture to render our game
 static Player* player;
@@ -11,16 +12,27 @@ static Player* player;
 float deathTs = -1.0f;
 float alpha = 0.3f;
 
+Shader shader;
+
+#if defined(PLATFORM_DESKTOP)
+    #define GLSL_VERSION            330
+#else   // PLATFORM_ANDROID, PLATFORM_WEB
+    #define GLSL_VERSION            100
+#endif
+
 void InitGameplayScreen()
 {
     InitParticles();
     InitPlayer();
     InitSpace();
+    InitUI();
     target = LoadRenderTexture(gameWidth, gameHeight);
 
     player = GetPlayer();
     deathTs = -1.0f;
     alpha = 0.3f;
+
+    shader = LoadShader(0, TextFormat("resources/shaders/glsl%i/scanlines.fs", GLSL_VERSION));
 }
 
 void UpdateGameplayScreen()
@@ -40,7 +52,7 @@ void UpdateGameplayScreen()
     }
     UpdateSimulation();
     UpdateParticles();
-
+    UpdateUI();
     BeginTextureMode(target);
         ClearBackground(RAYWHITE);
 
@@ -60,13 +72,16 @@ void UpdateGameplayScreen()
                 DrawText(text, target.texture.width / 2 - size / 2, target.texture.height / 2 - (fontSize/2), fontSize, Fade(RED, alpha));
             }
         }
-
+        
     EndTextureMode();
 }
 
 void RenderGameplayScreen()
 {
-    DrawTexturePro(target.texture, (Rectangle){0, 0, (float)target.texture.width, -(float)target.texture.height}, (Rectangle){0, 0, (float)screenWidth, (float)screenHeight}, (Vector2){0, 0}, 0.0f, WHITE);
+    BeginShaderMode(shader);
+        DrawTexturePro(target.texture, (Rectangle){0, 0, (float)target.texture.width, -(float)target.texture.height}, (Rectangle){0, 0, (float)screenWidth, (float)screenHeight}, (Vector2){0, 0}, 0.0f, WHITE);
+    EndShaderMode();
+    RenderUI();
 }
 
 void ReleaseGameplayScreen()

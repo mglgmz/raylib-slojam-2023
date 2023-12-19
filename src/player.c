@@ -22,8 +22,8 @@ static Player player = {
     .speed = MOVEMENT_SPEED,
     .velocity = 0,
 
-    .maxLife = 1,
-    .currentLife = 1
+    .maxLife = 2,
+    .currentLife = 2
 };
 
 int directionX;
@@ -95,7 +95,7 @@ void RenderPlayer(void) {
     // TODO: render death animation
      
     DrawPolyLines((Vector2) { player.x, player.y }, 3, P_SIDE, RadiansToDegrees(player.rotation), PLAYER_COLOR);
-    DrawPoly((Vector2) { directionX, directionY }, 3, HALF_P_SIDE , RadiansToDegrees(player.rotation), SKYBLUE);
+    DrawPoly((Vector2) { directionX, directionY }, 3, HALF_P_SIDE , RadiansToDegrees(player.rotation), RAYWHITE);
 
     for (int i = 0; i < bullets.used; i++)
     {

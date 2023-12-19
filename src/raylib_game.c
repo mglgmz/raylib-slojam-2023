@@ -23,7 +23,6 @@
 #include <stdlib.h> // Required for:
 #include <string.h>
 #include "screens/screens.h"
-#include "game_ui.h"
 
 #define SUPPORT_LOG_INFO
 #if defined(SUPPORT_LOG_INFO)
@@ -33,7 +32,7 @@
 #endif
 
 static void UpdateDrawFrame(void); // Update and Draw one frame
-
+static Shader shader;
 int main(void)
 {
 #if !defined(_DEBUG)
@@ -42,8 +41,7 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "raylib gamejam template");
     InitCurrentScreen();
-    InitUI();
-
+    shader = LoadShader(0, "resources/shaders/crt/to-test.glsl");
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
 #else
@@ -53,6 +51,7 @@ int main(void)
         UpdateDrawFrame();
     }
 #endif
+    UnloadShader(shader);
     ReleaseCurrentScreen();
     CloseWindow();
     return 0;
@@ -62,13 +61,12 @@ void UpdateDrawFrame(void)
 {
 
     UpdateCurrentScreen();
-    UpdateUI();
-
     BeginDrawing();
         ClearBackground(BLACK);
 
+    BeginShaderMode(shader);
         RenderCurrentScreen();
-        RenderUI();
+    EndShaderMode();
 
     EndDrawing();
 }

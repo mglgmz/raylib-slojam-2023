@@ -24,12 +24,13 @@ void UpdateSimulation()
         for (int i = 0; i < bullets->used; i++)
         {
             Entity *bullet = &bullets->array[i];
-            if(!bullet->active) continue;
+            if (!bullet->active)
+                continue;
             if (IsPointInsideCircle(bullet->x, bullet->y, asteroid->x, asteroid->y, asteroid->size))
             {
                 asteroid->active = 0;
                 bullet->active = 0;
-                 OnAsteroidHit(asteroid, bullet->x, bullet->y);
+                OnAsteroidHit(asteroid, bullet->x, bullet->y);
                 if (asteroid->size > ASTEROID_BASE_SIZE)
                 {
                     float halfSize = asteroid->size / 2;
@@ -52,9 +53,23 @@ void UpdateSimulation()
 
         if (player->currentLife > 0 && asteroid->active && IsPointInsideCircle(player->x, player->y, asteroid->x, asteroid->y, asteroid->size))
         {
+            // TODO: damage based on asteroid->size
             HitPlayer(player, 1);
             OnAsteroidHit(asteroid, player->x, player->y);
-            // TODO: damage based on asteroid->size
+            asteroid->active = 0;
+            float halfSize = asteroid->size / 2;
+            SpawnAsteroid(
+                asteroid->x + GetRandomValue(-halfSize, halfSize),
+                asteroid->y + GetRandomValue(-halfSize, halfSize),
+                asteroid->size / 2,
+                asteroid->speed,
+                GetRandomValue(0, 360));
+            SpawnAsteroid(
+                asteroid->x + GetRandomValue(-halfSize, halfSize),
+                asteroid->y + GetRandomValue(-halfSize, halfSize),
+                asteroid->size / 2,
+                asteroid->speed,
+                GetRandomValue(0, 360));
         }
     }
 
