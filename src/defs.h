@@ -20,4 +20,10 @@ static const int gameHeight = 240;
 
 #define TWO_PI 6.28318530
 
+#if defined(PLATFORM_DESKTOP)
+    #define GLSL_VERSION            330
+#else   // PLATFORM_ANDROID, PLATFORM_WEB
+    #define GLSL_VERSION            100
+#endif
+
 #endif
