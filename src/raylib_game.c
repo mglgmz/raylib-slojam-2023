@@ -64,6 +64,5 @@ void UpdateDrawFrame(void)
 
         RenderCurrentScreen();
 
-
     EndDrawing();
 }
