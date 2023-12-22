@@ -25,7 +25,6 @@ void InitGameplayScreen()
     player = GetPlayer();
     deathTs = -1.0f;
     alpha = 0.3f;
-
     scanlines = LoadShader(0, TextFormat("resources/shaders/glsl%i/scanlines.fs", GLSL_VERSION));
 }
 

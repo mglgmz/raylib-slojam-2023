@@ -13,7 +13,7 @@ uniform vec4 colDiffuse;
 // NOTE: Add here your custom variables
 
 float offset = 0.0;
-float frequency = 450.0/3.0;
+float frequency = 750.0/3.0;
 
 uniform float time;
 

@@ -22,10 +22,6 @@ void UpdateUI()
 
      BeginTextureMode(uiTarget);
         ClearBackground(BLANK);
-        DrawText("HP: ", 10, 15, 24, RAYWHITE);
-        for(int i =0; i < player->currentLife; i++) {
-            DrawPoly((Vector2) { 70 + (30*i), 26 }, 3, 15, 270, RED);
-        }
 
          // Render UI
         if (debugInfoEnabled == 1)

@@ -22,8 +22,8 @@ static Player player = {
     .speed = MOVEMENT_SPEED,
     .velocity = 0,
 
-    .maxLife = 2,
-    .currentLife = 2
+    .maxLife = 1,
+    .currentLife = 1
 };
 
 int directionX;
