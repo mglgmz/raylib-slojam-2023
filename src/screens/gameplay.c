@@ -62,7 +62,7 @@ void UpdateGameplayScreen()
     UpdateUI();
     BeginTextureMode(target);
         ClearBackground(COLOR_A);
-        DrawText(TextFormat("ShaderOption: %i", shaderOption), 10, 130, 14, RED);
+        
         RenderPlayer();
         RenderSpace();
         RenderParticles();
