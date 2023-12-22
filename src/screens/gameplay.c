@@ -12,7 +12,7 @@ static Player *player;
 float deathTs = -1.0f;
 float alpha = 0.3f;
 
-static Shader scanlines;
+static Shader gamplayShader;
 
 void InitGameplayScreen()
 {
@@ -25,7 +25,7 @@ void InitGameplayScreen()
     player = GetPlayer();
     deathTs = -1.0f;
     alpha = 0.3f;
-    scanlines = LoadShader(0, TextFormat("resources/shaders/glsl%i/scanlines.fs", GLSL_VERSION));
+    gamplayShader = LoadShader(0, TextFormat("resources/shaders/glsl%i/bloom.fs", GLSL_VERSION));
 }
 
 void UpdateGameplayScreen()
@@ -52,10 +52,8 @@ void UpdateGameplayScreen()
     UpdateParticles();
     UpdateUI();
     BeginTextureMode(target);
-        ClearBackground(RAYWHITE);
-
-        DrawRectangle(0, 0, screenWidth, screenHeight, BLACK);
-
+        ClearBackground(COLOR_A);
+        
         RenderPlayer();
         RenderSpace();
         RenderParticles();
@@ -77,7 +75,7 @@ void UpdateGameplayScreen()
 
 void RenderGameplayScreen()
 {
-    BeginShaderMode(scanlines);
+    BeginShaderMode(gamplayShader);
         DrawTexturePro(target.texture, (Rectangle){0, 0, (float)target.texture.width, -(float)target.texture.height}, (Rectangle){0, 0, (float)screenWidth, (float)screenHeight}, (Vector2){0, 0}, 0.0f, WHITE);
     EndShaderMode();
     RenderUI();
@@ -85,7 +83,7 @@ void RenderGameplayScreen()
 
 void ReleaseGameplayScreen()
 {
-    UnloadShader(scanlines);
+    UnloadShader(gamplayShader);
     ReleaseSpace();
     ReleasePlayer();
     UnloadRenderTexture(target);

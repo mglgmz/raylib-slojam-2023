@@ -82,7 +82,7 @@ void RenderSpace()
     for (int i = 0; i < asteroids.used; i++)
     {
         Entity asteroid = asteroids.array[i];
-        DrawCircleLines(asteroid.x, asteroid.y, asteroid.size, ASTEROID_BASE_COLOR);
+        DrawCircleLines(asteroid.x, asteroid.y, asteroid.size, COLOR_B);
     }
 }
 
@@ -109,7 +109,7 @@ void OnAsteroidHit(Entity *asteroid, float hitX, float hitY)
         Entity particle = {0};
         particle.active = 1;
         particle.ttl = GetRandomFloat() * 0.4f;
-        particle.color = RAYWHITE;
+        particle.color = COLOR_B;
         particle.shape = PARTICLE_POINT;
         particle.dx = rotCos * speed;
         particle.dy = rotSin * speed;

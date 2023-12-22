@@ -39,6 +39,8 @@ void UpdateUI()
 
             EntityList* particles = GetParticles();
             DrawText(TextFormat("Particles: %d / %d", particles->used, particles->size), 10, 110, 14, RAYWHITE);
+
+            DrawText(TextFormat("GL Version: %i", GLSL_VERSION), 10, 130, 14, RED);
         }
     EndTextureMode();
 }

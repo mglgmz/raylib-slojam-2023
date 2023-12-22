@@ -32,7 +32,7 @@
 #endif
 
 static void UpdateDrawFrame(void); // Update and Draw one frame
-static Shader scanlines;
+
 int main(void)
 {
 #if !defined(_DEBUG)
@@ -41,7 +41,6 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "raylib gamejam template");
     InitCurrentScreen();
-    scanlines = LoadShader(0, "resources/shaders/crt/to-test.glsl");
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
 #else
@@ -51,7 +50,6 @@ int main(void)
         UpdateDrawFrame();
     }
 #endif
-    UnloadShader(scanlines);
     ReleaseCurrentScreen();
     CloseWindow();
     return 0;
@@ -62,11 +60,10 @@ void UpdateDrawFrame(void)
 
     UpdateCurrentScreen();
     BeginDrawing();
-        ClearBackground(BLACK);
+        ClearBackground(COLOR_A);
 
-    BeginShaderMode(scanlines);
         RenderCurrentScreen();
-    EndShaderMode();
+
 
     EndDrawing();
 }

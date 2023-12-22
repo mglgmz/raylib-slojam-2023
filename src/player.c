@@ -94,13 +94,13 @@ void RenderPlayer(void) {
     if(player.currentLife <= 0) return;
     // TODO: render death animation
      
-    DrawPolyLines((Vector2) { player.x, player.y }, 3, P_SIDE, RadiansToDegrees(player.rotation), PLAYER_COLOR);
-    DrawPoly((Vector2) { directionX, directionY }, 3, HALF_P_SIDE , RadiansToDegrees(player.rotation), RAYWHITE);
+    DrawPolyLines((Vector2) { player.x, player.y }, 3, P_SIDE, RadiansToDegrees(player.rotation), COLOR_B);
+    DrawPoly((Vector2) { directionX, directionY }, 3, HALF_P_SIDE , RadiansToDegrees(player.rotation), COLOR_B);
 
     for (int i = 0; i < bullets.used; i++)
     {
         Entity *bullet = &bullets.array[i];
-        DrawPoly((Vector2) { bullet->x, bullet->y }, 4, bullet->size, bullet->rotation, PLAYER_COLOR);
+        DrawPoly((Vector2) { bullet->x, bullet->y }, 4, bullet->size, bullet->rotation, COLOR_B);
     }
 }
 

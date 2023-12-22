@@ -11,11 +11,10 @@ static const int screenHeight = 960;
 static const int gameWidth = 320;
 static const int gameHeight = 240;
 
-#define CLEAR_COLOR BLACK
+#define COLOR_A (Color){ 0x1d, 0x30, 0x0a, 0xff }
+#define COLOR_B (Color){ 0x77, 0xa0, 0x4d, 0xff }
 
-#define PLAYER_COLOR RED
-
-#define ASTEROID_BASE_COLOR GOLD
+// #define ASTEROID_BASE_COLOR GOLD
 #define ASTEROID_BASE_SIZE 4
 
 #define TWO_PI 6.28318530
