@@ -24,7 +24,7 @@ void UpdateCurrentScreen();
 void RenderCurrentScreen();
 void ReleaseCurrentScreen();
 
-static GameScreen currentScreen = LOGO;
+static GameScreen currentScreen = GAMEPLAY;
 
 void InitIntroScreen();
 void UpdateIntroScreen();

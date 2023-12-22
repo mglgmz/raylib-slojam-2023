@@ -182,15 +182,15 @@ void RenderLogoScreen()
     {
         char *text = "mglgmz";
         int textSize = MeasureText(text, 70);
-        DrawText(text, (GetScreenWidth() / 2) - (textSize / 2), GetScreenHeight() / 2 - 35, 70, Fade(COLOR_C, alpha));
-        DrawText("presents", (GetScreenWidth() / 2) - 35, GetScreenHeight() / 2 + 47, 20, Fade(COLOR_B, alpha));
+        Text_DrawText(text, (GetScreenWidth() / 2) - (textSize / 2), GetScreenHeight() / 2 - 35, 70, Fade(COLOR_C, alpha));
+        Text_DrawText("presents", (GetScreenWidth() / 2) - 35, GetScreenHeight() / 2 + 47, 20, Fade(COLOR_B, alpha));
     }
     else if (state == 6 || state == 7)
     {
         char *text = "ASTEROIDS";
         int size = 90;
         int textSize = MeasureText(text, size);
-        DrawText(text, (GetScreenWidth() / 2) - (textSize / 2), GetScreenHeight() / 2 - (size / 2), size, Fade(COLOR_B, alpha));
+        Text_DrawText(text, (GetScreenWidth() / 2) - (textSize / 2), GetScreenHeight() / 2 - (size / 2), size, Fade(COLOR_B, alpha));
     }
 }
 
