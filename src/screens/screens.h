@@ -2,6 +2,7 @@
 #define SCREENS_H
 
 #include "raylib.h"
+#include "../text.h"
 
 typedef enum GameScreen { 
     UNKNOWN = -1, 
@@ -23,7 +24,7 @@ void UpdateCurrentScreen();
 void RenderCurrentScreen();
 void ReleaseCurrentScreen();
 
-static GameScreen currentScreen = GAMEPLAY;
+static GameScreen currentScreen = LOGO;
 
 void InitIntroScreen();
 void UpdateIntroScreen();

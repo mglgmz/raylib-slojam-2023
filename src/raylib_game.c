@@ -22,6 +22,7 @@
 #include <stdio.h>  // Required for: printf()
 #include <stdlib.h> // Required for:
 #include <string.h>
+#include "text.h"
 #include "screens/screens.h"
 
 #define SUPPORT_LOG_INFO
@@ -40,6 +41,7 @@ int main(void)
 #endif
 
     InitWindow(screenWidth, screenHeight, "raylib gamejam template");
+    InitText();
     InitCurrentScreen();
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
@@ -51,6 +53,7 @@ int main(void)
     }
 #endif
     ReleaseCurrentScreen();
+    ReleaseText();
     CloseWindow();
     return 0;
 }
@@ -63,6 +66,5 @@ void UpdateDrawFrame(void)
         ClearBackground(COLOR_A);
 
         RenderCurrentScreen();
-
     EndDrawing();
 }

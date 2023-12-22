@@ -1,4 +1,5 @@
 #include "screens.h"
+#include "../defs.h"
 
 // RAYLIB LOGO
 // raylib logo from: https://github.com/raysan5/raylib-game-template/blob/main/src/screen_logo.c
@@ -143,53 +144,53 @@ void UpdateLogoScreen()
 
 void RenderLogoScreen()
 {
-    ClearBackground(BLACK);
+    ClearBackground(COLOR_A);
     if (state == 0) // Draw blinking top-left square corner
     {
         if ((framesCounter / 10) % 2)
-            DrawRectangle(logoPositionX, logoPositionY, 16, 16, RAYWHITE);
+            DrawRectangle(logoPositionX, logoPositionY, 16, 16, COLOR_B);
     }
     else if (state == 1) // Draw bars animation: top and left
     {
-        DrawRectangle(logoPositionX, logoPositionY, topSideRecWidth, 16, RAYWHITE);
-        DrawRectangle(logoPositionX, logoPositionY, 16, leftSideRecHeight, RAYWHITE);
+        DrawRectangle(logoPositionX, logoPositionY, topSideRecWidth, 16, COLOR_B);
+        DrawRectangle(logoPositionX, logoPositionY, 16, leftSideRecHeight, COLOR_B);
     }
     else if (state == 2) // Draw bars animation: bottom and right
     {
-        DrawRectangle(logoPositionX, logoPositionY, topSideRecWidth, 16, RAYWHITE);
-        DrawRectangle(logoPositionX, logoPositionY, 16, leftSideRecHeight, RAYWHITE);
+        DrawRectangle(logoPositionX, logoPositionY, topSideRecWidth, 16, COLOR_B);
+        DrawRectangle(logoPositionX, logoPositionY, 16, leftSideRecHeight, COLOR_B);
 
-        DrawRectangle(logoPositionX + 240, logoPositionY, 16, rightSideRecHeight, RAYWHITE);
-        DrawRectangle(logoPositionX, logoPositionY + 240, bottomSideRecWidth, 16, RAYWHITE);
+        DrawRectangle(logoPositionX + 240, logoPositionY, 16, rightSideRecHeight, COLOR_B);
+        DrawRectangle(logoPositionX, logoPositionY + 240, bottomSideRecWidth, 16, COLOR_B);
     }
     else if (state == 3) // Draw "raylib" text-write animation + "powered by"
     {
-        DrawRectangle(logoPositionX, logoPositionY, topSideRecWidth, 16, Fade(RAYWHITE, alpha));
-        DrawRectangle(logoPositionX, logoPositionY + 16, 16, leftSideRecHeight - 32, Fade(RAYWHITE, alpha));
+        DrawRectangle(logoPositionX, logoPositionY, topSideRecWidth, 16, Fade(COLOR_B, alpha));
+        DrawRectangle(logoPositionX, logoPositionY + 16, 16, leftSideRecHeight - 32, Fade(COLOR_B, alpha));
 
-        DrawRectangle(logoPositionX + 240, logoPositionY + 16, 16, rightSideRecHeight - 32, Fade(RAYWHITE, alpha));
-        DrawRectangle(logoPositionX, logoPositionY + 240, bottomSideRecWidth, 16, Fade(RAYWHITE, alpha));
+        DrawRectangle(logoPositionX + 240, logoPositionY + 16, 16, rightSideRecHeight - 32, Fade(COLOR_B, alpha));
+        DrawRectangle(logoPositionX, logoPositionY + 240, bottomSideRecWidth, 16, Fade(COLOR_B, alpha));
 
-        DrawRectangle(GetScreenWidth() / 2 - 112, GetScreenHeight() / 2 - 112, 224, 224, Fade(BLACK, alpha));
+        DrawRectangle(GetScreenWidth() / 2 - 112, GetScreenHeight() / 2 - 112, 224, 224, Fade(COLOR_A, alpha));
 
-        DrawText(TextSubtext("raylib", 0, lettersCount), GetScreenWidth() / 2 - 44, GetScreenHeight() / 2 + 48, 50, Fade(RAYWHITE, alpha));
+        DrawText(TextSubtext("raylib", 0, lettersCount), GetScreenWidth() / 2 - 44, GetScreenHeight() / 2 + 48, 50, Fade(COLOR_B, alpha));
 
         if (framesCounter > 20)
-            DrawText("powered by", logoPositionX, logoPositionY - 27, 20, Fade(RAYWHITE, alpha));
+            DrawText("powered by", logoPositionX, logoPositionY - 27, 20, Fade(COLOR_B, alpha));
     }
     else if (state == 4 || state == 5)
     {
         char *text = "mglgmz";
         int textSize = MeasureText(text, 70);
-        DrawText(text, (GetScreenWidth() / 2) - (textSize / 2), GetScreenHeight() / 2 - 35, 70, Fade(GOLD, alpha));
-        DrawText("presents", (GetScreenWidth() / 2) - 35, GetScreenHeight() / 2 + 47, 20, Fade(RAYWHITE, alpha));
+        DrawText(text, (GetScreenWidth() / 2) - (textSize / 2), GetScreenHeight() / 2 - 35, 70, Fade(COLOR_C, alpha));
+        DrawText("presents", (GetScreenWidth() / 2) - 35, GetScreenHeight() / 2 + 47, 20, Fade(COLOR_B, alpha));
     }
     else if (state == 6 || state == 7)
     {
         char *text = "ASTEROIDS";
         int size = 90;
         int textSize = MeasureText(text, size);
-        DrawText(text, (GetScreenWidth() / 2) - (textSize / 2), GetScreenHeight() / 2 - (size / 2), size, Fade(RAYWHITE, alpha));
+        DrawText(text, (GetScreenWidth() / 2) - (textSize / 2), GetScreenHeight() / 2 - (size / 2), size, Fade(COLOR_B, alpha));
     }
 }
 

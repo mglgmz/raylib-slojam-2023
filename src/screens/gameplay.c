@@ -15,7 +15,7 @@ float alpha = 0.3f;
 static Shader scanlinesShader;
 static Shader bloomShader;
 
-int shaderOption = 2;
+int shaderOption = 0;
 
 void InitGameplayScreen()
 {
@@ -76,7 +76,7 @@ void UpdateGameplayScreen()
                 char *text = "YOU DIED";
                 int fontSize = 30;
                 int size = MeasureText(text, fontSize);
-                DrawText(text, target.texture.width / 2 - size / 2, target.texture.height / 2 - (fontSize / 2), fontSize, Fade(COLOR_B, alpha));
+                Text_DrawText(text, target.texture.width / 2 - size / 2, target.texture.height / 2 - (fontSize / 2), fontSize, Fade(COLOR_B, alpha));
             }
         }
     EndTextureMode();

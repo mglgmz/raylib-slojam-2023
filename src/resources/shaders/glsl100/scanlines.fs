@@ -11,7 +11,7 @@ uniform sampler2D texture0;
 uniform vec4 colDiffuse;
 
 float offset = 0.0;
-float frequency = 750.0/3.0;
+float frequency = 6000.0/3.0;
 
 void main()
 {
