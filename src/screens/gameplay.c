@@ -12,6 +12,12 @@ static Player *player;
 float deathTs = -1.0f;
 float alpha = 0.3f;
 
+int paused = 0;
+float gameTs;
+
+static void UpdatePause();
+static void RenderPauseOverlay();
+
 void InitGameplayScreen()
 {
     InitParticles();
@@ -27,6 +33,18 @@ void InitGameplayScreen()
 
 void UpdateGameplayScreen()
 {
+    if(paused) {
+        UpdatePause();
+        RenderPauseOverlay();
+        return;
+    }
+
+    gameTs += GetFrameTime();
+
+    if(deathTs < 0.0f && IsKeyPressed(KEY_ENTER)) {
+        paused = 1;
+        return;
+    }
 
     if (player->currentLife > 0)
     {
@@ -36,14 +54,14 @@ void UpdateGameplayScreen()
     {
         if (deathTs < 0.0f)
         {
-            deathTs = GetTime();
+            deathTs = gameTs;
         }
-        else if (GetTime() - deathTs > 1.1f)
+        else if (gameTs - deathTs > 1.1f)
         {
             alpha += 0.02f;
         }
 
-        if (GetTime() - deathTs > 3.5f)
+        if (gameTs - deathTs > 3.5f)
             ChangeToScreen(MENU);
     }
     UpdateSimulation();
@@ -56,7 +74,7 @@ void UpdateGameplayScreen()
         RenderSpace();
         RenderParticles();
 
-        if (deathTs > 0 && GetTime() - deathTs > 1.1f)
+        if (deathTs > 0 && gameTs - deathTs > 1.1f)
         {
             DrawRectangle(0, 0, target.texture.width, target.texture.height, Fade(COLOR_A, 0.8f));
             if (deathTs > 0.5f)
@@ -75,6 +93,23 @@ void RenderGameplayScreen()
 {
     DrawTexturePro(target.texture, (Rectangle){0, 0, (float)target.texture.width, -(float)target.texture.height}, (Rectangle){0, 0, (float)screenWidth, (float)screenHeight}, (Vector2){0, 0}, 0.0f, WHITE);
     RenderUI();
+}
+
+void UpdatePause() {
+     if(IsKeyPressed(KEY_ENTER)) {
+        paused = 0;
+        return;
+    }
+}
+
+void RenderPauseOverlay() {
+    BeginTextureMode(target);
+        ClearBackground(COLOR_A);
+        char *text = "Paused";
+        int fontSize = 24;
+        int size = MeasureText(text, fontSize);
+        Text_DrawText(text, target.texture.width / 2 - size / 2, target.texture.height / 2 - (fontSize / 2), fontSize, Fade(COLOR_B, alpha));
+    EndTextureMode();
 }
 
 void ReleaseGameplayScreen()
