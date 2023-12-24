@@ -175,11 +175,14 @@ void UpdateLogoScreen()
             DrawRectangle(logoPositionX, logoPositionY + maxLogoSize - baseSize / 2, bottomSideRecWidth, baseSize, Fade(COLOR_B, alpha));
 
             // DrawRectangle(GetScreenWidth() / 2 - 112, GetScreenHeight() / 2 - 112, 224, 224, Fade(COLOR_A, alpha));
-
-            DrawText(TextSubtext("raylib", 0, lettersCount), 166, 156, 16, Fade(COLOR_B, alpha));
-
-            if (framesCounter > 20)
-                DrawText("powered by", logoPositionX, logoPositionY - 15, 12, Fade(COLOR_B, alpha));
+            if(framesCounter < 80) {
+                DrawText(TextSubtext("raylib", 0, lettersCount), 166, 156, 16, Fade(COLOR_B, alpha));
+                if (framesCounter > 20)
+                    DrawText("powered by", logoPositionX, logoPositionY - 15, 12, Fade(COLOR_B, alpha));
+            } else {
+                Text_DrawText(TextSubtext("raylib", 0, lettersCount), 156, 156, 16, Fade(COLOR_B, alpha));
+                Text_DrawText("powered by", logoPositionX, logoPositionY - 15, 12, Fade(COLOR_B, alpha));
+            }
         }
         else if (state == 4 || state == 5)
         {
