@@ -19,7 +19,7 @@ float offset = 0.0;
 
 void main()
 {
-    float frequency = 320/3.0;
+    float frequency = 750.0/3.0;
 
     float globalPos = (fragTexCoord.y + offset) * frequency;
     float wavePos = cos((fract(globalPos) - 0.5)*3.14);

@@ -33,6 +33,7 @@
 #endif
 
 static void UpdateDrawFrame(void); // Update and Draw one frame
+static Shader scanlinesShader;
 
 int main(void)
 {
@@ -40,7 +41,8 @@ int main(void)
     SetTraceLogLevel(LOG_NONE);
 #endif
 
-    InitWindow(screenWidth, screenHeight, "raylib gamejam template");
+    InitWindow(screenWidth, screenHeight, "mglglmz Asteroids");
+    scanlinesShader = LoadShader(0, TextFormat("resources/shaders/glsl%i/scanlines.fs", GLSL_VERSION));
     InitText();
     InitCurrentScreen();
 #if defined(PLATFORM_WEB)
@@ -54,6 +56,7 @@ int main(void)
 #endif
     ReleaseCurrentScreen();
     ReleaseText();
+    UnloadShader(scanlinesShader);
     CloseWindow();
     return 0;
 }
@@ -64,7 +67,8 @@ void UpdateDrawFrame(void)
     UpdateCurrentScreen();
     BeginDrawing();
         ClearBackground(COLOR_A);
-
-        RenderCurrentScreen();
+        BeginShaderMode(scanlinesShader);
+            RenderCurrentScreen();
+        EndShaderMode();
     EndDrawing();
 }
