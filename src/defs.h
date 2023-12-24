@@ -26,4 +26,10 @@ static const int gameHeight = 240;
     #define GLSL_VERSION            100
 #endif
 
+#if defined(DEBUGGER)
+    #define DEFAULT_SCREEN MENU
+#else
+    #define DEFAULT_SCREEN LOGO
+#endif
+
 #endif
