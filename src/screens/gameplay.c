@@ -17,6 +17,7 @@ float gameTs;
 
 static void UpdatePause();
 static void RenderPauseOverlay();
+static void PrepareRender();
 
 void InitGameplayScreen()
 {
@@ -67,6 +68,11 @@ void UpdateGameplayScreen()
     UpdateSimulation();
     UpdateParticles();
     UpdateUI();
+    
+    PrepareRender();
+}
+
+void PrepareRender() {
     BeginTextureMode(target);
         ClearBackground(COLOR_A);
         
