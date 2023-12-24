@@ -2,14 +2,14 @@
 
 void UpdateSimulation()
 {
-    EntityList *asteroids = GetAsteroids();
+    AsteroidList *asteroids = GetAsteroids();
     EntityList *bullets = GetBullets();
     Player *player = GetPlayer();
 
     float dt = GetFrameTime();
     for (int i = 0; i < asteroids->used; i++)
     {
-        Entity *asteroid = &asteroids->array[i];
+        Asteroid *asteroid = &asteroids->array[i];
 
         asteroid->x += asteroid->dx * dt;
         asteroid->y += asteroid->dy * dt;
@@ -19,7 +19,7 @@ void UpdateSimulation()
 
     for (int j = 0; j < asteroids->used; j++)
     {
-        Entity *asteroid = &asteroids->array[j];
+        Asteroid *asteroid = &asteroids->array[j];
 
         for (int i = 0; i < bullets->used; i++)
         {
@@ -81,7 +81,7 @@ void UpdateSimulation()
     for (int i = asteroids->used - 1; i >= 0; i--)
     {
         if (asteroids->array[i].active == 0)
-            EntityList_Delete(asteroids, i);
+            DespawnAsteroid(i);
     }
 
     if (bullets->used > 0)

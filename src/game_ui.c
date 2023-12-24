@@ -34,7 +34,7 @@ void UpdateUI()
             EntityList* bullets = GetBullets();
             DrawText(TextFormat("Bullets: %d / %d", bullets->used, bullets->size), 10, 70, 14, PINK);
 
-            EntityList* asteroids = GetAsteroids();
+            AsteroidList* asteroids = GetAsteroids();
             DrawText(TextFormat("Asteroids: %d / %d", asteroids->used, asteroids->size), 10, 90, 14, LIME);
 
             EntityList* particles = GetParticles();

@@ -41,7 +41,6 @@ void EntityList_Add(EntityList *list, Entity *entity)
 void EntityList_Delete(EntityList *list, int index)
 {
     int i;
-    Entity *entities;
     for (i = index; i < list->size; i++)
     {
         list->array[i] = list->array[i + 1];

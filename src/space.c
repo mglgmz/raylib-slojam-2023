@@ -2,6 +2,12 @@
 
 #define INITIAL_ASTEROIDS 2 // Number of Asteroids Per Sector
 
+// Asteroid List Management
+void AsteroidList_Init(AsteroidList *list, int inicialCapacity);
+void AsteroidList_Add(AsteroidList *list, Asteroid *entity);
+void AsteroidList_Delete(AsteroidList *list, int index);
+void AsteroidList_Free(AsteroidList *list);
+
 int GetRandomAsteroidSize()
 {
     int sizeExp = GetRandomValue(1, 3);
@@ -13,16 +19,16 @@ int GetRandomAsteroidSize()
 
 void SpawnAsteroid(float x, float y, int size, float speed, int rotation)
 {
-    Entity asteroid = {
+    Asteroid asteroid = {
         .x = x,
         .y = y,
         .dx = 0,
         .dy = 0,
         .size = size,
-        .shape = 1,
         .speed = speed,
         .rotation = rotation, // direction
-        .active = 1};
+        .active = 1
+    };
 
     float rotSin = sinf(asteroid.rotation);
     float rotCos = cosf(asteroid.rotation);
@@ -30,12 +36,16 @@ void SpawnAsteroid(float x, float y, int size, float speed, int rotation)
     asteroid.dx = rotCos * asteroid.speed;
     asteroid.dy = rotSin * asteroid.speed;
 
-    EntityList_Add(&asteroids, &asteroid);
+    AsteroidList_Add(&asteroids, &asteroid);
+}
+
+void DespawnAsteroid(int index) {
+    AsteroidList_Delete(&asteroids, index);
 }
 
 void InitSpace()
 {
-    EntityList_Init(&asteroids, 2 * INITIAL_ASTEROIDS);
+    AsteroidList_Init(&asteroids, 2 * INITIAL_ASTEROIDS);
 
     // Up
     for (int i = 0; i < INITIAL_ASTEROIDS; i++)
@@ -81,22 +91,22 @@ void RenderSpace()
 {
     for (int i = 0; i < asteroids.used; i++)
     {
-        Entity asteroid = asteroids.array[i];
+        Asteroid asteroid = asteroids.array[i];
         DrawCircleLines(asteroid.x, asteroid.y, asteroid.size, COLOR_B);
     }
 }
 
 void ReleaseSpace()
 {
-    EntityList_Free(&asteroids);
+    AsteroidList_Free(&asteroids);
 }
 
-EntityList *GetAsteroids()
+AsteroidList *GetAsteroids()
 {
     return &asteroids;
 }
 
-void OnAsteroidHit(Entity *asteroid, float hitX, float hitY)
+void OnAsteroidHit(Asteroid *asteroid, float hitX, float hitY)
 {
     // Number of particles based on asteroid size???
     int particles = 8;
@@ -117,4 +127,56 @@ void OnAsteroidHit(Entity *asteroid, float hitX, float hitY)
         particle.y = hitY;
         AddParticle(&particle);
     }
+}
+
+// Asteroid List Management
+void AsteroidList_Init(AsteroidList *list, int initialCapacity) {
+    Asteroid *asteroids;
+    asteroids = malloc(sizeof(Asteroid) * initialCapacity);
+    if (asteroids == NULL)
+    {
+        TraceLog(LOG_ERROR, "Unable to allocate memory");
+        free(asteroids);
+        exit(0);
+    }
+    else
+    {
+        list->array = asteroids;
+        list->size = initialCapacity;
+        list->used = 0;
+    }
+}
+
+void AsteroidList_Add(AsteroidList *list, Asteroid *entity) {
+    Asteroid *asteroids;
+    list->used += 1;
+
+    if (list->used >= list->size)
+    {
+        list->size = list->size * 2;
+        asteroids = (Asteroid *)realloc(list->array, list->size * sizeof(Asteroid));
+        if (asteroids == NULL)
+        {
+            TraceLog(LOG_ERROR, "Unable to allocate memory");
+            free(asteroids);
+            exit(0);
+        }
+        list->array = asteroids;
+    }
+    list->array[list->used - 1] = *entity;
+}
+
+void AsteroidList_Delete(AsteroidList *list, int index) {
+    int i;
+    for (i = index; i < list->size; i++)
+    {
+        list->array[i] = list->array[i + 1];
+    }
+    list->used -= 1;
+}
+
+void AsteroidList_Free(AsteroidList *list) {
+    free(list->array);
+    //list->array = NULL;
+    list->size = 0;
 }

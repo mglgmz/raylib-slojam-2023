@@ -6,15 +6,38 @@
 #include "particles.h"
 #include <raylib.h>
 
-static EntityList asteroids;
+#define ASTEROID_VERTS 20
+
+typedef struct Asteroid {
+    float x;
+    float y;
+    float dx;
+    float dy;
+    float speed;
+    int size;
+    float rotation;
+    float rotationSpeed;
+    int active;
+    float verts[ASTEROID_VERTS];
+} Asteroid;
+
+typedef struct AsteroidList {
+    Asteroid *array;
+    size_t size;
+    size_t used;
+} AsteroidList;
+
+static AsteroidList asteroids;
 
 void InitSpace();
 void RenderSpace();
 void ReleaseSpace();
 
 void SpawnAsteroid(float x, float y, int size, float speed, int rotation);
-EntityList* GetAsteroids();
+void DespawnAsteroid(int index);
 
-void OnAsteroidHit(Entity* asteroid, float hitX, float hitY);
+AsteroidList* GetAsteroids();
+
+void OnAsteroidHit(Asteroid* asteroid, float hitX, float hitY);
 
 #endif
