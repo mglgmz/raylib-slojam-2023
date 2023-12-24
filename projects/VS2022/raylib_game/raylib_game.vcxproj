@@ -351,8 +351,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\entity_list.c" />
+    <ClCompile Include="..\..\..\src\game_ui.c" />
+    <ClCompile Include="..\..\..\src\particles.c" />
     <ClCompile Include="..\..\..\src\player.c" />
     <ClCompile Include="..\..\..\src\raylib_game.c" />
+    <ClCompile Include="..\..\..\src\screens\gameplay.c" />
+    <ClCompile Include="..\..\..\src\screens\intro.c" />
+    <ClCompile Include="..\..\..\src\screens\logo.c" />
+    <ClCompile Include="..\..\..\src\screens\menu.c" />
+    <ClCompile Include="..\..\..\src\screens\options.c" />
+    <ClCompile Include="..\..\..\src\screens\score.c" />
+    <ClCompile Include="..\..\..\src\screens\screens.c" />
+    <ClCompile Include="..\..\..\src\simulation.c" />
+    <ClCompile Include="..\..\..\src\space.c" />
+    <ClCompile Include="..\..\..\src\text.c" />
     <ClCompile Include="..\..\..\src\utils.c" />
   </ItemGroup>
   <ItemGroup>
@@ -360,8 +373,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\defs.h" />
+    <ClInclude Include="..\..\..\src\entity_list.h" />
+    <ClInclude Include="..\..\..\src\game_ui.h" />
+    <ClInclude Include="..\..\..\src\particles.h" />
     <ClInclude Include="..\..\..\src\player.h" />
+    <ClInclude Include="..\..\..\src\resource.h" />
+    <ClInclude Include="..\..\..\src\screens\screens.h" />
+    <ClInclude Include="..\..\..\src\simulation.h" />
+    <ClInclude Include="..\..\..\src\space.h" />
+    <ClInclude Include="..\..\..\src\text.h" />
     <ClInclude Include="..\..\..\src\utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\ttf2.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\src\raylib.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
