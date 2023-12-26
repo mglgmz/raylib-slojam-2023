@@ -38,8 +38,8 @@ void SpawnAsteroid(float x, float y, int size, float speed, int rotation)
     asteroid.dx = rotCos * asteroid.speed;
     asteroid.dy = rotSin * asteroid.speed;
     asteroid.health = 1;
-    
-    for(int i=0; i < ASTEROID_VERTS; i++) {
+
+   for(int i=0; i < ASTEROID_VERTS; i++) {
         float verticeRadius = GetRandomFloat() * 0.3f + 0.8f;
         float angle = ((float)i / (float)ASTEROID_VERTS) * TWO_PI;
         asteroid.vertices[i].x = verticeRadius * cosf(angle);

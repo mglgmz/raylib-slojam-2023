@@ -11,6 +11,7 @@ void UpdateSimulation()
     {
         Asteroid *asteroid = &asteroids->array[i];
         asteroid->rotation = asteroid->rotation + asteroid->rotationSpeed * dt;
+        NormalizeAngle(&asteroid->rotation);
         asteroid->x += asteroid->dx * dt;
         asteroid->y += asteroid->dy * dt;
 

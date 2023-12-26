@@ -13,7 +13,7 @@ void NormalizeAngle(float *angle)
 
 float RadiansToDegrees(float radians)
 {
-    return radians * (180 / PI);
+    return radians * RAD2DEG;
 }
 
 int WrapPosition(float *x, float *y)
