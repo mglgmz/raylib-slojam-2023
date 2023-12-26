@@ -28,6 +28,7 @@ static Player player = {
 
 int directionX;
 int directionY;
+static Sound shootSound;
 
 void InitPlayer(void) {
     player.currentLife = player.maxLife;
@@ -37,6 +38,10 @@ void InitPlayer(void) {
     player.y = 100;
 
     EntityList_Init(&bullets, 100);
+
+    shootSound = LoadSound("resources/sounds/effects/flaunch.wav");
+    SetSoundVolume(shootSound, 0.3f);
+    SetSoundPitch(shootSound, 1.5f);
 }
 
 void UpdatePlayer(void) {
@@ -83,6 +88,7 @@ void UpdatePlayer(void) {
         bullet.rotation = player.rotation;
         bullet.active = 1;
         EntityList_Add(&bullets, &bullet);
+        PlaySound(shootSound);
     }
 }
 
@@ -106,6 +112,7 @@ void RenderPlayer(void) {
 
 void ReleasePlayer(void) {
     EntityList_Free(&bullets);
+    UnloadSound(shootSound);
 }
 
 EntityList* GetBullets() {

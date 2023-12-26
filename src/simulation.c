@@ -1,6 +1,17 @@
 #include "simulation.h"
 
-void UpdateSimulation()
+static Sound explosionSound;
+
+void InitSimulation(void) {
+    explosionSound = LoadSound("resources/sounds/effects/8bit_bomb_explosion.wav");
+    SetSoundVolume(explosionSound, 0.6f);
+}
+
+void ReleaseSimulation(void) {
+    UnloadSound(explosionSound);
+}
+
+void UpdateSimulation(void)
 {
     AsteroidList *asteroids = GetAsteroids();
     EntityList *bullets = GetBullets();
@@ -81,8 +92,10 @@ void UpdateSimulation()
 
     for (int i = asteroids->used - 1; i >= 0; i--)
     {
-        if (asteroids->array[i].active == 0)
+        if (asteroids->array[i].active == 0) {
             DespawnAsteroid(i);
+            PlaySound(explosionSound);
+        }
     }
 
     if (bullets->used > 0)

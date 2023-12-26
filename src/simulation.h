@@ -7,6 +7,8 @@
 #include "entity_list.h"
 #include "utils.h"
 
+void InitSimulation(void);
 void UpdateSimulation(void);
+void ReleaseSimulation(void);
 
 #endif

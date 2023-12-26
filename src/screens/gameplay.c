@@ -27,6 +27,7 @@ void InitGameplayScreen()
     InitParticles();
     InitPlayer();
     InitSpace();
+    InitSimulation();
     InitUI();
     target = LoadRenderTexture(gameWidth, gameHeight);
 
@@ -36,7 +37,6 @@ void InitGameplayScreen()
 
     PlayMusic("asteroids");
     UpdateMusicVolume(0.5f);
-
 }
 
 void UpdateGameplayScreen()
@@ -130,5 +130,6 @@ void ReleaseGameplayScreen()
 {
     ReleaseSpace();
     ReleasePlayer();
+    ReleaseSimulation();
     UnloadRenderTexture(target);
 }
