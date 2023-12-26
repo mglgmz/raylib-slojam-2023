@@ -6,7 +6,7 @@
 #include "particles.h"
 #include <raylib.h>
 
-#define ASTEROID_VERTS 10
+#define ASTEROID_VERTS 12
 
 typedef struct AsteroidVertice {
     float x;

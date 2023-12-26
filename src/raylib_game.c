@@ -23,6 +23,7 @@
 #include <stdlib.h> // Required for:
 #include <string.h>
 #include "text.h"
+#include "game_music.h"
 #include "screens/screens.h"
 
 #define SUPPORT_LOG_INFO
@@ -42,6 +43,7 @@ int main(void)
 #endif
 
     InitWindow(screenWidth, screenHeight, "mglglmz Asteroids");
+    InitGameMusic();
     scanlinesShader = LoadShader(0, TextFormat("resources/shaders/glsl%i/scanlines.fs", GLSL_VERSION));
     InitText();
     InitCurrentScreen();
@@ -56,15 +58,17 @@ int main(void)
 #endif
     ReleaseCurrentScreen();
     ReleaseText();
+    ReleaseGameMusic();
     UnloadShader(scanlinesShader);
+    CloseAudioDevice();
     CloseWindow();
     return 0;
 }
 
 void UpdateDrawFrame(void)
 {
-
     UpdateCurrentScreen();
+    UpdateGameMusic();
     BeginDrawing();
         ClearBackground(COLOR_A);
         BeginShaderMode(scanlinesShader);

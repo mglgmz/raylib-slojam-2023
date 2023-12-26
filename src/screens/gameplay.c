@@ -5,6 +5,7 @@
 #include "../defs.h"
 #include "../particles.h"
 #include "../game_ui.h"
+#include "../game_music.h"
 
 static RenderTexture2D target = {0}; // Render texture to render our game
 static Player *player;
@@ -12,12 +13,14 @@ static Player *player;
 float deathTs = -1.0f;
 float alpha = 0.3f;
 
-int paused = 0;
+static int gamePaused = 0;
 float gameTs;
 
 static void UpdatePause();
 static void RenderPauseOverlay();
 static void PrepareRender();
+
+static Music music;
 
 void InitGameplayScreen()
 {
@@ -30,11 +33,15 @@ void InitGameplayScreen()
     player = GetPlayer();
     deathTs = -1.0f;
     alpha = 0.3f;
+
+    PlayMusic("asteroids");
+    UpdateMusicVolume(0.5f);
+
 }
 
 void UpdateGameplayScreen()
 {
-    if(paused) {
+    if(gamePaused) {
         UpdatePause();
         RenderPauseOverlay();
         return;
@@ -43,7 +50,7 @@ void UpdateGameplayScreen()
     gameTs += GetFrameTime();
 
     if(deathTs < 0.0f && IsKeyPressed(KEY_ENTER)) {
-        paused = 1;
+        gamePaused = 1;
         return;
     }
 
@@ -53,6 +60,7 @@ void UpdateGameplayScreen()
     }
     else
     {
+        UpdateMusicPitch(0.85f);
         if (deathTs < 0.0f)
         {
             deathTs = gameTs;
@@ -103,7 +111,7 @@ void RenderGameplayScreen()
 
 void UpdatePause() {
      if(IsKeyPressed(KEY_ENTER)) {
-        paused = 0;
+        gamePaused = 0;
         return;
     }
 }
@@ -120,7 +128,6 @@ void RenderPauseOverlay() {
 
 void ReleaseGameplayScreen()
 {
-   
     ReleaseSpace();
     ReleasePlayer();
     UnloadRenderTexture(target);

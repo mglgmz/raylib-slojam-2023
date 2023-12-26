@@ -3,16 +3,24 @@
 #include "../entity_list.h"
 #include "../defs.h"
 #include "../text.h"
+#include "../game_music.h"
 
 RenderTexture2D menuTexture = { 0 };
+static Music music;
+static Sound clickSound;
 
 void InitMenuScreen() {
     menuTexture = LoadRenderTexture(gameWidth, gameHeight);
+    PlayMusic("asteroids");
+    UpdateMusicVolume(0.2f);
+    clickSound = LoadSound("resources/sounds/effects/Flashpoint001d.wav");
 } 
 
 void UpdateMenuScreen() {
-    if(IsKeyReleased(KEY_ENTER))
+    if(IsKeyReleased(KEY_ENTER)) {
+        PlaySound(clickSound);
         ChangeToScreen(GAMEPLAY);
+    }
 
     BeginTextureMode(menuTexture);
         ClearBackground(COLOR_A);
@@ -28,5 +36,5 @@ void RenderMenuScreen() {
 }
 
 void ReleaseMenuScreen() {
-  UnloadRenderTexture(menuTexture);
+    UnloadRenderTexture(menuTexture);
 }
