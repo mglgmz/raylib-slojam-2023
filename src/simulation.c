@@ -10,7 +10,7 @@ void UpdateSimulation()
     for (int i = 0; i < asteroids->used; i++)
     {
         Asteroid *asteroid = &asteroids->array[i];
-
+        asteroid->rotation = asteroid->rotation + asteroid->rotationSpeed * dt;
         asteroid->x += asteroid->dx * dt;
         asteroid->y += asteroid->dy * dt;
 

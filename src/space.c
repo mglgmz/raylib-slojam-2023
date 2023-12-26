@@ -8,6 +8,8 @@ void AsteroidList_Add(AsteroidList *list, Asteroid *entity);
 void AsteroidList_Delete(AsteroidList *list, int index);
 void AsteroidList_Free(AsteroidList *list);
 
+#define ASTEROID_ROTATION_SPEED 40 * (PI / 180)
+
 int GetRandomAsteroidSize()
 {
     int sizeExp = GetRandomValue(1, 3);
@@ -16,7 +18,6 @@ int GetRandomAsteroidSize()
         size *= 2;
     return size;
 }
-
 void SpawnAsteroid(float x, float y, int size, float speed, int rotation)
 {
     Asteroid asteroid = {
@@ -26,7 +27,8 @@ void SpawnAsteroid(float x, float y, int size, float speed, int rotation)
         .dy = 0,
         .size = size,
         .speed = speed,
-        .rotation = rotation, // direction
+        .rotation = GetRandomFloat() * TWO_PI, // direction
+        .rotationSpeed = ASTEROID_ROTATION_SPEED * GetRandomFloat(),
         .active = 1
     };
 
@@ -35,6 +37,14 @@ void SpawnAsteroid(float x, float y, int size, float speed, int rotation)
 
     asteroid.dx = rotCos * asteroid.speed;
     asteroid.dy = rotSin * asteroid.speed;
+    asteroid.health = 1;
+    
+    for(int i=0; i < ASTEROID_VERTS; i++) {
+        float verticeRadius = GetRandomFloat() * 0.3f + 0.8f;
+        float angle = ((float)i / (float)ASTEROID_VERTS) * TWO_PI;
+        asteroid.vertices[i].x = verticeRadius * cosf(angle);
+        asteroid.vertices[i].y = verticeRadius * sinf(angle);
+    }
 
     AsteroidList_Add(&asteroids, &asteroid);
 }
@@ -89,10 +99,44 @@ void InitSpace()
 
 void RenderSpace()
 {
+    AsteroidVertice drawVertices[ASTEROID_VERTS];
+
     for (int i = 0; i < asteroids.used; i++)
     {
+        
         Asteroid asteroid = asteroids.array[i];
-        DrawCircleLines(asteroid.x, asteroid.y, asteroid.size, COLOR_B);
+        for(int v = 0; v < ASTEROID_VERTS; v++) {
+            drawVertices[v] = (AsteroidVertice) { asteroid.vertices[v].x, asteroid.vertices[v].y };
+            // rotation
+            drawVertices[v].x = asteroid.vertices[v].x * cosf(asteroid.rotation) - asteroid.vertices[v].y * sinf(asteroid.rotation);
+            drawVertices[v].y = asteroid.vertices[v].x * sinf(asteroid.rotation) + asteroid.vertices[v].y * cosf(asteroid.rotation);
+
+            // scale: can this be done on intialization?
+            drawVertices[v].x = drawVertices[v].x * asteroid.size;
+            drawVertices[v].y = drawVertices[v].y * asteroid.size;
+            // translation
+            drawVertices[v].x = drawVertices[v].x + asteroid.x;
+            drawVertices[v].y = drawVertices[v].y + asteroid.y;
+        }
+
+        for(int v = 0; v < ASTEROID_VERTS + 1; v++) { 
+            int j = (v + 1);
+
+            DrawLine(
+                drawVertices[v % ASTEROID_VERTS].x, drawVertices[v % ASTEROID_VERTS].y, 
+                drawVertices[j % ASTEROID_VERTS].x, drawVertices[j % ASTEROID_VERTS].y, 
+                COLOR_B
+            );
+            if(asteroid.heavy)
+                DrawTriangle( 
+                    (Vector2){ asteroid.x, asteroid.y },
+                    (Vector2){ drawVertices[j % ASTEROID_VERTS].x, drawVertices[j % ASTEROID_VERTS].y },
+                    (Vector2){ drawVertices[v % ASTEROID_VERTS].x, drawVertices[v % ASTEROID_VERTS].y },
+                    COLOR_B
+                );
+        }
+        // colliders, TODO: make a way to turn all colliders drawing globally
+        // DrawCircleLines(asteroid.x, asteroid.y, asteroid.size, MAGENTA);
     }
 }
 

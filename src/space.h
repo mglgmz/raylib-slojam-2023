@@ -6,7 +6,12 @@
 #include "particles.h"
 #include <raylib.h>
 
-#define ASTEROID_VERTS 20
+#define ASTEROID_VERTS 10
+
+typedef struct AsteroidVertice {
+    float x;
+    float y;
+} AsteroidVertice;
 
 typedef struct Asteroid {
     float x;
@@ -18,7 +23,9 @@ typedef struct Asteroid {
     float rotation;
     float rotationSpeed;
     int active;
-    float verts[ASTEROID_VERTS];
+    int heavy;
+    int health;
+    AsteroidVertice vertices[ASTEROID_VERTS];
 } Asteroid;
 
 typedef struct AsteroidList {
