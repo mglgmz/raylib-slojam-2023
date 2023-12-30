@@ -68,6 +68,7 @@ int main(void)
 
 void UpdateDrawFrame(void)
 {
+    UpdateRenderer();
     UpdateCurrentScreen();
     UpdateGameMusic();
     RenderGame();

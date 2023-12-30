@@ -1,4 +1,5 @@
 #include "simulation.h"
+#include "renderer.h"
 
 static Sound explosionSound;
 
@@ -45,6 +46,7 @@ void UpdateSimulation(void)
                 OnAsteroidHit(asteroid, bullet->x, bullet->y);
                 if (asteroid->size > ASTEROID_BASE_SIZE)
                 {
+                    ShakeScreen(asteroid->size);
                     float halfSize = asteroid->size / 2;
                     // spawn new asteroids
                     SpawnAsteroid(
@@ -67,6 +69,7 @@ void UpdateSimulation(void)
         {
             // TODO: damage based on asteroid->size
             HitPlayer(player, 1);
+            ShakeScreen(30);
             OnAsteroidHit(asteroid, player->x, player->y);
             asteroid->active = 0;
             float halfSize = asteroid->size / 2;

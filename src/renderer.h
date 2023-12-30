@@ -10,8 +10,12 @@ static RenderTexture2D uiTexture;
 static Shader scanlinesShader;
 
 void InitRenderer(void);
-void RenderGame(void);
 void ReleaseRenderer(void);
+
+void RenderGame(void);
+void UpdateRenderer(void);
+
+void ShakeScreen(int strength);
 
 RenderTexture2D GetRenderTexture(void);
 RenderTexture2D GetUITexture(void);
