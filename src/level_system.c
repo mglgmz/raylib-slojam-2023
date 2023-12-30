@@ -66,18 +66,16 @@ void LoadCurrentLevel(void) {
         asteroidsPerSector = asteroidsPerSector * (level.levelModifier * (float)levelIteration);
     }
 
-     // Up
-    // for (int i = 0; i < asteroidsPerSector; i++)
-    // {
-    //     int size = GetRandomAsteroidSize(level.minAsteroidSize, level.maxAsteroidSize);
-    //     SpawnAsteroid(
-    //         (float)GetRandomValue(0, gameWidth),
-    //         (float)(0 - size),
-    //         size,
-    //         (float)GetRandomValue(3, 18),
-    //         GetRandomValue(0, 360));
-    // }
-    // Down
+    for (int i = 0; i < asteroidsPerSector; i++)
+    {
+        int size = GetRandomAsteroidSize(level.minAsteroidSize, level.maxAsteroidSize);
+        SpawnAsteroid(
+            (float)GetRandomValue(0, gameWidth),
+            (float)(0 - size),
+            size,
+            (float)GetRandomValue(3, 18),
+            GetRandomValue(0, 360));
+    }
     for (int i = 0; i < asteroidsPerSector; i++)
     {
         int size = GetRandomAsteroidSize(level.minAsteroidSize, level.maxAsteroidSize);
@@ -88,26 +86,26 @@ void LoadCurrentLevel(void) {
             (float)GetRandomValue(3, 18),
             GetRandomValue(0, 360));
     }
-    // for (int i = 0; i < asteroidsPerSector; i++)
-    // {
-    //     int size = GetRandomAsteroidSize(level.minAsteroidSize, level.maxAsteroidSize);
-    //     SpawnAsteroid(
-    //         (float) (0 - size),
-    //         (float)GetRandomValue(0, gameHeight),
-    //         size,
-    //         (float)GetRandomValue(3, 18),
-    //         GetRandomValue(0, 360));
-    // }
-    // for (int i = 0; i < asteroidsPerSector; i++)
-    // {
-    //     int size = GetRandomAsteroidSize(level.minAsteroidSize, level.maxAsteroidSize);
-    //     SpawnAsteroid(
-    //         (float)(gameWidth + size),
-    //         (float) GetRandomValue(0, gameHeight),
-    //         size,
-    //         (float)GetRandomValue(3, 18),
-    //         GetRandomValue(0, 360));
-    // }
+    for (int i = 0; i < asteroidsPerSector; i++)
+    {
+        int size = GetRandomAsteroidSize(level.minAsteroidSize, level.maxAsteroidSize);
+        SpawnAsteroid(
+            (float) (0 - size),
+            (float)GetRandomValue(0, gameHeight),
+            size,
+            (float)GetRandomValue(3, 18),
+            GetRandomValue(0, 360));
+    }
+    for (int i = 0; i < asteroidsPerSector; i++)
+    {
+        int size = GetRandomAsteroidSize(level.minAsteroidSize, level.maxAsteroidSize);
+        SpawnAsteroid(
+            (float)(gameWidth + size),
+            (float) GetRandomValue(0, gameHeight),
+            size,
+            (float)GetRandomValue(3, 18),
+            GetRandomValue(0, 360));
+    }
 }
 
 void RenderLevelSystem(void) {
