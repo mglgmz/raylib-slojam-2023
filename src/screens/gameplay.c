@@ -6,6 +6,7 @@
 #include "../particles.h"
 #include "../game_ui.h"
 #include "../game_music.h"
+#include "../renderer.h"
 
 static RenderTexture2D target = {0}; // Render texture to render our game
 static Player *player;
@@ -29,7 +30,7 @@ void InitGameplayScreen()
     InitSpace();
     InitSimulation();
     InitUI();
-    target = LoadRenderTexture(gameWidth, gameHeight);
+    target = GetRenderTexture();
 
     player = GetPlayer();
     deathTs = -1.0f;
@@ -131,5 +132,5 @@ void ReleaseGameplayScreen()
     ReleaseSpace();
     ReleasePlayer();
     ReleaseSimulation();
-    UnloadRenderTexture(target);
+    //UnloadRenderTexture(target);
 }

@@ -1,5 +1,6 @@
 #include "screens.h"
 #include "../defs.h"
+#include "../renderer.h"
 
 // RAYLIB LOGO
 // raylib logo from: https://github.com/raysan5/raylib-game-template/blob/main/src/screen_logo.c
@@ -26,7 +27,7 @@ static Shader logoShader;
 void InitLogoScreen()
 {
     logoShader = LoadShader(0, TextFormat("resources/shaders/glsl%i/scanlines.fs", GLSL_VERSION));
-    logoTexture = LoadRenderTexture(gameWidth, gameHeight);
+    logoTexture = GetRenderTexture();
     finishScreen = 0;
     framesCounter = 0;
     lettersCount = 0;
@@ -193,7 +194,7 @@ void UpdateLogoScreen()
         }
         else if (state == 6 || state == 7)
         {
-            char *text = "ASTEROIDS";
+            char *text = "C:\\>ASTEROIDS";
             int size = 36;
             int textSize = MeasureText(text, size);
             Text_DrawText(text, (gameWidth / 2) - (textSize / 2), gameHeight / 2 - (size / 2), size, Fade(COLOR_B, alpha));
@@ -203,8 +204,6 @@ void UpdateLogoScreen()
 
 void RenderLogoScreen()
 {
-    
-
     DrawTexturePro(logoTexture.texture, (Rectangle){0, 0, (float)logoTexture.texture.width, -(float)logoTexture.texture.height}, (Rectangle){0, 0, (float)screenWidth, (float)screenHeight}, (Vector2){0, 0}, 0.0f, WHITE);
 }
 

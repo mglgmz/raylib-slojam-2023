@@ -4,13 +4,14 @@
 #include "../defs.h"
 #include "../text.h"
 #include "../game_music.h"
+#include "../renderer.h"
 
 RenderTexture2D menuTexture = { 0 };
 static Music music;
 static Sound clickSound;
 
 void InitMenuScreen() {
-    menuTexture = LoadRenderTexture(gameWidth, gameHeight);
+    menuTexture = GetRenderTexture();
     PlayMusic("asteroids");
     UpdateMusicVolume(0.2f);
     clickSound = LoadSound("resources/sounds/effects/Flashpoint001d.wav");
@@ -36,5 +37,5 @@ void RenderMenuScreen() {
 }
 
 void ReleaseMenuScreen() {
-    UnloadRenderTexture(menuTexture);
+    
 }

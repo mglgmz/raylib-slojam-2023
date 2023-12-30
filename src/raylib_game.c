@@ -23,6 +23,7 @@
 #include <stdlib.h> // Required for:
 #include <string.h>
 #include "text.h"
+#include "renderer.h"
 #include "game_music.h"
 #include "screens/screens.h"
 
@@ -42,9 +43,9 @@ int main(void)
     SetTraceLogLevel(LOG_NONE);
 #endif
 
-    InitWindow(screenWidth, screenHeight, "mglglmz Asteroids");
+    InitWindow(screenWidth, screenHeight, "mglglmz C:/Asteroids");
     InitGameMusic();
-    scanlinesShader = LoadShader(0, TextFormat("resources/shaders/glsl%i/scanlines.fs", GLSL_VERSION));
+    InitRenderer();
     InitText();
     InitCurrentScreen();
 #if defined(PLATFORM_WEB)
@@ -59,7 +60,7 @@ int main(void)
     ReleaseCurrentScreen();
     ReleaseText();
     ReleaseGameMusic();
-    UnloadShader(scanlinesShader);
+    ReleaseRenderer();
     CloseAudioDevice();
     CloseWindow();
     return 0;
@@ -69,10 +70,5 @@ void UpdateDrawFrame(void)
 {
     UpdateCurrentScreen();
     UpdateGameMusic();
-    BeginDrawing();
-        ClearBackground(COLOR_A);
-        BeginShaderMode(scanlinesShader);
-            RenderCurrentScreen();
-        EndShaderMode();
-    EndDrawing();
+    RenderGame();
 }
