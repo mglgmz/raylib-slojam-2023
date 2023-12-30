@@ -16,27 +16,28 @@ float RadiansToDegrees(float radians)
     return radians * RAD2DEG;
 }
 
-int WrapPosition(float *x, float *y)
+int WrapPosition(float *x, float *y, int size)
 {
+    float o = (float)size;
     int positionWrapped = 0;
-    if (*x < 0.0f)
+    if (*x < (0.0f - o))
     {
-        *x += (float)gameWidth;
+        *x += (float)gameWidth +  2 * o;
         positionWrapped += 1;
     }
-    if (*x >= (float)gameWidth)
+    if (*x >= (float)gameWidth + o)
     {
-        *x -= (float)gameWidth;
+        *x -= (float)gameWidth +  2 * o;
         positionWrapped += 1;
     }
-    if (*y < 0.0f)
+    if (*y < 0.0f - o)
     {
-        *y += (float)gameHeight;
+        *y += (float)gameHeight + 2 * o;
         positionWrapped += 1;
     }
-    if (*y >= (float)gameHeight)
+    if (*y >= (float)gameHeight + o)
     {
-        *y -= (float)gameHeight;
+        *y -= (float)gameHeight + 2 * o;
         positionWrapped += 1;
     }
     return positionWrapped;

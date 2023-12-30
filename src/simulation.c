@@ -28,12 +28,14 @@ void UpdateSimulation(void)
         asteroid->y += asteroid->dy * dt;
 
         #if defined(DEBUGGER)
-            if(IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_K))
+            if(IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_K)) {
                 asteroid->active = 0;
+                OnAsteroidHit(asteroid, asteroid->x, asteroid->y);
+            }
         #endif
 
 
-        WrapPosition(&asteroid->x, &asteroid->y);
+        WrapPosition(&asteroid->x, &asteroid->y, asteroid->size);
     }
 
     for (int j = 0; j < asteroids->used; j++)
@@ -113,7 +115,7 @@ void UpdateSimulation(void)
         {
             Entity *bullet = &bullets->array[i];
 
-            if (!bullet->active || WrapPosition(&bullet->x, &bullet->y) > 0)
+            if (!bullet->active || WrapPosition(&bullet->x, &bullet->y, 0) > 0)
                 EntityList_Delete(bullets, i);
             else
             {

@@ -35,6 +35,7 @@ void UpdateRenderer(void) {
         targetX = 0.0f;
         targetY = 0.0f;
     }
+
 }
 
 void ShakeScreen(int strength) {

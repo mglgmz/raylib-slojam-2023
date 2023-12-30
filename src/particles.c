@@ -34,7 +34,7 @@ void UpdateParticles()
         particle->x += particle->dx * dt;
         particle->y += particle->dy * dt;
 
-        if (WrapPosition(&particle->x, &particle->y))
+        if (WrapPosition(&particle->x, &particle->y, 0))
         {
             particle->active = false;
         }

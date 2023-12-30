@@ -72,7 +72,7 @@ void UpdatePlayer(void) {
     //TODO: move to simulation
     player.x += player.velocityX * dt;
     player.y += player.velocityY * dt;
-    WrapPosition(&player.x, &player.y);
+    WrapPosition(&player.x, &player.y, 0);
 
     directionX = rotCos * 2 + player.x;
     directionY = rotSin * 2 + player.y;

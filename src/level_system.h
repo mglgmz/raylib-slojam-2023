@@ -22,7 +22,7 @@ typedef struct LevelDefinition
 static const int maxLevels = MAX_LEVELS;
 static int levelIteration = 0;
 static LevelDefinition levels[MAX_LEVELS] = {
-    { "Beginings", 2, 3, 1, 2, 0, 0, 0.0f }, 
+    { "", 4, 4, 1, 2, 0, 0, 0.0f }, 
     { "Alpha", 4, 6, 1, 3, 0, 0, 0.0f }, 
     { "Beta", 8, 12, 2, 3, 0, 0, 1.0f }, 
 };

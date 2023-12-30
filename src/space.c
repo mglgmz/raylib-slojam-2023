@@ -1,4 +1,5 @@
 #include "space.h"
+#include "text.h"
 
 // Asteroid List Management
 void AsteroidList_Init(AsteroidList *list, int inicialCapacity);
