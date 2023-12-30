@@ -53,7 +53,7 @@ void UpdateSimulation(void)
                 OnAsteroidHit(asteroid, bullet->x, bullet->y);
                 if (asteroid->size > ASTEROID_BASE_SIZE)
                 {
-                    ShakeScreen(asteroid->size);
+                    if(asteroid->size > 8) ShakeScreen(asteroid->size);
                     float halfSize = asteroid->size / 2;
                     // spawn new asteroids
                     SpawnAsteroid(

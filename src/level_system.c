@@ -108,7 +108,7 @@ void LoadCurrentLevel(void) {
 
 void RenderLevelSystem(void) {
     if(loadingNextLevelTs > 0.0f) {
-        char* currentLevelName = GetCurrentLevelName();
+        const char* currentLevelName = GetCurrentLevelName();
         Text_DrawText(currentLevelName, textX, gameHeight - 14, 14, COLOR_B);
         textX -= textSpeed * GetFrameTime();
     }
