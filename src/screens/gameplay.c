@@ -7,6 +7,7 @@
 #include "../game_ui.h"
 #include "../game_music.h"
 #include "../renderer.h"
+#include "../level_system.h"
 
 static RenderTexture2D target = {0}; // Render texture to render our game
 static Player *player;
@@ -30,6 +31,7 @@ void InitGameplayScreen()
     InitSpace();
     InitSimulation();
     InitUI();
+    InitLevelSystem();
     target = GetRenderTexture();
 
     player = GetPlayer();
@@ -78,6 +80,8 @@ void UpdateGameplayScreen()
     UpdateParticles();
     UpdateUI();
     
+    UpdateLevelSystem();
+
     PrepareRender();
 }
 
@@ -88,7 +92,8 @@ void PrepareRender() {
         RenderPlayer();
         RenderSpace();
         RenderParticles();
-
+        RenderLevelSystem();
+        
         if (deathTs > 0 && gameTs - deathTs > 1.1f)
         {
             DrawRectangle(0, 0, target.texture.width, target.texture.height, Fade(COLOR_A, 0.8f));
@@ -101,6 +106,7 @@ void PrepareRender() {
                 Text_DrawText(text, target.texture.width / 2 - size / 2, target.texture.height / 2 - (fontSize / 2), fontSize, Fade(COLOR_B, alpha));
             }
         }
+
     EndTextureMode();
 }
 
@@ -126,4 +132,5 @@ void ReleaseGameplayScreen()
     ReleaseSpace();
     ReleasePlayer();
     ReleaseSimulation();
+    ReleaseLevelSystem();
 }

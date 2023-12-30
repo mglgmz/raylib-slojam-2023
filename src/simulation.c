@@ -27,12 +27,19 @@ void UpdateSimulation(void)
         asteroid->x += asteroid->dx * dt;
         asteroid->y += asteroid->dy * dt;
 
+        #if defined(DEBUGGER)
+            if(IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_K))
+                asteroid->active = 0;
+        #endif
+
+
         WrapPosition(&asteroid->x, &asteroid->y);
     }
 
     for (int j = 0; j < asteroids->used; j++)
     {
         Asteroid *asteroid = &asteroids->array[j];
+        if(!asteroid->active) continue;
 
         for (int i = 0; i < bullets->used; i++)
         {

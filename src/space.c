@@ -1,7 +1,5 @@
 #include "space.h"
 
-#define INITIAL_ASTEROIDS 2 // Number of Asteroids Per Sector
-
 // Asteroid List Management
 void AsteroidList_Init(AsteroidList *list, int inicialCapacity);
 void AsteroidList_Add(AsteroidList *list, Asteroid *entity);
@@ -10,14 +8,6 @@ void AsteroidList_Free(AsteroidList *list);
 
 #define ASTEROID_ROTATION_SPEED 40 * (PI / 180)
 
-int GetRandomAsteroidSize()
-{
-    int sizeExp = GetRandomValue(1, 3);
-    int size = ASTEROID_BASE_SIZE;
-    for (int i = 1; i <= sizeExp; i++)
-        size *= 2;
-    return size;
-}
 void SpawnAsteroid(float x, float y, int size, float speed, int rotation)
 {
     Asteroid asteroid = {
@@ -55,46 +45,7 @@ void DespawnAsteroid(int index) {
 
 void InitSpace()
 {
-    AsteroidList_Init(&asteroids, 2 * INITIAL_ASTEROIDS);
-
-    // Up
-    for (int i = 0; i < INITIAL_ASTEROIDS; i++)
-    {
-        SpawnAsteroid(
-            GetRandomValue(0, gameWidth),
-            -50,
-            GetRandomAsteroidSize(),
-            (float)GetRandomValue(3, 18),
-            GetRandomValue(0, 360));
-    }
-    // Down
-    for (int i = 0; i < INITIAL_ASTEROIDS; i++)
-    {
-        SpawnAsteroid(
-            GetRandomValue(0, gameWidth),
-            gameHeight + 50,
-            GetRandomAsteroidSize(),
-            (float)GetRandomValue(3, 18),
-            GetRandomValue(0, 360));
-    }
-    for (int i = 0; i < INITIAL_ASTEROIDS; i++)
-    {
-        SpawnAsteroid(
-            -50,
-            GetRandomValue(0, gameHeight),
-            GetRandomAsteroidSize(),
-            (float)GetRandomValue(3, 18),
-            GetRandomValue(0, 360));
-    }
-    for (int i = 0; i < INITIAL_ASTEROIDS; i++)
-    {
-        SpawnAsteroid(
-            gameWidth + 50,
-            GetRandomValue(0, gameHeight),
-            GetRandomAsteroidSize(),
-            (float)GetRandomValue(3, 18),
-            GetRandomValue(0, 360));
-    }
+    AsteroidList_Init(&asteroids, 12);
 }
 
 void RenderSpace()
