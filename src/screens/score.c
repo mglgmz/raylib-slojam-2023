@@ -8,10 +8,6 @@ void UpdateScoreScreen() {
 
 }
 
-void RenderScoreScreen() {
-    
-}
-
 void ReleaseScoreScreen() {
     
 }

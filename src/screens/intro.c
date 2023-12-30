@@ -8,10 +8,6 @@ void UpdateIntroScreen() {
 
 }
 
-void RenderIntroScreen() {
-    
-}
-
 void ReleaseIntroScreen() {
     
 }

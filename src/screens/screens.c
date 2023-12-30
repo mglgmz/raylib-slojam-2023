@@ -65,28 +65,6 @@ void UpdateCurrentScreen()
     }
 }
 
-void RenderCurrentScreen()
-{
-    switch (currentScreen)
-    {
-    case LOGO:
-        RenderLogoScreen();
-        break;
-    case MENU:
-        RenderMenuScreen();
-        break;
-    case OPTIONS:
-        RenderOptionsScreen();
-        break;
-    case GAMEPLAY:
-        RenderGameplayScreen();
-        break;
-    case SCORE:
-        RenderScoreScreen();
-        break;
-    }
-}
-
 void ReleaseCurrentScreen()
 {
     switch (currentScreen)

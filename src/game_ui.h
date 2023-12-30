@@ -12,6 +12,5 @@ void InitUI();
 void ReleaseUI();
 
 void UpdateUI();
-void RenderUI();
 
 #endif

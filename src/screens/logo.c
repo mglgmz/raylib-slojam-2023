@@ -202,11 +202,6 @@ void UpdateLogoScreen()
     EndTextureMode();
 }
 
-void RenderLogoScreen()
-{
-    DrawTexturePro(logoTexture.texture, (Rectangle){0, 0, (float)logoTexture.texture.width, -(float)logoTexture.texture.height}, (Rectangle){0, 0, (float)screenWidth, (float)screenHeight}, (Vector2){0, 0}, 0.0f, WHITE);
-}
-
 void ReleaseLogoScreen()
 {
 }

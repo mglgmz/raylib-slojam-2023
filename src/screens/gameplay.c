@@ -104,12 +104,6 @@ void PrepareRender() {
     EndTextureMode();
 }
 
-void RenderGameplayScreen()
-{
-    DrawTexturePro(target.texture, (Rectangle){0, 0, (float)target.texture.width, -(float)target.texture.height}, (Rectangle){0, 0, (float)screenWidth, (float)screenHeight}, (Vector2){0, 0}, 0.0f, WHITE);
-    RenderUI();
-}
-
 void UpdatePause() {
      if(IsKeyPressed(KEY_ENTER)) {
         gamePaused = 0;
@@ -132,5 +126,4 @@ void ReleaseGameplayScreen()
     ReleaseSpace();
     ReleasePlayer();
     ReleaseSimulation();
-    //UnloadRenderTexture(target);
 }

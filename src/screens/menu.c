@@ -32,10 +32,6 @@ void UpdateMenuScreen() {
     EndTextureMode();
 }
 
-void RenderMenuScreen() {
-    DrawTexturePro(menuTexture.texture, (Rectangle){0, 0, (float)menuTexture.texture.width, -(float)menuTexture.texture.height}, (Rectangle){0, 0, (float)screenWidth, (float)screenHeight}, (Vector2){0, 0}, 0.0f, WHITE);
-}
-
 void ReleaseMenuScreen() {
     
 }

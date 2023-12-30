@@ -1,5 +1,6 @@
 #include "game_ui.h"
 #include "player.h"
+#include "renderer.h"
 
 static int debugInfoEnabled = 0;
 static RenderTexture2D uiTarget = {0};
@@ -8,7 +9,7 @@ Player* player;
 void InitUI()
 {
     defaultFont = GetFontDefault();
-    uiTarget = LoadRenderTexture(screenWidth, screenHeight);
+    uiTarget = GetUITexture();
     player = GetPlayer();
 }
 
@@ -43,11 +44,6 @@ void UpdateUI()
             DrawText(TextFormat("GL Version: %i", GLSL_VERSION), 10, 130, 14, RED);
         }
     EndTextureMode();
-}
-
-void RenderUI()
-{
-    DrawTexturePro(uiTarget.texture, (Rectangle){0, 0, (float)uiTarget.texture.width, -(float)uiTarget.texture.height}, (Rectangle){0, 0, (float)screenWidth, (float)screenHeight}, (Vector2){0, 0}, 0.0f, WHITE);
 }
 
 void ReleaseUI()

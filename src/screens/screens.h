@@ -22,44 +22,37 @@ void RenderTransition();
 
 void InitCurrentScreen();
 void UpdateCurrentScreen();
-void RenderCurrentScreen();
 void ReleaseCurrentScreen();
 
 static GameScreen currentScreen = DEFAULT_SCREEN;
 
 void InitIntroScreen();
 void UpdateIntroScreen();
-void RenderIntroScreen();
 void ReleaseIntroScreen();
 
 // logo
 void InitLogoScreen();
 void UpdateLogoScreen();
-void RenderLogoScreen();
 void ReleaseLogoScreen();
 
 // gameplay
 void InitGameplayScreen();
 void UpdateGameplayScreen();
-void RenderGameplayScreen();
 void ReleaseGameplayScreen();
 
 // menu
 void InitMenuScreen();
 void UpdateMenuScreen();
-void RenderMenuScreen();
 void ReleaseMenuScreen();
 
 // options
 void InitOptionsScreen();
 void UpdateOptionsScreen();
-void RenderOptionsScreen();
 void ReleaseOptionsScreen();
 
 // score
 void InitScoreScreen();
 void UpdateScoreScreen();
-void RenderScoreScreen();
 void ReleaseScoreScreen();
 
 #endif
