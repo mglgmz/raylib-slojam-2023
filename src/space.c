@@ -9,7 +9,7 @@ void AsteroidList_Free(AsteroidList *list);
 
 #define ASTEROID_ROTATION_SPEED 40 * (PI / 180)
 
-void SpawnAsteroid(float x, float y, int size, float speed, int rotation)
+void SpawnAsteroid(float x, float y, int size, float speed, float rotation)
 {
     Asteroid asteroid = {
         .x = x,
@@ -18,7 +18,7 @@ void SpawnAsteroid(float x, float y, int size, float speed, int rotation)
         .dy = 0,
         .size = size,
         .speed = speed,
-        .rotation = GetRandomFloat() * TWO_PI, // direction
+        .rotation = rotation, // GetRandomFloat() * TWO_PI, // direction
         .rotationSpeed = ASTEROID_ROTATION_SPEED * GetRandomFloat(),
         .active = 1
     };

@@ -57,3 +57,11 @@ float GetRandomFloat()
 {
     return (float)GetRandomValue(0, RANDOM_FLOAT_MAX_INT) / (float)RANDOM_FLOAT_MAX_INT;
 }
+
+float GetRandomRadsBetween(float min, float max) {
+    return min + GetRandomFloat() * (max - min);
+}
+
+float GetRandomRads() {
+    return GetRandomFloat() * TWO_PI;
+}

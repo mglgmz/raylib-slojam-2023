@@ -40,7 +40,7 @@ void InitSpace();
 void RenderSpace();
 void ReleaseSpace();
 
-void SpawnAsteroid(float x, float y, int size, float speed, int rotation);
+void SpawnAsteroid(float x, float y, int size, float speed, float rotation);
 void DespawnAsteroid(int index);
 
 AsteroidList* GetAsteroids();

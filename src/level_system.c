@@ -17,9 +17,7 @@ void InitLevelSystem(void)
 
 void UpdateLevelSystem(void)
 {
-    AsteroidList *asteroids = GetAsteroids();
-
-    if (asteroids->used == 0 && !loadingNewLevel)
+    if (CountKillablesLeft() == 0 && !loadingNewLevel)
     {
         // next level loading
         if (loadingNextLevelTs < 0.0f)
@@ -59,11 +57,23 @@ int GetRandomAsteroidSize(int min, int max)
     return size;
 }
 
+int CountKillablesLeft(void) {
+    AsteroidList *asteroids = GetAsteroids();
+    return asteroids->used;
+}
+
 void LoadCurrentLevel(void) {
     LevelDefinition level = GetCurrentLevel();
     int asteroidsPerSector = GetRandomValue(level.minNumberOfAsteroids, level.maxNumberOfAsteroids);
+    int minAsteroidSpeed = level.minAsteroidSpeed;
+    int maxAsteroidSpeed = level.maxAsteroidSpeed;
+   
     if(levelIteration > 0 && level.levelModifier > 0.0f){
-        asteroidsPerSector = asteroidsPerSector * (level.levelModifier * (float)levelIteration);
+        float levelAdjustFactor = (level.levelModifier * (float)levelIteration);
+        if(levelAdjustFactor < 1.0f) levelAdjustFactor = 1.0f; // prevent reducing difficulty
+        asteroidsPerSector = asteroidsPerSector * levelAdjustFactor;
+        minAsteroidSpeed = minAsteroidSpeed * levelAdjustFactor;
+        maxAsteroidSpeed = maxAsteroidSpeed * levelAdjustFactor;
     }
 
     for (int i = 0; i < asteroidsPerSector; i++)
@@ -73,8 +83,8 @@ void LoadCurrentLevel(void) {
             (float)GetRandomValue(0, gameWidth),
             (float)(0 - size),
             size,
-            (float)GetRandomValue(3, 18),
-            GetRandomValue(0, 360));
+            (float)GetRandomValue(minAsteroidSpeed, maxAsteroidSpeed),
+            GetRandomRadsBetween(RADS_45, RADS_135));
     }
     for (int i = 0; i < asteroidsPerSector; i++)
     {
@@ -83,8 +93,8 @@ void LoadCurrentLevel(void) {
             (float)GetRandomValue(0, gameWidth),
             (float)(gameHeight + size),
             size,
-            (float)GetRandomValue(3, 18),
-            GetRandomValue(0, 360));
+            (float)GetRandomValue(minAsteroidSpeed, maxAsteroidSpeed),
+            GetRandomRadsBetween(RADS_225, RADS_315));
     }
     for (int i = 0; i < asteroidsPerSector; i++)
     {
@@ -93,8 +103,8 @@ void LoadCurrentLevel(void) {
             (float) (0 - size),
             (float)GetRandomValue(0, gameHeight),
             size,
-            (float)GetRandomValue(3, 18),
-            GetRandomValue(0, 360));
+            (float)GetRandomValue(minAsteroidSpeed, maxAsteroidSpeed),
+            GetRandomRadsBetween(RADS_315, RADS_405));
     }
     for (int i = 0; i < asteroidsPerSector; i++)
     {
@@ -103,8 +113,8 @@ void LoadCurrentLevel(void) {
             (float)(gameWidth + size),
             (float) GetRandomValue(0, gameHeight),
             size,
-            (float)GetRandomValue(3, 18),
-            GetRandomValue(0, 360));
+           (float)GetRandomValue(minAsteroidSpeed, maxAsteroidSpeed),
+            GetRandomRadsBetween(RADS_135, RADS_225));
     }
 }
 

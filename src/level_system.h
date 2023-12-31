@@ -14,6 +14,8 @@ typedef struct LevelDefinition
     int maxNumberOfAsteroids;
     int minAsteroidSize;
     int maxAsteroidSize;
+    int minAsteroidSpeed;
+    int maxAsteroidSpeed;
     int minNumberOfEnemies;
     int maxNumberOfEnemies;
     float levelModifier;
@@ -22,9 +24,9 @@ typedef struct LevelDefinition
 static const int maxLevels = MAX_LEVELS;
 static int levelIteration = 0;
 static LevelDefinition levels[MAX_LEVELS] = {
-    { "", 2, 3, 1, 2, 0, 0, 0.0f }, 
-    { "Alpha", 4, 5, 1, 3, 0, 0, 0.0f }, 
-    { "Beta", 6, 8, 2, 3, 0, 0, 1.0f }, 
+    { "", 2, 3, 1, 2, 3, 10, 0, 0, 0.0f }, 
+    { "Alpha", 4, 5, 1, 3, 5, 12, 0, 0, 0.0f }, 
+    { "Beta", 6, 8, 2, 3, 5, 15, 0, 0, 1.0f }, 
 };
 
 static int currentLevel = 0;
@@ -39,5 +41,7 @@ void RenderLevelSystem(void);
 
 LevelDefinition GetCurrentLevel(void);
 const char* GetCurrentLevelName(void);
+
+int CountKillablesLeft(void);
 
 #endif

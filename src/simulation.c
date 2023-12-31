@@ -63,13 +63,13 @@ void UpdateSimulation(void)
                         asteroid->y + GetRandomValue(-halfSize, halfSize),
                         asteroid->size / 2,
                         asteroid->speed,
-                        GetRandomValue(0, 360));
+                        GetRandomRads());
                     SpawnAsteroid(
                         asteroid->x + GetRandomValue(-halfSize, halfSize),
                         asteroid->y + GetRandomValue(-halfSize, halfSize),
                         asteroid->size / 2,
                         asteroid->speed,
-                        GetRandomValue(0, 360));
+                        GetRandomRads());
                 }
             }
         }
@@ -87,13 +87,13 @@ void UpdateSimulation(void)
                 asteroid->y + GetRandomValue(-halfSize, halfSize),
                 asteroid->size / 2,
                 asteroid->speed,
-                GetRandomValue(0, 360));
+                GetRandomRads());
             SpawnAsteroid(
                 asteroid->x + GetRandomValue(-halfSize, halfSize),
                 asteroid->y + GetRandomValue(-halfSize, halfSize),
                 asteroid->size / 2,
                 asteroid->speed,
-                GetRandomValue(0, 360));
+                GetRandomRads());
         }
     }
 
