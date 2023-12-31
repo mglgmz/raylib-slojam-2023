@@ -3,15 +3,32 @@
 
 #include <raylib.h>
 #include "defs.h"
+#include "entity_list.h"
+#include "level_system.h"
+#include "powerup.h"
 
-void InitDropSystem(void);
-void ReleaseDropSystem(void);
 
 typedef enum LootType {
     ASTEROID = 1, 
-    UFO
+    ENEMY = 5
 } LootType;
 
-void RollDrop(int type, int size);
+// static const PowerUpTableEntry asteroidsLootTable[AVAILABLE_POWERUPS] = {
+// {}
+// };
+
+// static const PowerUpTableEntry enemyLootTable[AVAILABLE_POWERUPS] = {
+// {}
+// };
+
+static EntityList drops;
+
+void InitDropSystem(void);
+void ReleaseDropSystem(void);
+void RenderDropSystem(void);
+void UpdateDropSystem(void);
+
+void RollDrop(int type, int size, float x, float y);
+void ApplyDrop(int id);
 
 #endif

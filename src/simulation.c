@@ -1,5 +1,6 @@
 #include "simulation.h"
 #include "renderer.h"
+#include "drop_system.h"
 
 static Sound explosionSound;
 
@@ -53,6 +54,7 @@ void UpdateSimulation(void)
                 asteroid->active = 0;
                 bullet->active = 0;
                 OnAsteroidHit(asteroid, bullet->x, bullet->y);
+                RollDrop(ASTEROID, asteroid->size, asteroid->x, asteroid->y);
                 if (asteroid->size > ASTEROID_BASE_SIZE)
                 {
                     if(asteroid->size > 8) ShakeScreen(asteroid->size);

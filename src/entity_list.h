@@ -17,6 +17,7 @@ typedef struct
     float ttl;
     int active;
     Color color;
+    int id;
 } Entity;
 
 typedef struct

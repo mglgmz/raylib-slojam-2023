@@ -144,7 +144,7 @@ void UpdateLogoScreen()
         framesCounter++;
         alpha -= 0.7f;
         if (framesCounter >= 90)
-            TransitionToScreen(MENU);
+            TransitionToScreen(GAMEPLAY);
     }
     int baseSize = 4;
     BeginTextureMode(logoTexture);
@@ -194,7 +194,7 @@ void UpdateLogoScreen()
         }
         else if (state == 6 || state == 7)
         {
-            char *text = "C:\\>ASTEROIDS";
+            char *text = "AS73ROIDS";
             int size = 36;
             int textSize = MeasureText(text, size);
             Text_DrawText(text, (gameWidth / 2) - (textSize / 2), gameHeight / 2 - (size / 2), size, Fade(COLOR_B, alpha));

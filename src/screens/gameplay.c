@@ -8,6 +8,7 @@
 #include "../game_music.h"
 #include "../renderer.h"
 #include "../level_system.h"
+#include "../drop_system.h"
 
 static RenderTexture2D target = {0}; // Render texture to render our game
 static Player *player;
@@ -32,6 +33,7 @@ void InitGameplayScreen()
     InitSimulation();
     InitUI();
     InitLevelSystem();
+    InitDropSystem();
     target = GetRenderTexture();
 
     player = GetPlayer();
@@ -81,6 +83,7 @@ void UpdateGameplayScreen()
     UpdateUI();
     
     UpdateLevelSystem();
+    UpdateDropSystem();
 
     PrepareRender();
 }
@@ -93,6 +96,7 @@ void PrepareRender() {
         RenderSpace();
         RenderParticles();
         RenderLevelSystem();
+        RenderDropSystem();
         
         if (deathTs > 0 && gameTs - deathTs > 1.1f)
         {
