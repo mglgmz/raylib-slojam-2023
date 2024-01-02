@@ -15,13 +15,11 @@ void InitUI()
 
 void UpdateUI()
 {
-    if (IsKeyReleased(KEY_F1))
-        if (debugInfoEnabled == 0)
-            debugInfoEnabled = 1;
-        else
-            debugInfoEnabled = 0;
+    if (IsKeyReleased(KEY_F1)) {
+       debugInfoEnabled = debugInfoEnabled ? 0 : 1;
+    }
 
-     BeginTextureMode(uiTarget);
+    BeginTextureMode(uiTarget);
         ClearBackground(BLANK);
 
          // Render UI

@@ -42,6 +42,8 @@ void InitPlayer(void) {
     shootSound = LoadSound("resources/sounds/effects/flaunch.wav");
     SetSoundVolume(shootSound, 0.3f);
     SetSoundPitch(shootSound, 1.5f);
+
+    powerUps = 0;
 }
 
 void UpdatePlayer(void) {
@@ -89,11 +91,88 @@ void UpdatePlayer(void) {
         bullet.active = 1;
         EntityList_Add(&bullets, &bullet);
         PlaySound(shootSound);
+
+        if(powerUps & CONE_SHOT) {
+            float coneShotSpread = PI / 7;
+            Entity bullet2 = { 0 };       
+            bullet2.x = directionX;
+            bullet2.y = directionY;
+            bullet2.dx = cosf(player.rotation + coneShotSpread) * BULLET_SPEED;
+            bullet2.dy = sinf(player.rotation + coneShotSpread) * BULLET_SPEED;
+            bullet2.size = 1;
+            bullet2.speed = BULLET_SPEED;
+            bullet2.rotation = player.rotation + coneShotSpread;
+            bullet2.active = 1;
+            EntityList_Add(&bullets, &bullet2);
+
+            Entity bullet3 = { 0 };       
+            bullet3.x = directionX;
+            bullet3.y = directionY;
+            bullet3.dx = cosf(player.rotation - coneShotSpread) * BULLET_SPEED;
+            bullet3.dy = sinf(player.rotation - coneShotSpread) * BULLET_SPEED;
+            bullet3.size = 1;
+            bullet3.speed = BULLET_SPEED;
+            bullet3.rotation = player.rotation - coneShotSpread;
+            bullet3.active = 1;
+            EntityList_Add(&bullets, &bullet3);
+        }
+
+        if(powerUps & TRIPLE_SHOT) {
+            float splitShotSpread = 2 * PI / 3;
+
+            Entity bullet2 = { 0 };       
+            bullet2.x = player.x;
+            bullet2.y = player.y;
+            bullet2.dx = cosf(player.rotation + splitShotSpread) * BULLET_SPEED;
+            bullet2.dy = sinf(player.rotation + splitShotSpread) * BULLET_SPEED;
+            bullet2.size = 1;
+            bullet2.speed = BULLET_SPEED;
+            bullet2.rotation = player.rotation;
+            bullet2.active = 1;
+            EntityList_Add(&bullets, &bullet2);
+
+            Entity bullet3 = { 0 };       
+            bullet3.x = player.x;
+            bullet3.y = player.y;
+            bullet3.dx = cosf(player.rotation - splitShotSpread) * BULLET_SPEED;
+            bullet3.dy = sinf(player.rotation - splitShotSpread) * BULLET_SPEED;
+            bullet3.size = 1;
+            bullet3.speed = BULLET_SPEED;
+            bullet3.rotation = player.rotation;
+            bullet3.active = 1;
+            EntityList_Add(&bullets, &bullet3);
+        }
+    
+        if(powerUps & BACK_SHOT) {
+            float backShotAngle = PI;
+            Entity bullet2 = { 0 };       
+            bullet2.x = player.x;
+            bullet2.y = player.y;
+            bullet2.dx = cosf(player.rotation + backShotAngle) * BULLET_SPEED;
+            bullet2.dy = sinf(player.rotation + backShotAngle) * BULLET_SPEED;
+            bullet2.size = 1;
+            bullet2.speed = BULLET_SPEED;
+            bullet2.rotation = player.rotation + backShotAngle;
+            bullet2.active = 1;
+            EntityList_Add(&bullets, &bullet2);
+        }
     }
 }
 
 void HitPlayer(Player *player, int damage) {
     player->currentLife -= damage;
+}
+
+void AddPlayerPowerUp(int id) {
+    powerUps |= id;
+
+    if(id == SPEED) {
+
+    } else if(id == ROTATION_SPEED) {
+
+    } else if(id == APOCALIPSIS) {
+
+    }
 }
 
 void RenderPlayer(void) {

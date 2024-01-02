@@ -1,24 +1,25 @@
 #ifndef POWERUP_H
-#define POWERUP_C
+#define POWERUP_H
 
 #define AVAILABLE_POWERUPS 8
 
 typedef enum PowerUpIds {
-    SPEED = 1,
-    ROTATION_SPEED = 2,
-    SPLIT_SHOT = 5,
-    TRIPLE_SHOT = 6,
-    CONE_SHOT = 7,
-    RICOCHET = 10,
-    BACK_SHOT = 11,
-    // CLONES = 15,
-    // SHIELD = 20,
-    APOCALIPSIS = 30
+    SPEED =             2 << 0,
+    ROTATION_SPEED =    2 << 1,
+    SPLIT_SHOT =        2 << 2,
+    TRIPLE_SHOT =       2 << 3,
+    CONE_SHOT =         2 << 4,
+    RICOCHET =          2 << 5,
+    BACK_SHOT =         2 << 6,
+    // CLONES =         2 << 7,
+    // SHIELD =         2 << 8,
+    APOCALIPSIS =       2 << 9
 } PowerUpIds;
 
 typedef struct PowerUp {
     int id;
     const char* display;
+    float duration;
 } PowerUp;
 
 extern PowerUp availablePowerUps[AVAILABLE_POWERUPS];

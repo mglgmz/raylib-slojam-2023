@@ -9,6 +9,7 @@ float RadiansToDegrees(float radians);
 int WrapPosition(float* x, float* y, int size);
 
 float GetDistance(float x1, float y1, float x2, float y2);
+
 bool IsPointInsideCircle(float pofloatX, float pofloatY, float circleX, float circleY, float circleRadius);
 
 float GetRandomFloat();

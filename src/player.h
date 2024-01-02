@@ -3,8 +3,10 @@
 
 #include "utils.h"
 #include "entity_list.h"
+#include "powerup.h"
 
 static EntityList bullets;
+static int powerUps;
 
 typedef struct {
     float x;
@@ -31,6 +33,8 @@ void RenderPlayer(void);
 void ReleasePlayer(void);
 
 void HitPlayer(Player* player, int damage);
+
+void AddPlayerPowerUp(int id);
 
 EntityList* GetBullets();
 Player* GetPlayer();

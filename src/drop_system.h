@@ -21,6 +21,7 @@ typedef enum LootType {
 // {}
 // };
 
+static Sound powerUpSound;
 static EntityList drops;
 
 void InitDropSystem(void);
@@ -29,6 +30,5 @@ void RenderDropSystem(void);
 void UpdateDropSystem(void);
 
 void RollDrop(int type, int size, float x, float y);
-void ApplyDrop(int id);
 
 #endif
