@@ -9,7 +9,8 @@
 static EntityList particles;
 
 typedef enum ParticleTypes {
-    PARTICLE_POINT = 1
+    PARTICLE_POINT = 1,
+    // TEXT = 2
 } ParticleTypes;
 
 void InitParticles();

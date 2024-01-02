@@ -20,6 +20,7 @@ typedef struct PowerUp {
     int id;
     const char* display;
     float duration;
+    const char* particle;
 } PowerUp;
 
 extern PowerUp availablePowerUps[AVAILABLE_POWERUPS];

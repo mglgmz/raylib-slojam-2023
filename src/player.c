@@ -2,9 +2,7 @@
 #include "utils.h"
 #include <raylib.h>
 
-#define ROTATION_SPEED 80 * (PI / 180)
-#define MOVEMENT_SPEED 20
-#define BULLET_SPEED 70
+
 #define P_SIDE 4.0f
 #define HALF_P_SIDE P_SIDE / 2.0f
 #define P_HEIGHT_OFF (P_SIDE * sqrt(3) / 2) / 2
@@ -17,9 +15,9 @@ static Player player = {
     .visible = true,
 
     .rotation = 0,
-    .rotationSpeed = ROTATION_SPEED,
+    .rotationSpeedLevel = 0,
 
-    .speed = MOVEMENT_SPEED,
+    .speedLevel = 0,
     .velocity = 0,
 
     .maxLife = 1,
@@ -36,6 +34,8 @@ void InitPlayer(void) {
     player.velocityY = 0;
     player.x = 200;
     player.y = 100;
+    player.speedLevel = 0;
+    player.rotationSpeedLevel = 4;
 
     EntityList_Init(&bullets, 100);
 
@@ -43,7 +43,7 @@ void InitPlayer(void) {
     SetSoundVolume(shootSound, 0.3f);
     SetSoundPitch(shootSound, 1.5f);
 
-    powerUps = 0;
+    player.powerUps = RICOCHET;
 }
 
 void UpdatePlayer(void) {
@@ -52,14 +52,14 @@ void UpdatePlayer(void) {
     float dt = GetFrameTime();
 
     if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
-        player.rotation -= player.rotationSpeed * dt;
+        player.rotation -= rotationSpeedByLevel[player.rotationSpeedLevel] * dt;
     else if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
-        player.rotation += player.rotationSpeed * dt;
+        player.rotation += rotationSpeedByLevel[player.rotationSpeedLevel] * dt;
 
     NormalizeAngle(&player.rotation);
         
     if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W))
-        player.velocity = player.speed;
+        player.velocity = speedByLevel[player.speedLevel];
     else
         player.velocity = 0;
 
@@ -80,7 +80,8 @@ void UpdatePlayer(void) {
     directionY = rotSin * 2 + player.y;
 
     if(IsKeyReleased(SHOOT_BUTTON)) {
-        Entity bullet = { 0 };       
+        Entity bullet = { 0 };
+        bullet.id = 1;     
         bullet.x = directionX;
         bullet.y = directionY;
         bullet.dx = rotCos * BULLET_SPEED;
@@ -92,9 +93,10 @@ void UpdatePlayer(void) {
         EntityList_Add(&bullets, &bullet);
         PlaySound(shootSound);
 
-        if(powerUps & CONE_SHOT) {
+        if(player.powerUps & CONE_SHOT) {
             float coneShotSpread = PI / 7;
-            Entity bullet2 = { 0 };       
+            Entity bullet2 = { 0 };
+            bullet2.id = 1;      
             bullet2.x = directionX;
             bullet2.y = directionY;
             bullet2.dx = cosf(player.rotation + coneShotSpread) * BULLET_SPEED;
@@ -105,7 +107,8 @@ void UpdatePlayer(void) {
             bullet2.active = 1;
             EntityList_Add(&bullets, &bullet2);
 
-            Entity bullet3 = { 0 };       
+            Entity bullet3 = { 0 };
+            bullet3.id = 1;         
             bullet3.x = directionX;
             bullet3.y = directionY;
             bullet3.dx = cosf(player.rotation - coneShotSpread) * BULLET_SPEED;
@@ -117,10 +120,11 @@ void UpdatePlayer(void) {
             EntityList_Add(&bullets, &bullet3);
         }
 
-        if(powerUps & TRIPLE_SHOT) {
+        if(player.powerUps & TRIPLE_SHOT) {
             float splitShotSpread = 2 * PI / 3;
 
-            Entity bullet2 = { 0 };       
+            Entity bullet2 = { 0 }; 
+            bullet2.id = 1;        
             bullet2.x = player.x;
             bullet2.y = player.y;
             bullet2.dx = cosf(player.rotation + splitShotSpread) * BULLET_SPEED;
@@ -131,7 +135,8 @@ void UpdatePlayer(void) {
             bullet2.active = 1;
             EntityList_Add(&bullets, &bullet2);
 
-            Entity bullet3 = { 0 };       
+            Entity bullet3 = { 0 };
+            bullet3.id = 1;        
             bullet3.x = player.x;
             bullet3.y = player.y;
             bullet3.dx = cosf(player.rotation - splitShotSpread) * BULLET_SPEED;
@@ -143,9 +148,10 @@ void UpdatePlayer(void) {
             EntityList_Add(&bullets, &bullet3);
         }
     
-        if(powerUps & BACK_SHOT) {
+        if(player.powerUps & BACK_SHOT) {
             float backShotAngle = PI;
-            Entity bullet2 = { 0 };       
+            Entity bullet2 = { 0 };
+            bullet2.id = 1;         
             bullet2.x = player.x;
             bullet2.y = player.y;
             bullet2.dx = cosf(player.rotation + backShotAngle) * BULLET_SPEED;
@@ -159,19 +165,25 @@ void UpdatePlayer(void) {
     }
 }
 
+void AddBullet(Entity bullet) {
+    EntityList_Add(&bullets, &bullet);
+}
+
 void HitPlayer(Player *player, int damage) {
     player->currentLife -= damage;
 }
 
 void AddPlayerPowerUp(int id) {
-    powerUps |= id;
+    player.powerUps |= id;
 
     if(id == SPEED) {
-
+        player.speedLevel++;
+        if(player.speedLevel >= SPEED_LEVELS) player.speedLevel = SPEED_LEVELS - 1;
     } else if(id == ROTATION_SPEED) {
-
+        player.rotationSpeedLevel++;
+        if(player.rotationSpeedLevel >= ROTATION_SPEED_LEVELS) player.rotationSpeedLevel = ROTATION_SPEED_LEVELS - 1;
     } else if(id == APOCALIPSIS) {
-
+        player.apocaplipsis = 1;
     }
 }
 

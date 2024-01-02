@@ -35,7 +35,6 @@ void UpdateSimulation(void)
             }
         #endif
 
-
         WrapPosition(&asteroid->x, &asteroid->y, asteroid->size);
     }
 
@@ -43,8 +42,8 @@ void UpdateSimulation(void)
     {
         Asteroid *asteroid = &asteroids->array[j];
         if(!asteroid->active) continue;
-
-        for (int i = 0; i < bullets->used; i++)
+        int bulletsUsed = bullets->used;
+        for (int i = 0; i < bulletsUsed; i++)
         {
             Entity *bullet = &bullets->array[i];
             if (!bullet->active)
@@ -72,6 +71,20 @@ void UpdateSimulation(void)
                         asteroid->size / 2,
                         asteroid->speed,
                         GetRandomRads());
+                }
+
+                if(bullet->id && player->powerUps & RICOCHET) {
+                    Entity bullet2 = { 0 };
+                    bullet2.id = 0;         
+                    bullet2.x = bullet->x;
+                    bullet2.y = bullet->y;
+                    bullet2.dx = cosf(GetRandomRads()) * BULLET_SPEED;
+                    bullet2.dy = sinf(GetRandomRads()) * BULLET_SPEED;
+                    bullet2.size = 1;
+                    bullet2.speed = BULLET_SPEED;
+                    bullet2.rotation = bullet->rotation;
+                    bullet2.active = 1;
+                    AddBullet(bullet2);
                 }
             }
         }

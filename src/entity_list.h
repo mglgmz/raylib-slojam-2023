@@ -18,6 +18,7 @@ typedef struct
     int active;
     Color color;
     int id;
+    char* desc;
 } Entity;
 
 typedef struct

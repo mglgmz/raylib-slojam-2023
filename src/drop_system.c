@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "text.h"
 #include "player.h"
+#include "particles.h"
 
 #define POWERUP_FADE_DURATION 3.0f
 #define DROP_MARGIN 5.0f
@@ -10,7 +11,7 @@ void InitDropSystem(void)
 {
     EntityList_Init(&drops, 10);
     powerUpSound = LoadSound("resources/sounds/effects/Flashpoint001d.wav");
-    SetSoundVolume(powerUpSound, 0.3f);
+    SetSoundVolume(powerUpSound, 0.4f);
 }
 
 void RenderDropSystem(void)
@@ -45,6 +46,19 @@ void UpdateDropSystem(void)
                 AddPlayerPowerUp(powerUp.id);
                 PlaySound(powerUpSound);
                 EntityList_Delete(&drops, i);
+                // TODO: Floating text on power up pickup
+                // if(powerUp.id != APOCALIPSIS) {
+                //     Entity particle = { 0 };
+                //     particle.x = drop->x;
+                //     particle.y = drop->y;
+                //     particle.desc = powerUp.particle;
+                //     particle.dx = 0.0f;
+                //     particle.dy = -20.0f;
+                //     particle.ttl = 1.5f;
+                //     particle.color = COLOR_B;
+                //     particle.active = 1;
+                //     AddParticle(&particle);
+                // }
             }
         }
     }
@@ -55,7 +69,7 @@ void RollDrop(int type, int size, float x, float y)
     if (type == ASTEROID && size > 4)
     {
         float roll = GetRandomFloat();
-        if (roll < 0.80)
+        if (roll < 0.35f)
         {
             int drop = GetRandomValue(0, AVAILABLE_POWERUPS - 1);
             PowerUp powerUp = availablePowerUps[drop];
@@ -73,7 +87,7 @@ void RollDrop(int type, int size, float x, float y)
                 .x = dropX,
                 .y = dropY,
                 .id = drop,
-                .ttl = powerUp.duration
+                .ttl = powerUp.duration * 10.0f
             };
 
             EntityList_Add(&drops, &powerUpDrop);

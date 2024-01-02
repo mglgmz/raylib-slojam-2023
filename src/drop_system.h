@@ -13,14 +13,6 @@ typedef enum LootType {
     ENEMY = 5
 } LootType;
 
-// static const PowerUpTableEntry asteroidsLootTable[AVAILABLE_POWERUPS] = {
-// {}
-// };
-
-// static const PowerUpTableEntry enemyLootTable[AVAILABLE_POWERUPS] = {
-// {}
-// };
-
 static Sound powerUpSound;
 static EntityList drops;
 
