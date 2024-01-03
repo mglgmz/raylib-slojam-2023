@@ -35,7 +35,7 @@ void InitPlayer(void) {
     player.x = 200;
     player.y = 100;
     player.speedLevel = 0;
-    player.rotationSpeedLevel = 4;
+    player.rotationSpeedLevel = 0;
 
     EntityList_Init(&bullets, 100);
 
@@ -43,7 +43,7 @@ void InitPlayer(void) {
     SetSoundVolume(shootSound, 0.3f);
     SetSoundPitch(shootSound, 1.5f);
 
-    player.powerUps = RICOCHET;
+    player.powerUps = 0;
 }
 
 void UpdatePlayer(void) {

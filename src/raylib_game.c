@@ -43,7 +43,7 @@ int main(void)
     SetTraceLogLevel(LOG_NONE);
 #endif
 
-    InitWindow(screenWidth, screenHeight, "mglglmz C:/Asteroids");
+    InitWindow(screenWidth, screenHeight, "AS73ROIDS");
     InitGameMusic();
     InitRenderer();
     InitText();
