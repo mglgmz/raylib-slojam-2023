@@ -28,15 +28,16 @@ void UpdateSimulation(void)
         asteroid->x += asteroid->dx * dt;
         asteroid->y += asteroid->dy * dt;
 
-        #if defined(DEBUGGER)
-            if(IsKeyDown(KEY_LEFT_CONTROL) && IsKeyDown(KEY_K)) {
-                asteroid->active = 0;
-                OnAsteroidHit(asteroid, asteroid->x, asteroid->y);
-            }
-        #endif
+        
+        if(player->apocaplipsis) {
+            asteroid->active = 0;
+            OnAsteroidHit(asteroid, asteroid->x, asteroid->y);
+        }
 
         WrapPosition(&asteroid->x, &asteroid->y, asteroid->size);
     }
+
+    player->apocaplipsis = 0;
 
     for (int j = 0; j < asteroids->used; j++)
     {
@@ -50,30 +51,9 @@ void UpdateSimulation(void)
                 continue;
             if (IsPointInsideCircle(bullet->x, bullet->y, asteroid->x, asteroid->y, asteroid->size))
             {
-                asteroid->active = 0;
-                bullet->active = 0;
                 OnAsteroidHit(asteroid, bullet->x, bullet->y);
-                RollDrop(ASTEROID, asteroid->size, asteroid->x, asteroid->y);
-                if (asteroid->size > ASTEROID_BASE_SIZE)
-                {
-                    if(asteroid->size > 8) ShakeScreen(asteroid->size);
-                    float halfSize = asteroid->size / 2;
-                    // spawn new asteroids
-                    SpawnAsteroid(
-                        asteroid->x + GetRandomValue(-halfSize, halfSize),
-                        asteroid->y + GetRandomValue(-halfSize, halfSize),
-                        asteroid->size / 2,
-                        asteroid->speed,
-                        GetRandomRads());
-                    SpawnAsteroid(
-                        asteroid->x + GetRandomValue(-halfSize, halfSize),
-                        asteroid->y + GetRandomValue(-halfSize, halfSize),
-                        asteroid->size / 2,
-                        asteroid->speed,
-                        GetRandomRads());
-                }
-
                 OnBulletHit(bullet);
+                RollDrop(ASTEROID, asteroid->size, asteroid->x, asteroid->y);
             }
         }
 
@@ -83,26 +63,7 @@ void UpdateSimulation(void)
             HitPlayer(player, 1);
             ShakeScreen(30);
             OnAsteroidHit(asteroid, player->x, player->y);
-            asteroid->active = 0;
-            float halfSize = asteroid->size / 2;
-            SpawnAsteroid(
-                asteroid->x + GetRandomValue(-halfSize, halfSize),
-                asteroid->y + GetRandomValue(-halfSize, halfSize),
-                asteroid->size / 2,
-                asteroid->speed,
-                GetRandomRads());
-            SpawnAsteroid(
-                asteroid->x + GetRandomValue(-halfSize, halfSize),
-                asteroid->y + GetRandomValue(-halfSize, halfSize),
-                asteroid->size / 2,
-                asteroid->speed,
-                GetRandomRads());
         }
-    }
-
-    if (player->currentLife <= 0)
-    {
-        // GAME OVER
     }
 
     for (int i = asteroids->used - 1; i >= 0; i--)

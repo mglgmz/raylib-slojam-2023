@@ -168,6 +168,7 @@ void UpdatePlayer(void) {
 
 
 void OnBulletHit(Entity *bullet) {
+    bullet->active = 0;
     if(bullet->id && player.powerUps & RICOCHET) {
         Entity bullet2 = { 0 };
         bullet2.id = bullet->id - 1;         

@@ -20,8 +20,7 @@ void SpawnAsteroid(float x, float y, int size, float speed, float rotation)
         .speed = speed,
         .rotation = rotation, // GetRandomFloat() * TWO_PI, // direction
         .rotationSpeed = ASTEROID_ROTATION_SPEED * GetRandomFloat(),
-        .active = 1
-    };
+        .active = 1};
 
     float rotSin = sinf(asteroid.rotation);
     float rotCos = cosf(asteroid.rotation);
@@ -30,7 +29,8 @@ void SpawnAsteroid(float x, float y, int size, float speed, float rotation)
     asteroid.dy = rotSin * asteroid.speed;
     asteroid.health = 1;
 
-   for(int i=0; i < ASTEROID_VERTS; i++) {
+    for (int i = 0; i < ASTEROID_VERTS; i++)
+    {
         float verticeRadius = GetRandomFloat() * 0.3f + 0.8f;
         float angle = ((float)i / (float)ASTEROID_VERTS) * TWO_PI;
         asteroid.vertices[i].x = verticeRadius * cosf(angle);
@@ -40,7 +40,8 @@ void SpawnAsteroid(float x, float y, int size, float speed, float rotation)
     AsteroidList_Add(&asteroids, &asteroid);
 }
 
-void DespawnAsteroid(int index) {
+void DespawnAsteroid(int index)
+{
     AsteroidList_Delete(&asteroids, index);
 }
 
@@ -55,10 +56,11 @@ void RenderSpace()
 
     for (int i = 0; i < asteroids.used; i++)
     {
-        
+
         Asteroid asteroid = asteroids.array[i];
-        for(int v = 0; v < ASTEROID_VERTS; v++) {
-            drawVertices[v] = (AsteroidVertice) { asteroid.vertices[v].x, asteroid.vertices[v].y };
+        for (int v = 0; v < ASTEROID_VERTS; v++)
+        {
+            drawVertices[v] = (AsteroidVertice){asteroid.vertices[v].x, asteroid.vertices[v].y};
             // rotation
             drawVertices[v].x = asteroid.vertices[v].x * cosf(asteroid.rotation) - asteroid.vertices[v].y * sinf(asteroid.rotation);
             drawVertices[v].y = asteroid.vertices[v].x * sinf(asteroid.rotation) + asteroid.vertices[v].y * cosf(asteroid.rotation);
@@ -71,21 +73,20 @@ void RenderSpace()
             drawVertices[v].y = drawVertices[v].y + asteroid.y;
         }
 
-        for(int v = 0; v < ASTEROID_VERTS + 1; v++) { 
+        for (int v = 0; v < ASTEROID_VERTS + 1; v++)
+        {
             int j = (v + 1);
 
             DrawLine(
-                drawVertices[v % ASTEROID_VERTS].x, drawVertices[v % ASTEROID_VERTS].y, 
-                drawVertices[j % ASTEROID_VERTS].x, drawVertices[j % ASTEROID_VERTS].y, 
-                COLOR_B
-            );
-            if(asteroid.heavy)
-                DrawTriangle( 
-                    (Vector2){ asteroid.x, asteroid.y },
-                    (Vector2){ drawVertices[j % ASTEROID_VERTS].x, drawVertices[j % ASTEROID_VERTS].y },
-                    (Vector2){ drawVertices[v % ASTEROID_VERTS].x, drawVertices[v % ASTEROID_VERTS].y },
-                    COLOR_B
-                );
+                drawVertices[v % ASTEROID_VERTS].x, drawVertices[v % ASTEROID_VERTS].y,
+                drawVertices[j % ASTEROID_VERTS].x, drawVertices[j % ASTEROID_VERTS].y,
+                COLOR_B);
+            if (asteroid.heavy)
+                DrawTriangle(
+                    (Vector2){asteroid.x, asteroid.y},
+                    (Vector2){drawVertices[j % ASTEROID_VERTS].x, drawVertices[j % ASTEROID_VERTS].y},
+                    (Vector2){drawVertices[v % ASTEROID_VERTS].x, drawVertices[v % ASTEROID_VERTS].y},
+                    COLOR_B);
         }
         // colliders, TODO: make a way to turn all colliders drawing globally
         // DrawCircleLines(asteroid.x, asteroid.y, asteroid.size, MAGENTA);
@@ -104,6 +105,28 @@ AsteroidList *GetAsteroids()
 
 void OnAsteroidHit(Asteroid *asteroid, float hitX, float hitY)
 {
+    if (asteroid->size > ASTEROID_BASE_SIZE)
+    {
+        if (asteroid->size > 8)
+            ShakeScreen(asteroid->size);
+        float halfSize = asteroid->size / 2;
+        // spawn new asteroids
+        SpawnAsteroid(
+            asteroid->x + GetRandomValue(-halfSize, halfSize),
+            asteroid->y + GetRandomValue(-halfSize, halfSize),
+            asteroid->size / 2,
+            asteroid->speed,
+            GetRandomRads());
+        SpawnAsteroid(
+            asteroid->x + GetRandomValue(-halfSize, halfSize),
+            asteroid->y + GetRandomValue(-halfSize, halfSize),
+            asteroid->size / 2,
+            asteroid->speed,
+            GetRandomRads());
+    }
+
+    asteroid->active = 0;
+
     // Number of particles based on asteroid size???
     int particles = 8;
     for (int i = 0; i < particles; i++)
@@ -126,7 +149,8 @@ void OnAsteroidHit(Asteroid *asteroid, float hitX, float hitY)
 }
 
 // Asteroid List Management
-void AsteroidList_Init(AsteroidList *list, int initialCapacity) {
+void AsteroidList_Init(AsteroidList *list, int initialCapacity)
+{
     Asteroid *asteroids;
     asteroids = malloc(sizeof(Asteroid) * initialCapacity);
     if (asteroids == NULL)
@@ -143,7 +167,8 @@ void AsteroidList_Init(AsteroidList *list, int initialCapacity) {
     }
 }
 
-void AsteroidList_Add(AsteroidList *list, Asteroid *entity) {
+void AsteroidList_Add(AsteroidList *list, Asteroid *entity)
+{
     Asteroid *asteroids;
     list->used += 1;
 
@@ -162,7 +187,8 @@ void AsteroidList_Add(AsteroidList *list, Asteroid *entity) {
     list->array[list->used - 1] = *entity;
 }
 
-void AsteroidList_Delete(AsteroidList *list, int index) {
+void AsteroidList_Delete(AsteroidList *list, int index)
+{
     int i;
     for (i = index; i < list->size; i++)
     {
@@ -171,8 +197,9 @@ void AsteroidList_Delete(AsteroidList *list, int index) {
     list->used -= 1;
 }
 
-void AsteroidList_Free(AsteroidList *list) {
+void AsteroidList_Free(AsteroidList *list)
+{
     free(list->array);
-    //list->array = NULL;
+    // list->array = NULL;
     list->size = 0;
 }
