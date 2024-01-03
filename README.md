@@ -13,7 +13,7 @@ How long will you survive?
 ### Features
  - Basics
 
- - Gravity
+ - Gravity: When thrusting ship will slowly start to gain speed. But wont stop. In order to try to stop you need to face the opossite direction and thurst.
 
 ![AS73ROIDS](screenshots/powerups.png "AS73ROIDS")
  - [A] Speed Up: increases speed. Up to 5 increments.
@@ -33,7 +33,6 @@ Keyboard:
 
 ### Screenshots
 
-_TODO: Show your game to the world, animated GIFs recommended!._
 
 ### Developers
 

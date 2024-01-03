@@ -38,6 +38,10 @@ void InitPlayer(void) {
     player.speedLevel = 0;
     player.rotationSpeedLevel = 0;
     player.ricochetLevel = 0;
+    player.energy = MAX_ENERGY;
+    player.energyPerSecond = ENERGY_PER_SECOND;
+    player.shootCost = SHOOT_COST;
+
     EntityList_Init(&bullets, 100);
 
     shootSound = LoadSound("resources/sounds/effects/flaunch.wav");
@@ -70,7 +74,10 @@ void UpdatePlayer(void) {
     player.velocityX += rotCos * player.velocity * dt;
     player.velocityY += rotSin * player.velocity * dt;
 
-    // TODO: TURBO THRUST
+    if(player.energy < MAX_ENERGY) {
+        player.energy += player.energyPerSecond * dt * (player.velocity > 0 ? MOVEMENT_ENERGY_FACTOR : 1.0f);
+        player.energy = player.energy > MAX_ENERGY ? MAX_ENERGY : player.energy;
+    }
 
     //TODO: move to simulation
     player.x += player.velocityX * dt;
@@ -80,7 +87,9 @@ void UpdatePlayer(void) {
     directionX = rotCos * 2 + player.x;
     directionY = rotSin * 2 + player.y;
 
-    if(IsKeyReleased(SHOOT_BUTTON)) {
+    if(IsKeyReleased(SHOOT_BUTTON) && player.energy > (player.shootCost / 2.0f)) {
+        player.energy -= player.shootCost;
+
         Entity bullet = { 0 };
         bullet.id = player.ricochetLevel;     
         bullet.x = directionX;
@@ -95,6 +104,8 @@ void UpdatePlayer(void) {
         PlaySound(shootSound);
 
         if(player.powerUps & CONE_SHOT) {
+            player.energy -= player.shootCost;
+
             float coneShotSpread = PI / 7;
             Entity bullet2 = { 0 };
             bullet2.id = player.ricochetLevel;      
@@ -122,6 +133,7 @@ void UpdatePlayer(void) {
         }
 
         if(player.powerUps & TRIPLE_SHOT) {
+            player.energy -= player.shootCost;
             float splitShotSpread = 2 * PI / 3;
 
             Entity bullet2 = { 0 }; 
@@ -150,6 +162,7 @@ void UpdatePlayer(void) {
         }
     
         if(player.powerUps & BACK_SHOT) {
+            player.energy -= player.shootCost / 2;
             float backShotAngle = PI;
             Entity bullet2 = { 0 };
             bullet2.id = player.ricochetLevel;         
@@ -163,6 +176,10 @@ void UpdatePlayer(void) {
             bullet2.active = 1;
             EntityList_Add(&bullets, &bullet2);
         }
+    }
+
+    if(player.energy < 0.0f) {
+        player.energy = 0.0f;
     }
 }
 
@@ -211,6 +228,9 @@ void RenderPlayer(void) {
      
     DrawPolyLines((Vector2) { player.x, player.y }, 3, P_SIDE, RadiansToDegrees(player.rotation), COLOR_B);
     DrawPoly((Vector2) { directionX, directionY }, 3, HALF_P_SIDE , RadiansToDegrees(player.rotation), COLOR_B);
+
+    DrawRectangleLines(gameWidth - 45, gameHeight - 12, 41, 7, COLOR_B_HI);
+    DrawRectangle(gameWidth - 44, gameHeight - 11, 40.0f * (player.energy / MAX_ENERGY), 6, COLOR_B_HI);
 
     for (int i = 0; i < bullets.used; i++)
     {
