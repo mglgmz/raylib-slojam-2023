@@ -15,7 +15,14 @@ How long will you survive?
 
  - Gravity: When thrusting ship will slowly start to gain speed. But wont stop. In order to try to stop you need to face the opossite direction and thurst.
 
-![AS73ROIDS](screenshots/powerups.png "AS73ROIDS")
+ - Energy: you have a limited amount of energy, shown on the bottom right. Energy will deplete as you shoot. The more powerful your shots, the more energy will take. Energy will slowly regenerate over time, and a little bit faster if you generate kinematic energy by Thrusting.
+    ![Energy](screenshots/energy.png "Energy")
+
+ - Death: Don't crash on an asteroid, or you will die
+    ![You Died](screenshots/youdied.png "You Died")
+ 
+ - Power Ups:
+![Power Ups](screenshots/powerups.png "Power Ups")
  - [A] Speed Up: increases speed. Up to 5 increments.
  - [B] Rotation Up: increases rotation speed Up. to 5 increments.
  - [D] Triple Shot: ship will fire on every triangle direction.
