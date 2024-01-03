@@ -28,6 +28,7 @@ static Player player = {
 int directionX;
 int directionY;
 static Sound shootSound;
+static Sound deathSound;
 
 void InitPlayer(void) {
     player.currentLife = player.maxLife;
@@ -48,7 +49,11 @@ void InitPlayer(void) {
     SetSoundVolume(shootSound, 0.3f);
     SetSoundPitch(shootSound, 1.5f);
 
+    deathSound = LoadSound("resources/sounds/effects/death.mp3");
+    SetSoundVolume(deathSound, 0.4f);
+
     player.powerUps = 0;
+    player.speedLevel = 4;
 }
 
 void UpdatePlayer(void) {
@@ -75,7 +80,7 @@ void UpdatePlayer(void) {
     player.velocityY += rotSin * player.velocity * dt;
 
     if(player.energy < MAX_ENERGY) {
-        player.energy += player.energyPerSecond * dt * (player.velocity > 0 ? MOVEMENT_ENERGY_FACTOR : 1.0f);
+        player.energy += player.energyPerSecond * dt * (player.velocity > 0 ? (MOVEMENT_ENERGY_FACTOR  * (1 + player.speedLevel)): 1.0f);
         player.energy = player.energy > MAX_ENERGY ? MAX_ENERGY : player.energy;
     }
 
@@ -203,6 +208,9 @@ void OnBulletHit(Entity *bullet) {
 
 void HitPlayer(Player *player, int damage) {
     player->currentLife -= damage;
+    if(player->currentLife <= 0.0f) {
+        PlaySound(deathSound);
+    }
 }
 
 void AddPlayerPowerUp(int id) {
@@ -242,6 +250,7 @@ void RenderPlayer(void) {
 void ReleasePlayer(void) {
     EntityList_Free(&bullets);
     UnloadSound(shootSound);
+    UnloadSound(deathSound);
 }
 
 EntityList* GetBullets() {

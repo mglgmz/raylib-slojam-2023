@@ -31,7 +31,7 @@ void SpawnAsteroid(float x, float y, int size, float speed, float rotation)
 
     for (int i = 0; i < ASTEROID_VERTS; i++)
     {
-        float verticeRadius = GetRandomFloat() * 0.3f + 0.8f;
+        float verticeRadius = GetRandomFloat() * 0.5f + 0.7f;
         float angle = ((float)i / (float)ASTEROID_VERTS) * TWO_PI;
         asteroid.vertices[i].x = verticeRadius * cosf(angle);
         asteroid.vertices[i].y = verticeRadius * sinf(angle);

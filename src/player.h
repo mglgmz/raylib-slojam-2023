@@ -7,27 +7,29 @@
 
 #define BULLET_SPEED 70
 #define MAX_ENERGY 100.0f
-#define MOVEMENT_ENERGY_FACTOR 3.0f
+#define MOVEMENT_ENERGY_FACTOR 1.5f
 #define ENERGY_PER_SECOND 1.2f
 #define SHOOT_COST 3.0f;
 
 static EntityList bullets;
 
-#define SPEED_LEVELS 5
+#define SPEED_LEVELS 6
 static float speedByLevel[SPEED_LEVELS] = {
     20,
     30,
     40,
     50,
-    60
+    60,
+    65
 };
-#define ROTATION_SPEED_LEVELS 5
+#define ROTATION_SPEED_LEVELS 6
 static float rotationSpeedByLevel[ROTATION_SPEED_LEVELS] = {
      80 * DEG2RAD,
     100 * DEG2RAD,
     120 * DEG2RAD,
     150 * DEG2RAD,
-    210 * DEG2RAD
+    210 * DEG2RAD,
+    220 * DEG2RAD
 };
 
 typedef struct

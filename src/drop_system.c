@@ -87,7 +87,7 @@ void RollDrop(int type, int size, float x, float y)
                 .x = dropX,
                 .y = dropY,
                 .id = drop,
-                .ttl = powerUp.duration * 10.0f
+                .ttl = powerUp.duration
             };
 
             EntityList_Add(&drops, &powerUpDrop);
