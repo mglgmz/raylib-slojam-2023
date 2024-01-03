@@ -48,6 +48,7 @@ typedef struct
 
     int powerUps;
     int apocaplipsis;
+    int ricochetLevel;
 } Player;
 
 void InitPlayer(void);
@@ -59,8 +60,9 @@ void HitPlayer(Player *player, int damage);
 
 void AddPlayerPowerUp(int id);
 
-void AddBullet(Entity bullet);
 EntityList *GetBullets();
+
+void OnBulletHit(Entity *bullet);
 
 Player *GetPlayer();
 

@@ -73,19 +73,7 @@ void UpdateSimulation(void)
                         GetRandomRads());
                 }
 
-                if(bullet->id && player->powerUps & RICOCHET) {
-                    Entity bullet2 = { 0 };
-                    bullet2.id = 0;         
-                    bullet2.x = bullet->x;
-                    bullet2.y = bullet->y;
-                    bullet2.dx = cosf(GetRandomRads()) * BULLET_SPEED;
-                    bullet2.dy = sinf(GetRandomRads()) * BULLET_SPEED;
-                    bullet2.size = 1;
-                    bullet2.speed = BULLET_SPEED;
-                    bullet2.rotation = bullet->rotation;
-                    bullet2.active = 1;
-                    AddBullet(bullet2);
-                }
+                OnBulletHit(bullet);
             }
         }
 

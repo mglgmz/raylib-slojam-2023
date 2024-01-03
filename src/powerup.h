@@ -6,7 +6,7 @@
 typedef enum PowerUpIds {
     SPEED =             2 << 0,
     ROTATION_SPEED =    2 << 1,
-    SPLIT_SHOT =        2 << 2,
+    RESERVED =          2 << 2,
     TRIPLE_SHOT =       2 << 3,
     CONE_SHOT =         2 << 4,
     RICOCHET =          2 << 5,

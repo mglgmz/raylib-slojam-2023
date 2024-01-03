@@ -21,7 +21,8 @@ static Player player = {
     .velocity = 0,
 
     .maxLife = 1,
-    .currentLife = 1
+    .currentLife = 1,
+    .ricochetLevel = 0
 };
 
 int directionX;
@@ -36,7 +37,7 @@ void InitPlayer(void) {
     player.y = 100;
     player.speedLevel = 0;
     player.rotationSpeedLevel = 0;
-
+    player.ricochetLevel = 0;
     EntityList_Init(&bullets, 100);
 
     shootSound = LoadSound("resources/sounds/effects/flaunch.wav");
@@ -81,7 +82,7 @@ void UpdatePlayer(void) {
 
     if(IsKeyReleased(SHOOT_BUTTON)) {
         Entity bullet = { 0 };
-        bullet.id = 1;     
+        bullet.id = player.ricochetLevel;     
         bullet.x = directionX;
         bullet.y = directionY;
         bullet.dx = rotCos * BULLET_SPEED;
@@ -96,7 +97,7 @@ void UpdatePlayer(void) {
         if(player.powerUps & CONE_SHOT) {
             float coneShotSpread = PI / 7;
             Entity bullet2 = { 0 };
-            bullet2.id = 1;      
+            bullet2.id = player.ricochetLevel;      
             bullet2.x = directionX;
             bullet2.y = directionY;
             bullet2.dx = cosf(player.rotation + coneShotSpread) * BULLET_SPEED;
@@ -108,7 +109,7 @@ void UpdatePlayer(void) {
             EntityList_Add(&bullets, &bullet2);
 
             Entity bullet3 = { 0 };
-            bullet3.id = 1;         
+            bullet3.id = player.ricochetLevel;         
             bullet3.x = directionX;
             bullet3.y = directionY;
             bullet3.dx = cosf(player.rotation - coneShotSpread) * BULLET_SPEED;
@@ -124,7 +125,7 @@ void UpdatePlayer(void) {
             float splitShotSpread = 2 * PI / 3;
 
             Entity bullet2 = { 0 }; 
-            bullet2.id = 1;        
+            bullet2.id = player.ricochetLevel;        
             bullet2.x = player.x;
             bullet2.y = player.y;
             bullet2.dx = cosf(player.rotation + splitShotSpread) * BULLET_SPEED;
@@ -136,7 +137,7 @@ void UpdatePlayer(void) {
             EntityList_Add(&bullets, &bullet2);
 
             Entity bullet3 = { 0 };
-            bullet3.id = 1;        
+            bullet3.id = player.ricochetLevel;        
             bullet3.x = player.x;
             bullet3.y = player.y;
             bullet3.dx = cosf(player.rotation - splitShotSpread) * BULLET_SPEED;
@@ -151,7 +152,7 @@ void UpdatePlayer(void) {
         if(player.powerUps & BACK_SHOT) {
             float backShotAngle = PI;
             Entity bullet2 = { 0 };
-            bullet2.id = 1;         
+            bullet2.id = player.ricochetLevel;         
             bullet2.x = player.x;
             bullet2.y = player.y;
             bullet2.dx = cosf(player.rotation + backShotAngle) * BULLET_SPEED;
@@ -165,8 +166,21 @@ void UpdatePlayer(void) {
     }
 }
 
-void AddBullet(Entity bullet) {
-    EntityList_Add(&bullets, &bullet);
+
+void OnBulletHit(Entity *bullet) {
+    if(bullet->id && player.powerUps & RICOCHET) {
+        Entity bullet2 = { 0 };
+        bullet2.id = bullet->id - 1;         
+        bullet2.x = bullet->x;
+        bullet2.y = bullet->y;
+        bullet2.dx = cosf(GetRandomRads()) * BULLET_SPEED;
+        bullet2.dy = sinf(GetRandomRads()) * BULLET_SPEED;
+        bullet2.size = 1;
+        bullet2.speed = BULLET_SPEED;
+        bullet2.rotation = bullet->rotation;
+        bullet2.active = 1;
+        EntityList_Add(&bullets, &bullet2);
+    }
 }
 
 void HitPlayer(Player *player, int damage) {
@@ -184,6 +198,9 @@ void AddPlayerPowerUp(int id) {
         if(player.rotationSpeedLevel >= ROTATION_SPEED_LEVELS) player.rotationSpeedLevel = ROTATION_SPEED_LEVELS - 1;
     } else if(id == APOCALIPSIS) {
         player.apocaplipsis = 1;
+    } else if(id == RICOCHET) {
+        player.ricochetLevel++;
+        if(player.ricochetLevel >= 3) player.ricochetLevel = 3;
     }
 }
 
