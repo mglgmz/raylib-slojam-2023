@@ -1,10 +1,11 @@
 #ifndef SPACE_H
 #define SPACE_H
 
+#include <raylib.h>
 #include "entity_list.h"
 #include "utils.h"
 #include "particles.h"
-#include <raylib.h>
+#include "renderer.h"
 
 #define ASTEROID_VERTS 12
 
