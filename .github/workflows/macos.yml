@@ -102,7 +102,7 @@ jobs:
         make clean
         
         # Join x86_64 and arm64 binaries
-        lipo -create -output ${{ env.PROJECT_FILE_NAME }} ${{ env.PROJECT_FILE_NAME }}_arm64
+        lipo -create -output ${{ env.PROJECT_FILE_NAME }} ${{ env.PROJECT_FILE_NAME }}_x86_64 ${{ env.PROJECT_FILE_NAME }}_arm64
         lipo ${{ env.PROJECT_FILE_NAME }} -detailed_info
         cd ..
 
