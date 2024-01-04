@@ -1,7 +1,7 @@
 #include "player.h"
 #include "utils.h"
 #include <raylib.h>
-
+#include "text.h"
 
 #define P_SIDE 4.0f
 #define HALF_P_SIDE P_SIDE / 2.0f
@@ -53,7 +53,7 @@ void InitPlayer(void) {
     SetSoundVolume(deathSound, 0.4f);
 
     player.powerUps = 0;
-    player.speedLevel = 4;
+    player.speedLevel = 0;
 }
 
 void UpdatePlayer(void) {
@@ -237,8 +237,19 @@ void RenderPlayer(void) {
     DrawPolyLines((Vector2) { player.x, player.y }, 3, P_SIDE, RadiansToDegrees(player.rotation), COLOR_B);
     DrawPoly((Vector2) { directionX, directionY }, 3, HALF_P_SIDE , RadiansToDegrees(player.rotation), COLOR_B);
 
+    // energy bar
     DrawRectangleLines(gameWidth - 45, gameHeight - 12, 41, 7, COLOR_B_HI);
     DrawRectangle(gameWidth - 44, gameHeight - 11, 40.0f * (player.energy / MAX_ENERGY), 6, COLOR_B_HI);
+
+    // powerups
+    int startingX = 3;
+    for(int i = 0 ; i< AVAILABLE_POWERUPS - 1; i++) {
+        PowerUp powerUp = availablePowerUps[i];
+        if((player.powerUps & powerUp.id)) {      
+            Text_DrawText(powerUp.display, startingX + 1, gameHeight - 12, 8, COLOR_B_HI);
+        }
+        startingX += 10;
+    }
 
     for (int i = 0; i < bullets.used; i++)
     {
