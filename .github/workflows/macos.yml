@@ -81,7 +81,7 @@ jobs:
         make clean
         
         # Join x86_64 and arm64 static
-        lipo -create -output libraylib.a libraylib_arm64.a
+        lipo -create -output libraylib.a libraylib_x86_64.a libraylib_arm64.a
         lipo libraylib.a -detailed_info
         cd ../..
 
@@ -91,9 +91,9 @@ jobs:
         
         # Build project x86_64 binary
         # TODO: Link with x86_64 raylib library: libraylib_x86_64.a
-        # make PLATFORM=PLATFORM_DESKTOP BUILD_MODE=RELEASE PROJECT_CUSTOM_FLAGS=${{ env.PROJECT_CUSTOM_FLAGS }} PROJECT_BUILD_PATH=. RAYLIB_PATH=../../raylib PROJECT_CUSTOM_FLAGS="-target x86_64-apple-macos10.12"
-        # mv -v -f ${{ env.PROJECT_FILE_NAME }} ${{ env.PROJECT_FILE_NAME }}_x86_64
-        # make clean
+        make PLATFORM=PLATFORM_DESKTOP BUILD_MODE=RELEASE PROJECT_CUSTOM_FLAGS=${{ env.PROJECT_CUSTOM_FLAGS }} PROJECT_BUILD_PATH=. RAYLIB_PATH=../../raylib PROJECT_CUSTOM_FLAGS="-target x86_64-apple-macos10.12"
+        mv -v -f ${{ env.PROJECT_FILE_NAME }} ${{ env.PROJECT_FILE_NAME }}_x86_64
+        make clean
         
         # Build project arm64 binary
         # TODO: Link with arm64 raylib library: libraylib_arm.a
