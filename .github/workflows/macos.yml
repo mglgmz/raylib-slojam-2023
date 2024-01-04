@@ -20,7 +20,7 @@ jobs:
     
     env:
       PROJECT_NAME: ${{ github.event.repository.name }}
-      PROJECT_FILE_NAME: as73roids
+      PROJECT_FILE_NAME: raylib-slojam-2023
       PROJECT_BUILD_PATH: ${{ github.event.repository.name }}/src
       PROJECT_RELEASE_PATH: ${{ github.event.repository.name }}_dev_macos
       PROJECT_CUSTOM_FLAGS: ""
