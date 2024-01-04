@@ -70,10 +70,10 @@ jobs:
         RAYLIB_API_VERSION=`ggrep -Po 'RAYLIB_API_VERSION\s*=\s\K(.*)' Makefile`
         RAYLIB_VERSION=`ggrep -Po 'RAYLIB_VERSION\s*=\s\K(.*)' Makefile`
         
-        # Build raylib x86_64 static
-        make PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=STATIC CUSTOM_CFLAGS="-target x86_64-apple-macos10.12 -DGL_SILENCE_DEPRECATION"
-        mv -v -f libraylib.a libraylib_x86_64.a
-        make clean
+        # # Build raylib x86_64 static
+        # make PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=STATIC CUSTOM_CFLAGS="-target x86_64-apple-macos10.12 -DGL_SILENCE_DEPRECATION"
+        # mv -v -f libraylib.a libraylib_x86_64.a
+        # make clean
         
         # Build raylib arm64 static
         make PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=STATIC CUSTOM_CFLAGS="-target arm64-apple-macos11 -DGL_SILENCE_DEPRECATION" -B
