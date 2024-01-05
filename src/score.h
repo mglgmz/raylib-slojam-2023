@@ -8,5 +8,6 @@ void AddScore(int score);
 
 int GetHighScore(void);
 int GetLastScore(void);
+int GetCurrentScore(void);
 
 #endif

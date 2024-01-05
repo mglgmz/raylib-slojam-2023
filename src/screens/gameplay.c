@@ -9,6 +9,7 @@
 #include "../renderer.h"
 #include "../level_system.h"
 #include "../drop_system.h"
+#include "../score.h"
 
 static RenderTexture2D target = {0}; // Render texture to render our game
 static Player *player;
@@ -35,8 +36,9 @@ void InitGameplayScreen()
     deathTs = -1.0f;
     alpha = 0.3f;
 
-    PlayMusic("asteroids");
     UpdateMusicVolume(0.5f);
+
+    ResetScore();
 }
 
 void UpdateGameplayScreen()
@@ -78,6 +80,8 @@ void PrepareRender() {
         RenderSpace();
         RenderParticles();
         RenderDropSystem();
+
+        Text_DrawText(TextFormat("%i", GetCurrentScore()), 2, 2, 8, COLOR_B_HI);
         
         if (deathTs > 0 && GetTime() - deathTs > 1.1f)
         {

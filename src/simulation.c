@@ -1,6 +1,7 @@
 #include "simulation.h"
 #include "renderer.h"
 #include "drop_system.h"
+#include "score.h"
 
 static Sound explosionSound;
 
@@ -33,6 +34,7 @@ void UpdateSimulation(void)
             asteroid->active = 0;
             OnAsteroidHit(asteroid, asteroid->x, asteroid->y);
             RollDrop(ASTEROID, asteroid->size, asteroid->x, asteroid->y);
+            AddScore(asteroid->size);
         }
 
         WrapPosition(&asteroid->x, &asteroid->y, asteroid->size);
@@ -53,6 +55,7 @@ void UpdateSimulation(void)
             if (IsPointInsideCircle(bullet->x, bullet->y, asteroid->x, asteroid->y, asteroid->size))
             {
                 OnAsteroidHit(asteroid, bullet->x, bullet->y);
+                AddScore(asteroid->size);
                 OnBulletHit(bullet);
                 RollDrop(ASTEROID, asteroid->size, asteroid->x, asteroid->y);
             }

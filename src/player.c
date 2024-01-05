@@ -70,7 +70,7 @@ void UpdatePlayer(void) {
         
     if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W))
         player.velocity = speedByLevel[player.speedLevel];
-    else if(player.powerUps & BACK_THRUST && (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_D))) {
+    else if(player.powerUps & BACK_THRUST && (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S))) {
         player.velocity = -speedByLevel[player.speedLevel];
         player.energy -= (player.shootCost / 5.0f);
     }
