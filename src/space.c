@@ -155,7 +155,7 @@ void AsteroidList_Init(AsteroidList *list, int initialCapacity)
     asteroids = malloc(sizeof(Asteroid) * initialCapacity);
     if (asteroids == NULL)
     {
-        TraceLog(LOG_ERROR, "Unable to allocate memory");
+        TraceLog(LOG_ERROR, "AsteroidList_Init Unable to allocate memory");
         free(asteroids);
         exit(0);
     }
@@ -178,7 +178,7 @@ void AsteroidList_Add(AsteroidList *list, Asteroid *entity)
         asteroids = (Asteroid *)realloc(list->array, list->size * sizeof(Asteroid));
         if (asteroids == NULL)
         {
-            TraceLog(LOG_ERROR, "Unable to allocate memory");
+            TraceLog(LOG_ERROR, "AsteroidList_Add Unable to allocate memory");
             free(asteroids);
             exit(0);
         }

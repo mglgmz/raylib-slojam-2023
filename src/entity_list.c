@@ -6,7 +6,7 @@ void EntityList_Init(EntityList *list, int initialCapacity)
     entities = malloc(sizeof(Entity) * initialCapacity);
     if (entities == NULL)
     {
-        TraceLog(LOG_ERROR, "Unable to allocate memory");
+        TraceLog(LOG_ERROR, "EntityList_Init Unable to allocate memory");
         free(entities);
         exit(0);
     }
@@ -29,7 +29,7 @@ void EntityList_Add(EntityList *list, Entity *entity)
         entities = (Entity *)realloc(list->array, list->size * sizeof(Entity));
         if (entities == NULL)
         {
-            TraceLog(LOG_ERROR, "Unable to allocate memory");
+            TraceLog(LOG_ERROR, "EntityList_Add Unable to allocate memory");
             free(entities);
             exit(0);
         }

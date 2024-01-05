@@ -77,7 +77,6 @@ void PrepareRender() {
         RenderPlayer();
         RenderSpace();
         RenderParticles();
-        RenderLevelSystem();
         RenderDropSystem();
         
         if (deathTs > 0 && GetTime() - deathTs > 1.1f)

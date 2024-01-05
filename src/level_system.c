@@ -1,53 +1,209 @@
 #include "level_system.h"
 #include "text.h"
 
-#define NEXT_LEVEL_DELAY 2.0f;
-static float loadingNextLevelTs = -1.0f;
-int loadingNewLevel = 1;
-float textSpeed = gameWidth / NEXT_LEVEL_DELAY;
-float textX = 0.0f;
 void InitLevelSystem(void)
 {
-    // nothing to do here yet
-    loadingNewLevel = 1;
-    loadingNextLevelTs = -1.0f;
-    currentLevel = 0;
-    levelIteration = 0;
+    int current = 0;
+    float baseInterval = 6.0f;
+    float secondInterval = 11.0f;
+    float baseFactor = 1.05f;
+
+    // TOP
+    spawners[current++] = (AsteroidSpawner) {
+        .minX = 0,
+        .maxX = gameWidth,
+        .minY = 0,
+        .maxY = 0,
+        .minSpawns = 1,
+        .maxSpawns = 2,
+        .offsetDirection = -1,
+        .offsetCoord = 'y',
+        .minAsteroidDirection = RADS_45,
+        .maxAsteroidDirection = RADS_135,
+        .minSize = 1,
+        .maxSize = 3,
+        .minAsteroidSpeed = 3,
+        .maxAsteroidSpeed = 10,
+        .interval = baseInterval,
+        .ts = 3.0f,
+        .factor = baseFactor,
+        .intervalReduction = 0.15f,
+        .upgradeTime = 20.0f,
+        .upgradeTs = 0.0f,
+        .time = 0.0f
+    };
+    spawners[current++] = (AsteroidSpawner) {
+        .minX = 0,
+        .maxX = gameWidth,
+        .minY = 0,
+        .maxY = 0,
+        .minSpawns = 1,
+        .maxSpawns = 2,
+        .offsetDirection = -1,
+        .offsetCoord = 'y',
+        .minAsteroidDirection = RADS_45,
+        .maxAsteroidDirection = RADS_135,
+        .minSize = 2,
+        .maxSize = 3,
+        .minAsteroidSpeed = 3,
+        .maxAsteroidSpeed = 10,
+        .interval = secondInterval,
+        .ts = 3.0f,
+        .factor = 1.10f,
+        .intervalReduction = 0.15f,
+        .upgradeTime = 20.0f,
+        .upgradeTs = 0.0f,
+        .time = 90.0f
+    };
+    
+    spawners[current++] = (AsteroidSpawner) {
+        .minX = 0,
+        .maxX = gameWidth,
+        .minY = gameHeight,
+        .maxY = gameHeight,
+        .minSpawns = 1,
+        .maxSpawns = 2,
+        .offsetDirection = 1,
+        .offsetCoord = 'y',
+        .minAsteroidDirection = RADS_225,
+        .maxAsteroidDirection = RADS_315,
+        .minSize = 1,
+        .maxSize = 3,
+        .minAsteroidSpeed = 3,
+        .maxAsteroidSpeed = 10,
+        .interval = baseInterval,
+        .ts = 3.0f,
+        .factor = baseFactor,
+        .intervalReduction = 0.15f,
+        .upgradeTime = 20.0f,
+        .upgradeTs = 0.0f,
+        .time = 0.0f
+    };
+    spawners[current++] = (AsteroidSpawner) {
+        .minX = 0,
+        .maxX = gameWidth,
+        .minY = gameHeight,
+        .maxY = gameHeight,
+        .minSpawns = 1,
+        .maxSpawns = 2,
+        .offsetDirection = 1,
+        .offsetCoord = 'y',
+        .minAsteroidDirection = RADS_225,
+        .maxAsteroidDirection = RADS_315,
+        .minSize = 2,
+        .maxSize = 3,
+        .minAsteroidSpeed = 3,
+        .maxAsteroidSpeed = 10,
+        .interval = secondInterval,
+        .ts = 3.0f,
+        .factor = 1.10f,
+        .intervalReduction = 0.15f,
+        .upgradeTime = 20.0f,
+        .upgradeTs = 0.0f,
+        .time = 90.0f
+    };
+
+    spawners[current++] = (AsteroidSpawner) {
+        .minX = 0,
+        .maxX = 0,
+        .minY = 0,
+        .maxY = gameHeight,
+        .minSpawns = 1,
+        .maxSpawns = 2,
+        .offsetDirection = -1,
+        .offsetCoord = 'x',
+        .minAsteroidDirection = RADS_315,
+        .maxAsteroidDirection = RADS_405,
+        .minSize = 1,
+        .maxSize = 3,
+        .minAsteroidSpeed = 3,
+        .maxAsteroidSpeed = 10,
+        .interval = baseInterval,
+        .ts = 3.0f,
+        .factor = baseFactor,
+        .intervalReduction = 0.15f,
+        .upgradeTime = 20.0f,
+        .upgradeTs = 0.0f,
+        .time = 0.0f
+    };
+    spawners[current++] = (AsteroidSpawner) {
+        .minX = 0,
+        .maxX = 0,
+        .minY = 0,
+        .maxY = gameHeight,
+        .minSpawns = 1,
+        .maxSpawns = 2,
+        .offsetDirection = -1,
+        .offsetCoord = 'x',
+        .minAsteroidDirection = RADS_315,
+        .maxAsteroidDirection = RADS_405,
+        .minSize = 2,
+        .maxSize = 3,
+        .minAsteroidSpeed = 3,
+        .maxAsteroidSpeed = 10,
+        .interval = secondInterval,
+        .ts = 3.0f,
+        .factor = 1.10f,
+        .intervalReduction = 0.15f,
+        .upgradeTime = 20.0f,
+        .upgradeTs = 0.0f,
+        .time = 90.0f
+    };
+
+    spawners[current++] = (AsteroidSpawner) {
+        .minX = gameWidth,
+        .maxX = gameWidth,
+        .minY = 0,
+        .maxY = gameHeight,
+        .minSpawns = 1,
+        .maxSpawns = 2,
+        .offsetDirection = 1,
+        .offsetCoord = 'x',
+        .minAsteroidDirection = RADS_135,
+        .maxAsteroidDirection = RADS_225,
+        .minSize = 1,
+        .maxSize = 3,
+        .minAsteroidSpeed = 3,
+        .maxAsteroidSpeed = 10,
+        .interval = baseInterval,
+        .ts = 3.0f,
+        .factor = baseFactor,
+        .intervalReduction = 0.15f,
+        .upgradeTime = 20.0f,
+        .upgradeTs = 0.0f,
+        .time = 0.0f
+    };
+    spawners[current++] = (AsteroidSpawner) {
+        .minX = gameWidth,
+        .maxX = gameWidth,
+        .minY = 0,
+        .maxY = gameHeight,
+        .minSpawns = 1,
+        .maxSpawns = 2,
+        .offsetDirection = 1,
+        .offsetCoord = 'x',
+        .minAsteroidDirection = RADS_135,
+        .maxAsteroidDirection = RADS_225,
+        .minSize = 2,
+        .maxSize = 3,
+        .minAsteroidSpeed = 3,
+        .maxAsteroidSpeed = 10,
+        .interval = secondInterval,
+        .ts = 3.0f,
+        .factor = 1.10f,
+        .intervalReduction = 0.15f,
+        .upgradeTime = 20.0f,
+        .upgradeTs = 0.0f,
+        .time = 90.0f
+    };
+
 }
 
-void UpdateLevelSystem(void)
-{
-    if (CountKillablesLeft() == 0 && !loadingNewLevel)
-    {
-        // next level loading
-        if (loadingNextLevelTs < 0.0f)
-        {
-            int newLevel = (currentLevel + 1);
-            if(newLevel >= maxLevels) newLevel = maxLevels - 1;
-            if (newLevel != currentLevel)
-            {
-                levelIteration = 0;
-            }
-            else
-            {
-                levelIteration++;
-            }
-            currentLevel = newLevel;
-            loadingNextLevelTs = NEXT_LEVEL_DELAY;
-            loadingNewLevel = 1;
-            textX = gameWidth;
-        }
-    }
-    else if (loadingNewLevel)
-    {
-        loadingNextLevelTs -= GetFrameTime();
-        if (loadingNextLevelTs < 0.0f)
-        {
-            loadingNewLevel = 0;
-            LoadCurrentLevel();
-        }
-    }
+int GetCoordinate(int minValue, int maxValue) {
+    if(minValue == maxValue) return maxValue;
+    return GetRandomValue(minValue, maxValue);
 }
+
 int GetRandomAsteroidSize(int min, int max)
 {
     int sizeExp = GetRandomValue(min, max);
@@ -57,87 +213,58 @@ int GetRandomAsteroidSize(int min, int max)
     return size;
 }
 
-int CountKillablesLeft(void) {
-    AsteroidList *asteroids = GetAsteroids();
-    return asteroids->used;
-}
+void UpdateLevelSystem(void)
+{
+    for(int i = 0; i < ACTIVE_SPAWNERS; i++) {
+        AsteroidSpawner *spawner = &spawners[i];
 
-void LoadCurrentLevel(void) {
-    LevelDefinition level = GetCurrentLevel();
-    int asteroidsPerSector = GetRandomValue(level.minNumberOfAsteroids, level.maxNumberOfAsteroids);
-    int minAsteroidSpeed = level.minAsteroidSpeed;
-    int maxAsteroidSpeed = level.maxAsteroidSpeed;
-   
-    if(levelIteration > 0 && level.levelModifier > 0.0f){
-        float levelAdjustFactor = (level.levelModifier * (float)levelIteration);
-        if(levelAdjustFactor < 1.0f) levelAdjustFactor = 1.0f; // prevent reducing difficulty
-        asteroidsPerSector = asteroidsPerSector * levelAdjustFactor;
-        minAsteroidSpeed = minAsteroidSpeed * levelAdjustFactor;
-        maxAsteroidSpeed = maxAsteroidSpeed * levelAdjustFactor;
-    }
+        if(spawner->time > 0.0f) {
+            spawner->time -= GetFrameTime();
+            continue;
+        }
 
-    for (int i = 0; i < asteroidsPerSector; i++)
-    {
-        int size = GetRandomAsteroidSize(level.minAsteroidSize, level.maxAsteroidSize);
-        SpawnAsteroid(
-            (float)GetRandomValue(0, gameWidth),
-            (float)(0 - size),
-            size,
-            (float)GetRandomValue(minAsteroidSpeed, maxAsteroidSpeed),
-            GetRandomRadsBetween(RADS_45, RADS_135));
-    }
-    for (int i = 0; i < asteroidsPerSector; i++)
-    {
-        int size = GetRandomAsteroidSize(level.minAsteroidSize, level.maxAsteroidSize);
-        SpawnAsteroid(
-            (float)GetRandomValue(0, gameWidth),
-            (float)(gameHeight + size),
-            size,
-            (float)GetRandomValue(minAsteroidSpeed, maxAsteroidSpeed),
-            GetRandomRadsBetween(RADS_225, RADS_315));
-    }
-    for (int i = 0; i < asteroidsPerSector; i++)
-    {
-        int size = GetRandomAsteroidSize(level.minAsteroidSize, level.maxAsteroidSize);
-        SpawnAsteroid(
-            (float) (0 - size),
-            (float)GetRandomValue(0, gameHeight),
-            size,
-            (float)GetRandomValue(minAsteroidSpeed, maxAsteroidSpeed),
-            GetRandomRadsBetween(RADS_315, RADS_405));
-    }
-    for (int i = 0; i < asteroidsPerSector; i++)
-    {
-        int size = GetRandomAsteroidSize(level.minAsteroidSize, level.maxAsteroidSize);
-        SpawnAsteroid(
-            (float)(gameWidth + size),
-            (float) GetRandomValue(0, gameHeight),
-            size,
-           (float)GetRandomValue(minAsteroidSpeed, maxAsteroidSpeed),
-            GetRandomRadsBetween(RADS_135, RADS_225));
-    }
-}
+        spawner->ts += GetFrameTime();
+        if(spawner->ts >= spawner->interval) {
+            int spawns = GetRandomValue(spawner->minSpawns, spawner->maxSpawns);
+            TraceLog(LOG_INFO, "Spawning Asteroids");
+            for(int j = 0; j < spawns; j++) {
+                int size = GetRandomAsteroidSize(spawner->minSize, spawner->maxSize);
+                float x = GetCoordinate(spawner->minX, spawner->maxX);
+                float y = GetCoordinate(spawner->minY, spawner->maxY);
 
-void RenderLevelSystem(void) {
-    if(loadingNextLevelTs > 0.0f) {
-        const char* currentLevelName = GetCurrentLevelName();
-        Text_DrawText(currentLevelName, textX, gameHeight - 14, 14, COLOR_B);
-        textX -= textSpeed * GetFrameTime();
+                if(spawner->offsetCoord == 'x') {
+                    x += (float)(size * spawner->offsetDirection);
+                } else {
+                    y += (float)(size * spawner->offsetDirection);
+                }
+
+                SpawnAsteroid(
+                    x,
+                    y,
+                    size,
+                    (float)GetRandomValue(spawner->minAsteroidSpeed, spawner->maxAsteroidSpeed),
+                    GetRandomRadsBetween(spawner->minAsteroidDirection, spawner->maxAsteroidDirection)
+                );
+            }
+            spawner->ts = 0.0f;
+        }
+
+        spawner->upgradeTs += GetFrameTime();
+
+        if(spawner->upgradeTime > 0.0f && spawner->upgradeTs >= spawner->upgradeTime) {
+            TraceLog(LOG_INFO, "Upgrade Spawner");
+            spawner->minAsteroidSpeed = spawner->minAsteroidSpeed * spawner->factor;
+            spawner->maxAsteroidSpeed = spawner->maxAsteroidSpeed * spawner->factor;
+            spawner->factor *= spawner->factor;
+
+            spawner->interval = spawner->interval - spawner->intervalReduction;
+            spawner->upgradeTs = 0.0f;
+        }
+
     }
 }
 
 void ReleaseLevelSystem(void)
 {
     // nothing to do here yet
-}
-
-LevelDefinition GetCurrentLevel(void)
-{
-    return levels[currentLevel];
-}
-
-const char* GetCurrentLevelName(void)
-{
-    char* currentLevelName = levels[currentLevel].levelName;
-    return TextFormat("%s %i", currentLevelName, levelIteration);
 }

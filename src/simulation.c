@@ -32,6 +32,7 @@ void UpdateSimulation(void)
         if(player->apocaplipsis) {
             asteroid->active = 0;
             OnAsteroidHit(asteroid, asteroid->x, asteroid->y);
+            RollDrop(ASTEROID, asteroid->size, asteroid->x, asteroid->y);
         }
 
         WrapPosition(&asteroid->x, &asteroid->y, asteroid->size);

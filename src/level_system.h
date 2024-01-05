@@ -7,41 +7,44 @@
 
 #define MAX_LEVELS 3
 
-typedef struct LevelDefinition
-{
-    char* levelName;
-    int minNumberOfAsteroids;
-    int maxNumberOfAsteroids;
-    int minAsteroidSize;
-    int maxAsteroidSize;
+typedef struct AsteroidSpawner {
+    int minX;
+    int maxX;
+    int minY;
+    int maxY;
+
+    int offsetDirection;
+    char offsetCoord;
+
+    float minAsteroidDirection;
+    float maxAsteroidDirection;
+
+    int minSpawns;
+    int maxSpawns;
+
+    int minSize;
+    int maxSize;
     int minAsteroidSpeed;
     int maxAsteroidSpeed;
-    int minNumberOfEnemies;
-    int maxNumberOfEnemies;
-    float levelModifier;
-} LevelDefinition;
 
-static const int maxLevels = MAX_LEVELS;
-static int levelIteration = 0;
-static LevelDefinition levels[MAX_LEVELS] = {
-    { "", 2, 3, 1, 2, 3, 10, 0, 0, 0.0f }, 
-    { "Alpha", 4, 5, 1, 3, 5, 12, 0, 0, 0.0f }, 
-    { "Beta", 6, 8, 2, 3, 5, 15, 0, 0, 1.0f }, 
-};
+    float interval;
+    float ts;
 
-static int currentLevel = 0;
+    float factor;
+    float intervalReduction;
+    
+    float upgradeTime;
+    float upgradeTs;
+    float time;
+
+} AsteroidSpawner;
+
+#define ACTIVE_SPAWNERS 8
+static AsteroidSpawner spawners[ACTIVE_SPAWNERS];
 
 void InitLevelSystem(void);
 void ReleaseLevelSystem(void);
 
-void LoadCurrentLevel(void);
-
 void UpdateLevelSystem(void);
-void RenderLevelSystem(void);
-
-LevelDefinition GetCurrentLevel(void);
-const char* GetCurrentLevelName(void);
-
-int CountKillablesLeft(void);
 
 #endif

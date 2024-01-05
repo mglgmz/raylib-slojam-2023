@@ -4,7 +4,7 @@ build:
 	gcc -std=c99 ./src/*.c ./src/screens/*.c -lraylib -lm -o as73roids
 
 run:
-	./raylib-jam
+	./as73roids
 
 clean:
-	rm ./raylib-jam
+	rm ./as73roids

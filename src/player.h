@@ -6,10 +6,10 @@
 #include "powerup.h"
 
 #define BULLET_SPEED 70
-#define MAX_ENERGY 100.0f
-#define MOVEMENT_ENERGY_FACTOR 1.5f
-#define ENERGY_PER_SECOND 1.2f
-#define SHOOT_COST 3.0f;
+#define MAX_ENERGY 120.0f
+#define MOVEMENT_ENERGY_FACTOR 2.0f
+#define ENERGY_PER_SECOND 2.0f
+#define SHOOT_COST 2.5f;
 
 static EntityList bullets;
 

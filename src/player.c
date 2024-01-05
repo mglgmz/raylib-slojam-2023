@@ -70,8 +70,14 @@ void UpdatePlayer(void) {
         
     if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W))
         player.velocity = speedByLevel[player.speedLevel];
+    else if(player.powerUps & BACK_THRUST && (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_D))) {
+        player.velocity = -speedByLevel[player.speedLevel];
+        player.energy -= (player.shootCost / 5.0f);
+    }
     else
         player.velocity = 0;
+
+    
 
     float rotSin = sinf(player.rotation);
     float rotCos = cosf(player.rotation);
