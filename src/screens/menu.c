@@ -37,7 +37,7 @@ void UpdateMenuScreen() {
         textSize = MeasureText(lastScoreText, fontSize);
         Text_DrawText(lastScoreText, gameWidth / 2 - textSize / 2, gameHeight / 2 - fontSize / 2 + 20, fontSize, COLOR_B);
 
-        const char *highScoreText = TextFormat("Hi: %i", GetLastScore());
+        const char *highScoreText = TextFormat("Hi: %i", GetHighScore());
         textSize = MeasureText(highScoreText, fontSize);
         Text_DrawText(highScoreText, gameWidth / 2 - textSize / 2, gameHeight / 2 - fontSize / 2 + 30, fontSize, COLOR_B_HI);
 
