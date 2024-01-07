@@ -17,6 +17,7 @@ void InitMenuScreen() {
     UpdateMusicVolume(0.3f);
     UpdateMusicPitch(1.0f);
     clickSound = LoadSound("resources/sounds/effects/Flashpoint001d.wav");
+    ResetScore();
 } 
 
 void UpdateMenuScreen() {
