@@ -27,12 +27,12 @@
 #include "game_music.h"
 #include "screens/screens.h"
 
-// #define SUPPORT_LOG_INFO
-// #if defined(SUPPORT_LOG_INFO)
-// #define LOG(...) printf(__VA_ARGS__)
-// #else
-// #define LOG(...)
-// #endif
+#define SUPPORT_LOG_INFO
+#if defined(SUPPORT_LOG_INFO)
+#define LOG(...) printf(__VA_ARGS__)
+#else
+#define LOG(...)
+#endif
 
 static void UpdateDrawFrame(void); // Update and Draw one frame
 static Shader scanlinesShader;
