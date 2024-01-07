@@ -59,8 +59,10 @@ void UpdateGameplayScreen()
             alpha += 0.02f;
         }
 
-        if (GetTime() - deathTs > 3.5f)
+        if (GetTime() - deathTs > 3.5f) {
             ChangeToScreen(MENU);
+            return;
+        }
     }
     UpdateSimulation();
     UpdateParticles();

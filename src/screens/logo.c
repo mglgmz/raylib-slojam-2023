@@ -143,8 +143,10 @@ void UpdateLogoScreen()
     {
         framesCounter++;
         alpha -= 0.7f;
-        if (framesCounter >= 90)
+        if (framesCounter >= 90) {
             TransitionToScreen(MENU);
+            return;
+        }
     }
     int baseSize = 4;
     BeginTextureMode(logoTexture);

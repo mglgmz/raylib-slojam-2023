@@ -23,6 +23,7 @@ void UpdateMenuScreen() {
     if(IsKeyReleased(KEY_ENTER)) {
         PlaySound(clickSound);
         ChangeToScreen(GAMEPLAY);
+        return;
     }
 
     BeginTextureMode(menuTexture);
