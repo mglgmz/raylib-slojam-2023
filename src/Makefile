@@ -298,7 +298,7 @@ endif
 
 # Define source code files required
 #------------------------------------------------------------------------------------------------
-PROJECT_SOURCE_FILES ?= utils.c player.c entity_list.c game_ui.c simulation.c particles.c drop_system.c game_music.c level_system.c powerup.c renderer.c text.c space.c screens/gameplay.c screens/intro.c screens/logo.c screens/menu.c screens/options.c screens/score.c screens/screens.c raylib_game.c  
+PROJECT_SOURCE_FILES ?= utils.c player.c score.c entity_list.c game_ui.c simulation.c particles.c drop_system.c game_music.c level_system.c powerup.c renderer.c text.c space.c screens/gameplay.c screens/intro.c screens/logo.c screens/menu.c screens/options.c screens/score.c screens/screens.c raylib_game.c  
  
 
 # Define all object files from source files
