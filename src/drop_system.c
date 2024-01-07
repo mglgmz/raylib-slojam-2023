@@ -46,19 +46,6 @@ void UpdateDropSystem(void)
                 AddPlayerPowerUp(powerUp.id);
                 PlaySound(powerUpSound);
                 EntityList_Delete(&drops, i);
-                // TODO: Floating text on power up pickup
-                // if(powerUp.id != APOCALIPSIS) {
-                //     Entity particle = { 0 };
-                //     particle.x = drop->x;
-                //     particle.y = drop->y;
-                //     particle.desc = powerUp.particle;
-                //     particle.dx = 0.0f;
-                //     particle.dy = -20.0f;
-                //     particle.ttl = 1.5f;
-                //     particle.color = COLOR_B;
-                //     particle.active = 1;
-                //     AddParticle(&particle);
-                // }
             }
         }
     }
