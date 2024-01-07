@@ -39,9 +39,9 @@ static Shader scanlinesShader;
 
 int main(void)
 {
-#if !defined(_DEBUG)
-    SetTraceLogLevel(LOG_NONE);
-#endif
+// #if !defined(_DEBUG)
+//     SetTraceLogLevel(LOG_NONE);
+// #endif
 
     InitWindow(screenWidth, screenHeight, "AS73ROIDS");
     InitGameMusic();

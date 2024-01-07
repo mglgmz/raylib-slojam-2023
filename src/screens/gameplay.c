@@ -24,21 +24,30 @@ static Music music;
 void InitGameplayScreen()
 {
     InitParticles();
+    TraceLog(LOG_INFO, "After InitParticles");
     InitPlayer();
+    TraceLog(LOG_INFO, "After InitPlayer");
     InitSpace();
+    TraceLog(LOG_INFO, "After InitSpace");
     InitSimulation();
+    TraceLog(LOG_INFO, "After InitSimulation");
     InitUI();
+    TraceLog(LOG_INFO, "After InitUI");
     InitLevelSystem();
+    TraceLog(LOG_INFO, "After InitLevelSystem");
     InitDropSystem();
+    TraceLog(LOG_INFO, "After InitDropSystem");
     target = GetRenderTexture();
-
+    TraceLog(LOG_INFO, "After GetRenderTexture");
     player = GetPlayer();
+    TraceLog(LOG_INFO, "After GetPlayer");
     deathTs = -1.0f;
     alpha = 0.3f;
 
     UpdateMusicVolume(0.5f);
-
+    TraceLog(LOG_INFO, "After UpdateMusicVolume");
     ResetScore();
+    TraceLog(LOG_INFO, "After ResetScore");
 }
 
 void UpdateGameplayScreen()

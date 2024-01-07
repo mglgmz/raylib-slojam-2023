@@ -40,7 +40,7 @@ void InitPlayer(void) {
     player.rotationSpeedLevel = 0;
     player.ricochetLevel = 0;
     player.energyLevel = 0;
-    player.energy = maxEnergyByLevel[0];
+    player.energy = 120; // maxEnergyByLevel[0];
     player.shootCost = SHOOT_COST;
 
     EntityList_Init(&bullets, 100);
