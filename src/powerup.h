@@ -1,7 +1,7 @@
 #ifndef POWERUP_H
 #define POWERUP_H
 
-#define AVAILABLE_POWERUPS 8
+#define AVAILABLE_POWERUPS 9
 
 typedef enum PowerUpIds {
     SPEED =             2 << 0,
