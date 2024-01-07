@@ -34,13 +34,13 @@ static float rotationSpeedByLevel[ROTATION_SPEED_LEVELS] = {
 #define RICOCHET_LEVELS 3
 
 #define ENERGY_LEVELS 6
-static int maxEnergyByLevel[ENERGY_LEVELS] = {
-    120,
-    150,
-    190,
-    240,
-    280,
-    300
+static float maxEnergyByLevel[ENERGY_LEVELS] = {
+    120.0f,
+    150.0f,
+    190.0f,
+    240.0f,
+    280.0f,
+    300.0f
 };
 
 typedef struct
