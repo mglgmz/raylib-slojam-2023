@@ -4,9 +4,9 @@
 void InitLevelSystem(void)
 {
     int current = 0;
-    float baseInterval = 6.0f;
-    float secondInterval = 11.0f;
-    float baseFactor = 1.05f;
+    float baseInterval = 9.0f;
+    float secondInterval = 12.5f;
+    float baseFactor = 1.07f;
 
     // TOP
     spawners[current++] = (AsteroidSpawner) {

@@ -57,7 +57,7 @@ void CloseMusic(char *musicName)
 
 void UpdateMusicVolume(float newVolume)
 {
-    //SetMusicVolume(music, newVolume);
+    SetMusicVolume(music, newVolume);
 }
 
 void UpdateMusicPitch(float newPitch)
