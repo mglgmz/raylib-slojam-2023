@@ -1,2 +1,4 @@
-cd src
-make PLATFORM=PLATFORM_DESKTOP BUILD_MODE=RELEASE PROJECT_BUILD_PATH=. -B
+make
+# mkdir build
+cp -r ./src/resources/ build/resources
+cp as73roids build

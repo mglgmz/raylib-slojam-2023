@@ -39,8 +39,8 @@ void InitPlayer(void) {
     player.speedLevel = 0;
     player.rotationSpeedLevel = 0;
     player.ricochetLevel = 0;
-    player.energy = MAX_ENERGY;
-    player.energyPerSecond = ENERGY_PER_SECOND;
+    player.energyLevel = 0;
+    player.energy = maxEnergyByLevel[0];
     player.shootCost = SHOOT_COST;
 
     EntityList_Init(&bullets, 100);
@@ -85,9 +85,11 @@ void UpdatePlayer(void) {
     player.velocityX += rotCos * player.velocity * dt;
     player.velocityY += rotSin * player.velocity * dt;
 
-    if(player.energy < MAX_ENERGY) {
-        player.energy += player.energyPerSecond * dt * (player.velocity > 0 ? (MOVEMENT_ENERGY_FACTOR  * (1 + player.speedLevel)): 1.0f);
-        player.energy = player.energy > MAX_ENERGY ? MAX_ENERGY : player.energy;
+    float maxEnergy = maxEnergyByLevel[player.energyLevel];
+    if(player.energy < maxEnergy) {
+        float eps = maxEnergy / 60.0f;
+        player.energy += eps * dt * (player.velocity > 0 ? (MOVEMENT_ENERGY_FACTOR  * (1 + player.speedLevel)): 1.0f);
+        player.energy = player.energy > maxEnergy ? maxEnergy : player.energy;
     }
 
     //TODO: move to simulation
@@ -232,7 +234,10 @@ void AddPlayerPowerUp(int id) {
         player.apocaplipsis = 1;
     } else if(id == RICOCHET) {
         player.ricochetLevel++;
-        if(player.ricochetLevel >= 3) player.ricochetLevel = 3;
+        if(player.ricochetLevel >= RICOCHET_LEVELS) player.ricochetLevel = RICOCHET_LEVELS;
+    } else if(id == ENERGY_UP) {
+        player.energyLevel++;
+        if(player.energyLevel >= ENERGY_LEVELS) player.energyLevel = ENERGY_LEVELS - 1;
     }
 }
 
@@ -245,7 +250,7 @@ void RenderPlayer(void) {
 
     // energy bar
     DrawRectangleLines(gameWidth - 45, gameHeight - 12, 41, 7, COLOR_B_HI);
-    DrawRectangle(gameWidth - 44, gameHeight - 11, 40.0f * (player.energy / MAX_ENERGY), 6, COLOR_B_HI);
+    DrawRectangle(gameWidth - 44, gameHeight - 11, 40.0f * (player.energy / maxEnergyByLevel[player.energyLevel]), 6, COLOR_B_HI);
 
     // powerups
     int startingX = 3;

@@ -12,7 +12,7 @@ typedef enum PowerUpIds {
     RICOCHET =          2 << 5,
     BACK_SHOT =         2 << 6,
     // CLONES =         2 << 7,
-    // SHIELD =         2 << 8,
+    ENERGY_UP =         2 << 8,
     APOCALIPSIS =       2 << 9
 } PowerUpIds;
 

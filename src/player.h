@@ -6,7 +6,6 @@
 #include "powerup.h"
 
 #define BULLET_SPEED 70
-#define MAX_ENERGY 120.0f
 #define MOVEMENT_ENERGY_FACTOR 2.0f
 #define ENERGY_PER_SECOND 2.0f
 #define SHOOT_COST 2.5f;
@@ -15,21 +14,33 @@ static EntityList bullets;
 
 #define SPEED_LEVELS 6
 static float speedByLevel[SPEED_LEVELS] = {
-    20,
-    30,
-    40,
-    50,
-    60,
-    65
+    25,
+    35,
+    45,
+    55,
+    65,
+    80
 };
 #define ROTATION_SPEED_LEVELS 6
 static float rotationSpeedByLevel[ROTATION_SPEED_LEVELS] = {
+     50 * DEG2RAD,
      80 * DEG2RAD,
-    100 * DEG2RAD,
-    120 * DEG2RAD,
+    115 * DEG2RAD,
     150 * DEG2RAD,
     210 * DEG2RAD,
     220 * DEG2RAD
+};
+
+#define RICOCHET_LEVELS 3
+
+#define ENERGY_LEVELS 6
+static int maxEnergyByLevel[ENERGY_LEVELS] = {
+    120,
+    150,
+    190,
+    240,
+    280,
+    300
 };
 
 typedef struct
@@ -57,7 +68,7 @@ typedef struct
     int ricochetLevel;
 
     float energy;
-    float energyPerSecond;
+    int energyLevel;
 
     float shootCost;
 } Player;
