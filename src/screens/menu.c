@@ -21,7 +21,7 @@ void InitMenuScreen() {
 
 void UpdateMenuScreen() {
     if(IsKeyReleased(KEY_ENTER)) {
-        PlaySound(clickSound);
+        //PlaySound(clickSound);
         ChangeToScreen(GAMEPLAY);
         return;
     }
