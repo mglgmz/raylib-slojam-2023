@@ -25,10 +25,12 @@ How long will you survive?
 ![Power Ups](screenshots/powerups.png "Power Ups")
  - [A] Speed Up: increases speed. Up to 5 increments.
  - [B] Rotation Up: increases rotation speed Up. to 5 increments.
+ - [C] Back Thrust: adds ability to move backwards. Consumes energy.
  - [D] Triple Shot: ship will fire on every triangle direction.
  - [E] Cone Shot: ship will fire 3 bullets on a cone shape forward
  - [F] Ricochet: bullets that hit an asteroid will ricochet to a random direction. Additional pickups will make ricochet bullets to ricochet again. Up to 3 jumps
  - [G] Back Shot: ship will shoot backwards
+ - [H] Energy Up: increases MAx Energy and Energy per second. to 5 increments.
  - [Z] Apocalipsis: kills all asteroids in space 
 
 ### Controls
@@ -37,6 +39,7 @@ Keyboard:
  - W/Up   : Thrust
  - A/Left : Rotate Left
  - D/Right: Rotate Right
+ - S/Down : Thrust Back (if power up unlocked)
 
 ### Screenshots
 
