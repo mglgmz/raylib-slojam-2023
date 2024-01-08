@@ -6,8 +6,8 @@
 static Sound explosionSound;
 
 void InitSimulation(void) {
-    explosionSound = LoadSound("resources/sounds/effects/8bit_bomb_explosion.wav");
-    SetSoundVolume(explosionSound, 0.6f);
+    explosionSound = LoadSound("resources/sounds/effects/explosion.wav");
+    SetSoundVolume(explosionSound, 0.4f);
 }
 
 void ReleaseSimulation(void) {

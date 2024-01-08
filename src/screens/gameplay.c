@@ -44,7 +44,7 @@ void InitGameplayScreen()
     deathTs = -1.0f;
     alpha = 0.3f;
 
-    UpdateMusicVolume(0.5f);
+    UpdateMusicVolume(0.4f);
     TraceLog(LOG_INFO, "After UpdateMusicVolume");
     ResetScore();
     TraceLog(LOG_INFO, "After ResetScore");

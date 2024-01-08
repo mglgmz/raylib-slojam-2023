@@ -28,7 +28,7 @@ static const int gameHeight = 240;
 #endif
 
 #if defined(DEBUGGER)
-    #define DEFAULT_SCREEN GAMEPLAY
+    #define DEFAULT_SCREEN MENU
 #else
     #define DEFAULT_SCREEN LOGO
 #endif

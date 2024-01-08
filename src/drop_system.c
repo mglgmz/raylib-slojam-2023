@@ -10,7 +10,7 @@
 void InitDropSystem(void)
 {
     EntityList_Init(&drops, 10);
-    powerUpSound = LoadSound("resources/sounds/effects/Flashpoint001d.wav");
+    powerUpSound = LoadSound("resources/sounds/effects/pickup.wav");
     SetSoundVolume(powerUpSound, 0.4f);
 }
 

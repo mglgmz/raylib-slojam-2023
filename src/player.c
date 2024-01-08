@@ -45,12 +45,12 @@ void InitPlayer(void) {
 
     EntityList_Init(&bullets, 100);
 
-    shootSound = LoadSound("resources/sounds/effects/flaunch.wav");
+    shootSound = LoadSound("resources/sounds/effects/shoot.wav");
     SetSoundVolume(shootSound, 0.3f);
     SetSoundPitch(shootSound, 1.5f);
 
-    // deathSound = LoadSound("resources/sounds/effects/death.mp3");
-    // SetSoundVolume(deathSound, 0.4f);
+    deathSound = LoadSound("resources/sounds/effects/death.wav");
+    SetSoundVolume(deathSound, 0.4f);
 
     player.powerUps = 0;
     player.speedLevel = 0;
@@ -217,7 +217,7 @@ void OnBulletHit(Entity *bullet) {
 void HitPlayer(Player *player, int damage) {
     player->currentLife -= damage;
     if(player->currentLife <= 0.0f) {
-        // PlaySound(deathSound);
+        PlaySound(deathSound);
     }
 }
 
@@ -272,7 +272,7 @@ void RenderPlayer(void) {
 void ReleasePlayer(void) {
     EntityList_Free(&bullets);
     UnloadSound(shootSound);
-    // UnloadSound(deathSound);
+    UnloadSound(deathSound);
 }
 
 EntityList* GetBullets() {

@@ -17,7 +17,7 @@ void LoadMusic(char *musicName)
         return;
     CloseMusic(currentMusicName);
     currentMusicName = musicName;
-    music = LoadMusicStream(TextFormat("resources/sounds/music/%s.ogg", musicName));
+    music = LoadMusicStream(TextFormat("resources/sounds/music/%s.wav", musicName));
     music.looping = true;
 }
 

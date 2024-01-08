@@ -14,9 +14,9 @@ static Sound clickSound;
 void InitMenuScreen() {
     menuTexture = GetRenderTexture();
     PlayMusic("asteroids");
-    UpdateMusicVolume(0.3f);
+    UpdateMusicVolume(0.2f);
     UpdateMusicPitch(1.0f);
-    clickSound = LoadSound("resources/sounds/effects/Flashpoint001d.wav");
+    clickSound = LoadSound("resources/sounds/effects/pickup.wav");
     ResetScore();
 } 
 

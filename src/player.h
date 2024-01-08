@@ -14,21 +14,21 @@ static EntityList bullets;
 
 #define SPEED_LEVELS 6
 static float speedByLevel[SPEED_LEVELS] = {
+    15,
     25,
     35,
     45,
     55,
-    65,
-    80
+    70
 };
 #define ROTATION_SPEED_LEVELS 6
 static float rotationSpeedByLevel[ROTATION_SPEED_LEVELS] = {
-     50 * DEG2RAD,
-     80 * DEG2RAD,
-    115 * DEG2RAD,
-    150 * DEG2RAD,
-    210 * DEG2RAD,
-    220 * DEG2RAD
+     70 * DEG2RAD,
+     85 * DEG2RAD,
+    105 * DEG2RAD,
+    130 * DEG2RAD,
+    160 * DEG2RAD,
+    200 * DEG2RAD
 };
 
 #define RICOCHET_LEVELS 3
